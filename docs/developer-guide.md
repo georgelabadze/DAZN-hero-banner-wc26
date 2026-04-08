@@ -46,16 +46,21 @@
 - Desktop: `1025px` and above
   - `16:9` is the target creative ratio
   - height caps against the available viewport after subtracting the `64px` header
+  - soft minimum height uses a `32rem` baseline and relaxes on shorter viewports
   - outer gutter is `64px`
   - hero radius is `18px`
 - Tablet: `768px` to `1024px`
   - `1:1` is the target creative ratio
   - height caps at `85%` of the available viewport after subtracting the `64px` header
+  - true minimum height uses a `30rem` baseline
+  - in rotated or short-height cases, more page scroll is expected and intentional
   - outer gutter is `32px`
   - hero radius is `14px`
 - Mobile: `767px` and below
   - `5:7` is the target creative ratio
   - height caps at `90%` of the available viewport after subtracting the `64px` header
+  - true minimum height uses a `31rem` baseline
+  - in rotated or short-height cases, more page scroll is expected and intentional
   - outer gutter is `16px`
   - hero radius is `14px`
 
