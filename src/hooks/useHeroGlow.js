@@ -7,10 +7,10 @@ const FALLBACK_PALETTE = {
   bottom: [247, 190, 76],
 };
 const GLOW_ALPHAS = {
-  top: 0.5,
-  left: 0.42,
-  right: 0.38,
-  bottom: 0.34,
+  top: 0.56,
+  left: 0.48,
+  right: 0.44,
+  bottom: 0.4,
 };
 const VIDEO_SAMPLE_INTERVAL = 140;
 const SAMPLE_CANVAS_WIDTH = 120;

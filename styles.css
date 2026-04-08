@@ -334,9 +334,9 @@ select {
   inline-size: var(--hero-glow-width);
   block-size: var(--hero-glow-height);
   pointer-events: none;
-  opacity: 0.82;
+  opacity: 0.9;
   border-radius: calc(var(--card-radius) + 40px);
-  filter: blur(clamp(24px, 4vw, 60px));
+  filter: blur(clamp(20px, 3.6vw, 52px));
   background:
     radial-gradient(circle at 50% 6%, var(--hero-glow-top) 0%, transparent 68%),
     radial-gradient(circle at 4% 50%, var(--hero-glow-left) 0%, transparent 56%),
@@ -424,16 +424,24 @@ select {
     linear-gradient(
       90deg,
       rgba(3, 5, 9, 0.94) 0%,
-      rgba(3, 5, 9, 0.8) 24%,
-      rgba(3, 5, 9, 0.42) 48%,
-      rgba(3, 5, 9, 0.1) 100%
+      rgba(3, 5, 9, 0.78) 20%,
+      rgba(3, 5, 9, 0.34) 40%,
+      rgba(3, 5, 9, 0.08) 58%,
+      rgba(3, 5, 9, 0) 74%
+    ),
+    radial-gradient(
+      circle at 18% 84%,
+      rgba(2, 4, 7, 0.78) 0%,
+      rgba(2, 4, 7, 0.52) 24%,
+      rgba(2, 4, 7, 0.18) 48%,
+      rgba(2, 4, 7, 0) 72%
     ),
     linear-gradient(
       180deg,
-      rgba(2, 4, 7, 0.12) 0%,
-      rgba(2, 4, 7, 0.06) 28%,
-      rgba(2, 4, 7, 0.2) 62%,
-      rgba(2, 4, 7, 0.92) 100%
+      rgba(2, 4, 7, 0.06) 0%,
+      rgba(2, 4, 7, 0.04) 30%,
+      rgba(2, 4, 7, 0.1) 64%,
+      rgba(2, 4, 7, 0.42) 100%
     );
 }
 
@@ -468,7 +476,7 @@ select {
 }
 
 .hero-banner--desktop .hero-banner__contentMeasure {
-  width: 50%;
+  width: 60%;
   padding:
     clamp(1.25rem, 3vw, 2.75rem)
     2.5cqw

@@ -157,8 +157,8 @@ export default function App() {
   const settingsItems = [
     {
       id: "default-header",
-      title: "Default header",
-      description: "Switch between the simple DAZN header and the countdown header variant.",
+      title: "Header",
+      description: "Use the regular DAZN header for evergreen landing pages, or switch to the countdown version during a tournament or campaign.",
       checked: heroSettings.showDefaultHeader,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -170,8 +170,8 @@ export default function App() {
     },
     {
       id: "hero-media-mode",
-      title: "Hero video vs Photo",
-      description: "Switch the live hero across all breakpoints between motion and still artwork.",
+      title: "Hero video / Photo",
+      description: "The hero can use either video or a static image. The glow below the hero should adapt to whichever media type is used.",
       checked: heroSettings.mediaMode === "video",
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -183,8 +183,8 @@ export default function App() {
     },
     {
       id: "hero-text-center",
-      title: "Text center",
-      description: "Desktop only. Centers the entire content stack and removes the left-biased scrim treatment.",
+      title: "Content alignment",
+      description: "On desktop, hero content can be left aligned or centered. On smaller screens, content should always stay centered.",
       checked: heroSettings.desktopTextAlign === "center",
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -196,8 +196,8 @@ export default function App() {
     },
     {
       id: "hero-medium-text",
-      title: "Medium text",
-      description: "Scales the hero title down from the default display size while keeping the same responsive logic.",
+      title: "Large title / Larger title",
+      description: "The hero supports two approved title sizes. Use Large title for longer headlines, up to about 48 characters including spaces. Use Larger title for shorter headlines, ideally up to about 32 characters including spaces.",
       checked: heroSettings.titleScale === "medium",
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -210,7 +210,7 @@ export default function App() {
     {
       id: "hero-gold-theme",
       title: "Gold / Standard",
-      description: "Switches the highlighted title segment and the primary CTA between the gold treatment and the standard white style.",
+      description: "This controls how the key message is highlighted in the title and how the primary CTA looks. Use the gold style only to emphasize the most important part of the message.",
       checked: heroSettings.goldTheme,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -222,8 +222,8 @@ export default function App() {
     },
     {
       id: "hero-logo",
-      title: "Logo toggle",
-      description: "Shows or hides the championship logo slot above the label.",
+      title: "Logo",
+      description: "A logo can be added above the label, but avoid using it when the creative is already busy or includes logos, badges, or small detailed elements.",
       checked: heroSettings.showLogo,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -236,7 +236,7 @@ export default function App() {
     {
       id: "hero-label",
       title: "Label",
-      description: "Shows or hides the date chip below the logo slot.",
+      description: "This is mainly used for an event date or time period, but it can also be used for an offer, promotion, or discount message.",
       checked: heroSettings.showLabel,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -249,7 +249,7 @@ export default function App() {
     {
       id: "hero-price",
       title: "Price",
-      description: "Shows or hides the pricing row below the subtitle.",
+      description: "Use this when pricing needs to be shown in the hero.",
       checked: heroSettings.showPrice,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -260,22 +260,9 @@ export default function App() {
       offLabel: "Hidden",
     },
     {
-      id: "hero-helper-text",
-      title: "Helper text",
-      description: "Shows or hides the supporting text below the CTA group.",
-      checked: heroSettings.showHelperText,
-      onToggle: () =>
-        setHeroSettings((current) => ({
-          ...current,
-          showHelperText: !current.showHelperText,
-        })),
-      onLabel: "Shown",
-      offLabel: "Hidden",
-    },
-    {
       id: "hero-secondary-button",
-      title: "Two buttons",
-      description: "Shows or hides the secondary Explore CTA while keeping the primary action visible.",
+      title: "Secondary CTA",
+      description: "Use this when there is a second action alongside the primary CTA.",
       checked: heroSettings.showSecondaryCta,
       onToggle: () =>
         setHeroSettings((current) => ({
@@ -285,12 +272,25 @@ export default function App() {
       onLabel: "Two",
       offLabel: "One",
     },
+    {
+      id: "hero-helper-text",
+      title: "Helper text",
+      description: "This sits below the CTA area and can be used for extra conditions, legal copy, or rights-related links.",
+      checked: heroSettings.showHelperText,
+      onToggle: () =>
+        setHeroSettings((current) => ({
+          ...current,
+          showHelperText: !current.showHelperText,
+        })),
+      onLabel: "Shown",
+      offLabel: "Hidden",
+    },
   ];
 
   const carouselItem = {
     id: "hero-carousel",
     title: "Carousel",
-    description: "Shows or hides the bottom carousel pagination prototype on the hero banner.",
+    description: "The hero should be able to work as a slider when there are multiple promotions to show.",
     checked: heroSettings.showCarousel,
     onToggle: () =>
       setHeroSettings((current) => ({
