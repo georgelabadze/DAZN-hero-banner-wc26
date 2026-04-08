@@ -1,0 +1,74 @@
+.hero-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+}
+
+.hero-carousel__track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hero-carousel__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero-carousel__dot-indicator {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background-color 180ms ease;
+}
+
+.hero-carousel__dot:hover .hero-carousel__dot-indicator {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hero-carousel__dot:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: 3px;
+}
+
+.hero-carousel__dot--active {
+  width: 32px;
+  justify-content: flex-start;
+  overflow: clip;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-carousel__dot--active .hero-carousel__dot-indicator {
+  background: #dddedf;
+  transform-origin: left center;
+  animation-name: hero-carousel-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.hero-carousel__dot--active:hover .hero-carousel__dot-indicator {
+  background: #dddedf;
+}
+
+@keyframes hero-carousel-fill {
+  from {
+    width: 8px;
+  }
+
+  to {
+    width: 32px;
+  }
+}

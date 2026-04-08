@@ -9,26 +9,26 @@ function SettingRow({
   const descriptionId = `${id}-description`;
 
   return (
-    <article className="hero-setting">
+    <article className="hero-settings__item">
       <button
         aria-checked={checked}
         aria-describedby={descriptionId}
         aria-labelledby={titleId}
-        className={`hero-setting__switch ${checked ? "hero-setting__switch--on" : ""}`}
+        className={`hero-settings__toggle ${checked ? "hero-settings__toggle--active" : ""}`}
         onClick={onToggle}
         role="switch"
         type="button"
       >
-        <span aria-hidden="true" className="hero-setting__switchTrack">
-          <span className="hero-setting__switchThumb" />
+        <span aria-hidden="true" className="hero-settings__toggle-track">
+          <span className="hero-settings__toggle-thumb" />
         </span>
       </button>
 
-      <div className="hero-setting__copy">
-        <h3 className="hero-setting__title" id={titleId}>
+      <div className="hero-settings__item-copy">
+        <h3 className="hero-settings__item-title" id={titleId}>
           {title}
         </h3>
-        <p className="hero-setting__description" id={descriptionId}>
+        <p className="hero-settings__item-description" id={descriptionId}>
           {description}
         </p>
       </div>
@@ -36,7 +36,7 @@ function SettingRow({
   );
 }
 
-export default function HeroSettingsPanel({ carouselItem, items }) {
+export default function HeroSettingsPanel({ footerItems = [], items }) {
   return (
     <section aria-labelledby="hero-settings-title" className="hero-settings">
       <div className="hero-settings__inner">
@@ -56,11 +56,11 @@ export default function HeroSettingsPanel({ carouselItem, items }) {
           ))}
         </div>
 
-        {carouselItem ? (
-          <div className="hero-settings__panel hero-settings__panel--single">
-            <SettingRow {...carouselItem} />
+        {footerItems.filter(Boolean).map((item) => (
+          <div key={item.id} className="hero-settings__panel hero-settings__panel--single">
+            <SettingRow {...item} />
           </div>
-        ) : null}
+        ))}
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ function getVisibleCount(totalSlides) {
   return Math.max(1, totalSlides);
 }
 
-export default function HeroCarouselDots({
+export default function HeroCarousel({
   activeIndex = 2,
   className = "",
   totalSlides = 8,
@@ -49,33 +49,28 @@ export default function HeroCarouselDots({
   return (
     <div
       aria-label="Carousel pagination preview"
-      className={`hero-carousel-dots ${className}`.trim()}
+      className={`hero-carousel ${className}`.trim()}
       role="group"
     >
-      <div className="hero-carousel-dots__inner">
+      <div className="hero-carousel__track">
         {dots.map((dot) => (
           <button
             aria-label={`Go to slide ${dot.index + 1}`}
             aria-pressed={dot.active}
             className={[
-              "hero-carousel-dots__dot",
-              "hero-carousel-dots__dot--md",
-              dot.active ? "hero-carousel-dots__dot--active" : "",
+              "hero-carousel__dot",
+              dot.active ? "hero-carousel__dot--active" : "",
             ]
               .filter(Boolean)
               .join(" ")}
-            key={`hero-carousel-dot-${dot.index}`}
+            key={`hero-carousel-${dot.index}`}
             onClick={() => handleDotClick(dot.index)}
             type="button"
           >
             <span
-              className="hero-carousel-dots__dotInner"
-              key={dot.active ? `hero-carousel-dot-inner-${dot.index}-${cycleKey}` : undefined}
-              style={
-                dot.active
-                  ? { animationDuration: `${AUTOPLAY_DURATION_MS}ms` }
-                  : undefined
-              }
+              className="hero-carousel__dot-indicator"
+              key={dot.active ? `hero-carousel-indicator-${dot.index}-${cycleKey}` : undefined}
+              style={dot.active ? { animationDuration: `${AUTOPLAY_DURATION_MS}ms` } : undefined}
             />
           </button>
         ))}

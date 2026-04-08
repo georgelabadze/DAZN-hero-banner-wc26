@@ -1,110 +1,127 @@
-# Developer Guide: DAZN React Hero Banner
+# Developer Guide: DAZN Hero Banner WC26
 
 ## Stack
 - Vite + React
-- Multi-page build: `index.html` for the live demo and `documentation.html` for the visual guideline page
-- Runtime glow sampling implemented in React with `ResizeObserver` and canvas-based still/video frame sampling
+- Multi-page build with:
+  - `index.html` for the live demo
+  - `documentation.html` for the visual guideline page
+- Runtime glow sampling with canvas + `ResizeObserver`
 
-## Main Files
-- `src/App.jsx`: wires the page shell, header, and hero data
-- `src/components/Header.jsx`: DAZN header component
-- `src/components/HeroBanner.jsx`: responsive hero component with breakpoint logic and width-first card sizing
-- `src/hooks/useHeroGlow.js`: runtime glow palette sampling and glow geometry measurement
-- `styles.css`: live app styling
-- `vite.config.js`: multi-page Vite build entrypoints
+## Project Structure
+- `src/App.jsx`: live demo composition, settings state, and prop wiring
+- `src/config/heroDemoConfig.js`: content, media sets, header config, defaults
+- `src/components/SiteHeader.jsx`: default and countdown header variants
+- `src/components/HeroBanner.jsx`: responsive hero card
+- `src/components/HeroCarousel.jsx`: carousel prototype overlay
+- `src/components/HeroSettingsPanel.jsx`: demo settings UI
+- `src/components/HeroFooterLinks.jsx`: bottom resource links
+- `src/hooks/useHeroGlow.js`: image/video glow sampling and geometry logic
+- `src/styles/base.css`: global tokens, fonts, shell layout
+- `src/styles/site-header.css`: header block styles
+- `src/styles/hero-banner.css`: hero block styles
+- `src/styles/hero-carousel.css`: carousel block styles
+- `src/styles/hero-settings.css`: settings block styles
+- `src/styles/hero-footer-links.css`: bottom resource links styles
 
 ## Public Component Contract
-### `Header`
+### `SiteHeader`
+- `variant?: "countdown" | "default"`
 - `logoSrc: string`
-- `actions: { label: string; variant: "secondary" | "primary"; href?: string }[]`
+- `actions?: { label: string; variant: "secondary" | "primary"; href?: string }[]`
+- `countdownTarget?: string | Date`
+- `countdownCta?: { label: string; href?: string }`
+- `eventBrand?: { logoSrc: string; title: string; subtitle: string }`
 
 ### `HeroBanner`
 - `media: { desktop: MediaItem; tablet: MediaItem; mobile: MediaItem }`
 - `MediaItem = { kind: "image" | "video"; src: string; poster?: string; alt?: string }`
-- `copy: { label: string; title: string; subtitle: string; price: string; helperText: string }`
-- `cta: { label: string; href: string }`
+- `copy: { logo?; label?; title; subtitle; price?; helperText? }`
+- `cta: { label: string; href: string; variant?: "primary" | "secondary" }[]`
 - `focus?: { desktop?: string; tablet?: string; mobile?: string }`
+- `layout?: { contentAlignment?: "left" | "center"; theme?: "gold" | "standard"; titleSize?: "large" | "larger" }`
+- `carousel?: { totalSlides: number; activeIndex: number } | null`
 - `alt: string`
-- Backward compatibility: if `media` is not provided, legacy `images` input is normalized to image items
 
 ## Breakpoints and Layout Rules
 - Desktop: `1025px` and above
-  - Hero stays cinematic and overlay-based
-  - Desktop art uses the existing wide composition
-  - Card width always follows the parent
-  - `16:9` is the target ratio until the desktop height cap is hit
-  - After the cap, the card crops vertically instead of shrinking horizontally
-  - Outer gutter is `64px`
-  - Hero radius is `18px`
+  - `16:9` is the target creative ratio
+  - height caps at `min(48rem, 82svh)`
+  - outer gutter is `64px`
+  - hero radius is `18px`
 - Tablet: `768px` to `1024px`
-  - Hero becomes an inset card capped by `90svh`
-  - Card width always follows the parent
-  - `1:1` is the target creative ratio until the height cap is hit
-  - After the cap, the card crops vertically instead of shrinking horizontally
-  - Content stays bottom-aligned as an overlay layer
-  - Outer gutter is `32px`
-  - Hero radius is `14px`
+  - `1:1` is the target creative ratio
+  - height caps at `90svh`
+  - outer gutter is `32px`
+  - hero radius is `14px`
 - Mobile: `767px` and below
-  - Hero remains inset and top-aligned
-  - Card width always follows the parent
-  - `5:7` is the target creative ratio until the height cap is hit
-  - After the cap, the card crops vertically instead of shrinking horizontally
-  - Content stays bottom-aligned as an overlay layer
-  - Outer gutter is `16px`
-  - Hero radius is `14px`
+  - `5:7` is the target creative ratio
+  - height caps at `90svh`
+  - outer gutter is `16px`
+  - hero radius is `14px`
 
 ## Header Rules
-- Header height is fixed at `64px`
-- Logo is `32 x 32`
-- Buttons are `72 x 40`
-- Button gap is `16px`
-- Explore button: `#3d4549` background, white text
-- Log in button: white background, black text
-- Header and hero share the same outer gutter tokens at every breakpoint
+- Header height is `64px`
+- DAZN logo is `32 x 32`
+- Header action buttons keep `72 x 40`
+- Default header:
+  - secondary button uses `#3d4549`
+  - primary button uses white background with dark text
+- Countdown header:
+  - shares the same shell width and top alignment
+  - uses live countdown values for `days / hours / mins / secs`
+
+## Hero Rules
+- Desktop content measure is `50%` of the hero width
+- Desktop content can be left aligned or centered
+- Tablet and mobile content stay centered
+- Gold theme:
+  - applies gold gradient to the title accent
+  - applies the same gradient to the primary CTA
+- Standard theme:
+  - title accent returns to plain text color
+  - primary CTA returns to the white button style
 
 ## Glow System
-- Glow is rendered inside `.hero-demo` only
-- Glow is centered on the live hero card, not the viewport
+- Glow is rendered inside `.hero-banner-demo`
+- Glow is centered on the measured hero card, not the viewport
 - Card bounds are measured with `ResizeObserver`
-- Glow geometry is clamped to the hero wrapper so it never expands layout width
+- Geometry is clamped so glow never increases layout width
 - The active media is sampled in four regions:
-  - top-center
-  - left-middle
-  - right-middle
-  - lower-middle
-- Images are sampled once after load/decode
-- Videos are sampled from live frames at roughly `6-8fps` using `requestVideoFrameCallback` with a timer fallback
-- Poster art is used as the first glow state and as the failure fallback for video
-- Sampled colors are written to CSS custom properties and rendered through blurred radial gradients
-- Fallback glow colors are kept in the hook for first paint and failure cases
+  - top center
+  - left middle
+  - right middle
+  - lower middle
+- Images are sampled once after load
+- Videos are sampled from live frames at a throttled rate
+- Poster art is used as the first glow state and as the fallback if video sampling fails
 
 ## Video Behavior
-- Hero videos autoplay muted, loop, and play inline
-- `preload="metadata"` is used to avoid heavy eager loading
-- Videos render with poster images so the hero has a stable first frame and a graceful fallback path
-- The same breakpoint crop and focus rules apply to image and video media
+- Videos autoplay, loop, stay muted, and play inline
+- `preload="metadata"` is used
+- Matching poster frames are required for all video media items
+- Image and video share the same object-position focus logic
 
 ## Border System
 - Base border: `1px solid rgba(255, 255, 255, 0.1)`
-- Overlay border: masked vertical gradient on top of the base border
-- Gradient stops:
+- Overlay border is a masked vertical gradient with these stops:
   - `0%`: `rgba(255, 255, 255, 0)`
   - `30%`: `rgba(255, 250, 0, 0.6)`
   - `50%`: `rgba(255, 170, 0, 0.4)`
   - `70%`: `rgba(100, 252, 220, 0.2)`
   - `100%`: `rgba(255, 255, 255, 0)`
 
+## Adoption Notes
+- `heroDemoConfig.js` is the clean starting point for implementation handoff
+- The live settings panel is demo-only and should not be treated as production product UI
+- The hero component API is media-first; there is no legacy image fallback path in the v1 component
+- The visual docs page is the preferred entry point for creative review, while this file is the developer handoff reference
+
 ## QA Checklist
-- Confirm the Vite build succeeds
-- Confirm desktop/tablet/mobile use the correct video asset with the correct poster fallback
-- Confirm videos autoplay muted, loop, stay inline, and expose no controls
-- Confirm the header and hero are top-aligned at all breakpoints
-- Confirm outer gutters resolve to `64 / 32 / 16`
-- Confirm header and hero widths continuously shrink with the parent and never plateau before the next breakpoint
-- Confirm desktop keeps the current wide feel
-- Confirm desktop uses a slight upward crop bias once the height cap is hit
-- Confirm tablet and mobile hero cards never exceed `90svh`
-- Confirm tablet and mobile keep a small visible bottom strip under the default crop bias
-- Confirm the glow stays inside `.hero-demo`, follows the live hero card, and updates from stills and video frames
-- Confirm the layered border shows both the white base line and the masked color border
-- Check `1920`, `1440`, `1024`, `768`, `767`, `430`, `390`, and `375`
+- Confirm `npm run build` succeeds
+- Confirm both entrypoints build:
+  - `index.html`
+  - `documentation.html`
+- Confirm header, hero, carousel, glow, and settings behave the same as the live demo
+- Check `1440`, `1024`, `768`, `390`, and `375`
+- Confirm settings rows keep the left-toggle, right-copy layout on all breakpoints
+- Confirm bottom resource links align with the shell and wrap cleanly on mobile

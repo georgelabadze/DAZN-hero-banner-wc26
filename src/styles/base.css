@@ -1,0 +1,123 @@
+@font-face {
+  font-family: "DAZN Oscine";
+  src: url("../../fonts/DAZNOscine-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DAZN Oscine";
+  src: url("../../fonts/DAZNOscine-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --shell-gutter: 64px;
+  --shell-max-width: 1600px;
+  --text-primary: #f7f8fb;
+  --text-secondary: rgba(247, 248, 251, 0.82);
+  --text-muted: rgba(247, 248, 251, 0.64);
+  --card-radius: 18px;
+  --hero-safe-inline: 64px;
+  --hero-safe-block: 48px;
+  --hero-button-bg: #ffffff;
+  --hero-button-text: #060708;
+  --hero-glow-top: rgba(171, 212, 193, 0.34);
+  --hero-glow-left: rgba(38, 72, 84, 0.28);
+  --hero-glow-right: rgba(130, 179, 166, 0.24);
+  --hero-glow-bottom: rgba(247, 190, 76, 0.2);
+  --hero-glow-left-offset: 0px;
+  --hero-glow-top-offset: 0px;
+  --hero-glow-width: 100%;
+  --hero-glow-height: 100%;
+  --hero-content-max: 46rem;
+  --hero-shadow:
+    0 1.5rem 4rem rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: clip;
+  font-family: "DAZN Oscine", "Segoe UI", Helvetica, Arial, sans-serif;
+  color: var(--text-primary);
+  background: #080e12;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  min-height: 100vh;
+  overflow-x: clip;
+  padding-bottom: clamp(1rem, 2vw, 2rem);
+}
+
+.app-shell__inner {
+  display: grid;
+  gap: 0;
+  align-content: start;
+  width: 100%;
+  max-width: calc(var(--shell-max-width) + (var(--shell-gutter) * 2));
+  padding-inline: var(--shell-gutter);
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --shell-gutter: 32px;
+    --card-radius: 14px;
+    --hero-safe-inline: 32px;
+    --hero-safe-block: 32px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --shell-gutter: 16px;
+    --card-radius: 14px;
+    --hero-safe-inline: 16px;
+    --hero-safe-block: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

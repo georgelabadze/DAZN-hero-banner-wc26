@@ -78,12 +78,13 @@
 
         <div class="two-up-grid">
           <article class="info-card">
-            <h3 class="info-card__title">Header Props</h3>
+            <h3 class="info-card__title">SiteHeader Props</h3>
             <ul class="info-card__list">
+              <li><code>variant?: "countdown" | "default"</code></li>
               <li><code>logoSrc: string</code></li>
-              <li><code>actions: { label; variant; href? }[]</code></li>
-              <li>Header height is fixed at <code>64px</code></li>
-              <li>Buttons are fixed at <code>72 x 40</code></li>
+              <li><code>actions?: { label; variant; href? }[]</code></li>
+              <li><code>countdownTarget?: string | Date</code></li>
+              <li><code>eventBrand?: { logoSrc; title; subtitle }</code></li>
             </ul>
           </article>
 
@@ -92,9 +93,11 @@
             <ul class="info-card__list">
               <li><code>media: { desktop; tablet; mobile }</code></li>
               <li><code>MediaItem = { kind; src; poster?; alt? }</code></li>
-              <li><code>copy: { label; title; subtitle; price; helperText }</code></li>
-              <li><code>cta: { label; href }</code></li>
+              <li><code>copy: { logo?; label?; title; subtitle; price?; helperText? }</code></li>
+              <li><code>cta: { label; href; variant? }[]</code></li>
               <li><code>focus?: { desktop?; tablet?; mobile? }</code></li>
+              <li><code>layout?: { contentAlignment; theme; titleSize }</code></li>
+              <li><code>carousel?: { totalSlides; activeIndex } | null</code></li>
             </ul>
           </article>
         </div>
@@ -183,7 +186,7 @@
           <article class="info-card">
             <h3 class="info-card__title">Glow Engine</h3>
             <ul class="info-card__list">
-              <li>Glow exists inside <code>.hero-demo</code> only</li>
+              <li>Glow exists inside <code>.hero-banner-demo</code> only</li>
               <li>The glow layer is centered on the live hero card, not the viewport</li>
               <li>Geometry is updated with <code>ResizeObserver</code></li>
               <li>Glow geometry is clamped so it never widens the layout or causes body overflow</li>

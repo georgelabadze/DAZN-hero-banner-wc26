@@ -1,0 +1,70 @@
+.hero-footer-links {
+  width: 100%;
+  padding-bottom: clamp(1.5rem, 3vw, 2.75rem);
+}
+
+.hero-footer-links__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-footer-links__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.03) 100%),
+    rgba(255, 255, 255, 0.02);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    opacity 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.hero-footer-links__link:hover {
+  opacity: 0.92;
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.hero-footer-links__link:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.hero-footer-links__link--github {
+  color: var(--text-primary);
+}
+
+.hero-footer-links__icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 767px) {
+  .hero-footer-links {
+    padding-bottom: 2rem;
+  }
+
+  .hero-footer-links__list {
+    align-items: stretch;
+  }
+
+  .hero-footer-links__link {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

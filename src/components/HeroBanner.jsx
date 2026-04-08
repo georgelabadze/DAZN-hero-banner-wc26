@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import HeroCarouselDots from "./HeroCarouselDots";
+import { useEffect, useRef, useState } from "react";
+import HeroCarousel from "./HeroCarousel";
 import { useHeroGlow } from "../hooks/useHeroGlow";
 
-const DESKTOP_MIN = 1025;
-const TABLET_MIN = 768;
+const DESKTOP_BREAKPOINT = 1025;
+const TABLET_BREAKPOINT = 768;
 
 function getViewportMode(width) {
-  if (width >= DESKTOP_MIN) {
+  if (width >= DESKTOP_BREAKPOINT) {
     return "desktop";
   }
 
-  if (width >= TABLET_MIN) {
+  if (width >= TABLET_BREAKPOINT) {
     return "tablet";
   }
 
@@ -39,52 +39,9 @@ function useViewportMode() {
   return mode;
 }
 
-function buildImageStyle(position) {
+function buildMediaStyle(position) {
   return {
     objectPosition: position ?? "center center",
-  };
-}
-
-function normalizeMedia(media, images, alt) {
-  if (media) {
-    return {
-      desktop: {
-        kind: media.desktop?.kind ?? "image",
-        src: media.desktop?.src ?? "",
-        poster: media.desktop?.poster,
-        alt: media.desktop?.alt ?? alt,
-      },
-      tablet: {
-        kind: media.tablet?.kind ?? "image",
-        src: media.tablet?.src ?? "",
-        poster: media.tablet?.poster,
-        alt: media.tablet?.alt ?? alt,
-      },
-      mobile: {
-        kind: media.mobile?.kind ?? "image",
-        src: media.mobile?.src ?? "",
-        poster: media.mobile?.poster,
-        alt: media.mobile?.alt ?? alt,
-      },
-    };
-  }
-
-  return {
-    desktop: {
-      kind: "image",
-      src: images?.desktop ?? "",
-      alt,
-    },
-    tablet: {
-      kind: "image",
-      src: images?.tablet ?? "",
-      alt,
-    },
-    mobile: {
-      kind: "image",
-      src: images?.mobile ?? "",
-      alt,
-    },
   };
 }
 
@@ -95,16 +52,20 @@ function renderPrice(price) {
 
   return (
     <>
-      {price.prefix ? <span className="hero-banner__priceMeta">{price.prefix}</span> : null}
-      <span className="hero-banner__priceValue">{price.value}</span>
+      {price.prefix ? (
+        <span className="hero-banner__price-meta">{price.prefix}</span>
+      ) : null}
+      <span className="hero-banner__price-value">{price.value}</span>
       {price.oldPrice || price.suffix ? (
-        <span className="hero-banner__priceTrail">
+        <span className="hero-banner__price-trail">
           {price.oldPrice ? (
-            <span className="hero-banner__priceMeta hero-banner__priceMeta--crossed">
+            <span className="hero-banner__price-meta hero-banner__price-meta--crossed">
               {price.oldPrice}
             </span>
           ) : null}
-          {price.suffix ? <span className="hero-banner__priceMeta">{price.suffix}</span> : null}
+          {price.suffix ? (
+            <span className="hero-banner__price-meta">{price.suffix}</span>
+          ) : null}
         </span>
       ) : null}
     </>
@@ -119,18 +80,17 @@ function renderTitle(title) {
   return (
     <>
       {title.lead}{" "}
-      <span className="hero-banner__titleAccent">{title.accent}</span>
+      <span className="hero-banner__title-accent">{title.accent}</span>
     </>
   );
 }
 
 export default function HeroBanner({
   alt,
-  carousel = { activeIndex: 2, totalSlides: 8 },
+  carousel = null,
   copy,
   cta,
   focus = {},
-  images,
   layout = {},
   media,
 }) {
@@ -138,50 +98,40 @@ export default function HeroBanner({
   const demoRef = useRef(null);
   const cardRef = useRef(null);
   const mediaRef = useRef(null);
-  const desktopAlign = layout.desktopAlign ?? "left";
-  const goldTheme = layout.goldTheme ?? false;
-  const titleScale = layout.titleScale ?? "default";
   const hasCarousel = Boolean(carousel);
-
-  const normalizedMedia = useMemo(() => normalizeMedia(media, images, alt), [alt, images, media]);
-
-  const activeMedia = useMemo(() => {
-    if (viewportMode === "desktop") {
-      return normalizedMedia.desktop;
-    }
-
-    if (viewportMode === "tablet") {
-      return normalizedMedia.tablet;
-    }
-
-    return normalizedMedia.mobile;
-  }, [normalizedMedia.desktop, normalizedMedia.mobile, normalizedMedia.tablet, viewportMode]);
-
+  const contentAlignment = layout.contentAlignment ?? "left";
+  const theme = layout.theme ?? "standard";
+  const titleSize = layout.titleSize ?? "larger";
+  const activeMedia = media?.[viewportMode];
+  const ctas = (Array.isArray(cta) ? cta : cta ? [cta] : []).filter(Boolean);
   const glowStyle = useHeroGlow({
     cardRef,
     demoRef,
     media: activeMedia,
     mediaRef,
   });
-  const imageStyle = buildImageStyle(focus[viewportMode]);
-  const ctas = (Array.isArray(cta) ? cta : cta ? [cta] : []).filter(Boolean);
-  const heroClassName = [
-    `hero-banner hero-banner--${viewportMode}`,
-    hasCarousel ? "hero-banner--with-carousel" : "",
-    goldTheme ? "hero-banner--gold" : "hero-banner--standard",
-    titleScale === "medium" ? "hero-banner--title-medium" : "",
-    viewportMode === "desktop" && desktopAlign === "center" ? "hero-banner--desktop-center" : "",
+  const mediaStyle = buildMediaStyle(focus[viewportMode]);
+  const bannerClassName = [
+    "hero-banner",
+    `hero-banner--${viewportMode}`,
+    hasCarousel ? "hero-banner--has-carousel" : "",
+    theme === "gold" ? "hero-banner--theme-gold" : "hero-banner--theme-standard",
+    titleSize === "large"
+      ? "hero-banner--title-large"
+      : "hero-banner--title-larger",
+    viewportMode === "desktop" && contentAlignment === "center"
+      ? "hero-banner--align-center"
+      : "",
   ]
     .filter(Boolean)
     .join(" ");
-
   const contentClassName =
     viewportMode === "desktop"
       ? "hero-banner__content hero-banner__content--desktop"
       : "hero-banner__content hero-banner__content--compact";
 
   useEffect(() => {
-    if (activeMedia.kind !== "video") {
+    if (activeMedia?.kind !== "video") {
       return;
     }
 
@@ -196,26 +146,27 @@ export default function HeroBanner({
 
     const playback = videoElement.play?.();
     playback?.catch(() => {});
-  }, [activeMedia.kind, activeMedia.src]);
+  }, [activeMedia]);
 
   return (
     <section
       ref={demoRef}
       aria-labelledby="hero-banner-title"
-      className={`hero-demo hero-demo--${viewportMode}`}
+      className={`hero-banner-demo hero-banner-demo--${viewportMode}`}
       style={glowStyle}
     >
-      <div aria-hidden className="hero-demo__glow" />
+      <div aria-hidden className="hero-banner-demo__glow" />
 
-      <div className="hero-demo__frame">
+      <div className="hero-banner-demo__frame">
         <article
           id="hero-banner"
           ref={cardRef}
-          className={heroClassName}
+          className={bannerClassName}
         >
           <div aria-hidden className="hero-banner__scrim" />
+
           <div className="hero-banner__media">
-            {activeMedia.kind === "video" ? (
+            {activeMedia?.kind === "video" ? (
               <video
                 ref={mediaRef}
                 aria-label={activeMedia.alt ?? alt}
@@ -226,25 +177,25 @@ export default function HeroBanner({
                 playsInline
                 poster={activeMedia.poster}
                 preload="metadata"
-                style={imageStyle}
+                style={mediaStyle}
               >
                 <source src={activeMedia.src} />
               </video>
             ) : (
               <img
                 ref={mediaRef}
-                alt={activeMedia.alt ?? alt}
+                alt={activeMedia?.alt ?? alt}
                 className={`hero-banner__image hero-banner__image--${viewportMode}`}
-                src={activeMedia.src}
-                style={imageStyle}
+                src={activeMedia?.src}
+                style={mediaStyle}
               />
             )}
           </div>
 
           <div className={contentClassName}>
-            <div className="hero-banner__contentMeasure">
+            <div className="hero-banner__content-measure">
               {copy.logo?.src ? (
-                <div className="hero-banner__logoSlot">
+                <div className="hero-banner__logo-slot">
                   <img
                     alt={copy.logo.alt ?? ""}
                     className="hero-banner__logo"
@@ -252,14 +203,21 @@ export default function HeroBanner({
                   />
                 </div>
               ) : null}
+
               {copy.label ? <p className="hero-banner__label">{copy.label}</p> : null}
+
               <h1 className="hero-banner__title" id="hero-banner-title">
                 {renderTitle(copy.title)}
               </h1>
+
               <p className="hero-banner__subtitle">{copy.subtitle}</p>
-              {copy.price ? <p className="hero-banner__price">{renderPrice(copy.price)}</p> : null}
+
+              {copy.price ? (
+                <p className="hero-banner__price">{renderPrice(copy.price)}</p>
+              ) : null}
+
               {ctas.length ? (
-                <div className="hero-banner__ctaGroup">
+                <div className="hero-banner__cta-group">
                   {ctas.map((item) => (
                     <a
                       key={`${item.label}-${item.variant ?? "primary"}`}
@@ -271,12 +229,15 @@ export default function HeroBanner({
                   ))}
                 </div>
               ) : null}
-              {copy.helperText ? <p className="hero-banner__helper">{copy.helperText}</p> : null}
+
+              {copy.helperText ? (
+                <p className="hero-banner__helper">{copy.helperText}</p>
+              ) : null}
             </div>
           </div>
 
           {carousel ? (
-            <HeroCarouselDots
+            <HeroCarousel
               activeIndex={carousel.activeIndex}
               className="hero-banner__carousel"
               totalSlides={carousel.totalSlides}
