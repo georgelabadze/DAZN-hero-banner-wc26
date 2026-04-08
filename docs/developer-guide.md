@@ -45,17 +45,17 @@
 ## Breakpoints and Layout Rules
 - Desktop: `1025px` and above
   - `16:9` is the target creative ratio
-  - height caps at `min(48rem, 82svh)`
+  - height caps against the available viewport after subtracting the `64px` header
   - outer gutter is `64px`
   - hero radius is `18px`
 - Tablet: `768px` to `1024px`
   - `1:1` is the target creative ratio
-  - height caps at `90svh`
+  - height caps at `85%` of the available viewport after subtracting the `64px` header
   - outer gutter is `32px`
   - hero radius is `14px`
 - Mobile: `767px` and below
   - `5:7` is the target creative ratio
-  - height caps at `90svh`
+  - height caps at `90%` of the available viewport after subtracting the `64px` header
   - outer gutter is `16px`
   - hero radius is `14px`
 

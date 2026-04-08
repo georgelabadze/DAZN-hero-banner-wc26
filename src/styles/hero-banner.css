@@ -100,19 +100,19 @@
   --hero-title-size: clamp(3.5rem, 5cqw, 5rem);
   --hero-logo-max-height: min(4rem, 4cqw);
   --hero-subtitle-size: min(1.125rem, 1.5cqw);
-  block-size: min(calc(100cqw * 9 / 16), min(48rem, 82svh));
+  block-size: min(calc(100cqw * 9 / 16), min(48rem, calc(var(--hero-available-height) * 0.88)));
 }
 
 .hero-banner--tablet {
   --hero-title-size: clamp(2.9rem, 7cqw, 3.5rem);
   --hero-logo-max-height: clamp(3rem, 7cqw, 3.5rem);
-  block-size: min(100cqw, 90svh);
+  block-size: min(100cqw, calc(var(--hero-available-height) * 0.85));
 }
 
 .hero-banner--mobile {
   --hero-title-size: clamp(2rem, 9.4cqw, 2.25rem);
   --hero-logo-max-height: clamp(2.5rem, 12cqw, 3rem);
-  block-size: min(calc(100cqw * 7 / 5), 90svh);
+  block-size: min(calc(100cqw * 7 / 5), calc(var(--hero-available-height) * 0.9));
 }
 
 .hero-banner--title-large.hero-banner--desktop {

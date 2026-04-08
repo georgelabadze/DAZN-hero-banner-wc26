@@ -124,7 +124,7 @@
                 <li>Applies at <code>1025px</code> and above</li>
                 <li>Hero stays visually close to the current cinematic desktop version</li>
                 <li>Card keeps the wide overlay composition and bottom-left content stack</li>
-                <li>Width always follows the parent and crops vertically after the height cap</li>
+                <li>Width always follows the parent and the height cap is calculated from the available viewport after the header</li>
                 <li>Minimum outer gutter is <code>64px</code></li>
                 <li>Card radius is <code>18px</code></li>
               </ul>
@@ -144,7 +144,7 @@
               <ul class="mode-card__list">
               <li>Applies from <code>768px</code> to <code>1024px</code></li>
               <li><code>1:1</code> is the creative target ratio, not a hard live lock</li>
-              <li>Width always follows the parent and height caps at <code>90svh</code></li>
+              <li>Width always follows the parent and height caps at <code>85%</code> of the available viewport after the header</li>
               <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
               <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
               <li>Card radius is <code>14px</code> with <code>32px</code> outer gutter</li>
@@ -166,7 +166,7 @@
               <li>Applies at <code>767px</code> and below</li>
               <li>Hero remains inset, never full-bleed</li>
               <li><code>5:7</code> is the creative target ratio, not a hard live lock</li>
-              <li>Width always follows the parent and height caps at <code>90svh</code></li>
+              <li>Width always follows the parent and height caps at <code>90%</code> of the available viewport after the header</li>
               <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
               <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
               <li>Card radius is <code>14px</code> with <code>16px</code> outer gutter</li>

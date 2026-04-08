@@ -16,6 +16,8 @@
 
 :root {
   color-scheme: dark;
+  --site-header-height: 64px;
+  --hero-available-height: calc(100svh - var(--site-header-height));
   --shell-gutter: 64px;
   --shell-max-width: 1600px;
   --text-primary: #f7f8fb;
