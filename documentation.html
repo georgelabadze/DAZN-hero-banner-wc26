@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAZN Hero Documentation</title>
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="documentation.css" />
+  </head>
+  <body class="doc-body">
+    <main class="doc-shell">
+      <section class="doc-hero">
+        <div class="doc-hero__copy">
+          <p class="doc-eyebrow">DAZN Hero System</p>
+          <h1 class="doc-hero__title">React card hero with image or video media, measured glow, and breakpoint-driven art direction</h1>
+          <p class="doc-hero__text">
+            The live hero is now a Vite + React implementation with one desktop card,
+            one square tablet card, and one portrait mobile card. The glow is sampled
+            from the active still or live video frame at runtime and stays centered
+            inside the hero wrapper while the card always follows the parent width.
+          </p>
+        </div>
+
+        <div class="doc-hero__summary">
+          <article class="summary-card">
+            <p class="summary-card__label">Runtime</p>
+            <p class="summary-card__value">React + Vite</p>
+            <p class="summary-card__meta">
+              Componentized header and hero, measured with <code>ResizeObserver</code>,
+              built with a multi-page Vite setup.
+            </p>
+          </article>
+          <article class="summary-card">
+            <p class="summary-card__label">Breakpoints</p>
+            <p class="summary-card__value">1025 / 768 / 767</p>
+            <p class="summary-card__meta">
+              Desktop <code>1025px+</code>, tablet <code>768px–1024px</code>, mobile
+              <code>767px</code> and below.
+            </p>
+          </article>
+          <article class="summary-card">
+            <p class="summary-card__label">Outer Gutters</p>
+            <p class="summary-card__value">64 / 32 / 16</p>
+            <p class="summary-card__meta">
+              Header and hero share the same outside spacing: <code>64px</code> desktop,
+              <code>32px</code> tablet, <code>16px</code> mobile.
+            </p>
+          </article>
+          <article class="summary-card">
+            <p class="summary-card__label">Card Radius</p>
+            <p class="summary-card__value">18 / 14</p>
+            <p class="summary-card__meta">
+              Desktop hero radius stays <code>18px</code>; tablet and mobile use
+              <code>14px</code>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow">Component Contract</p>
+          <h2 class="section-heading__title">Live system is split into header and hero components</h2>
+        </div>
+
+        <div class="two-up-grid">
+          <article class="info-card">
+            <h3 class="info-card__title">Header Props</h3>
+            <ul class="info-card__list">
+              <li><code>logoSrc: string</code></li>
+              <li><code>actions: { label; variant; href? }[]</code></li>
+              <li>Header height is fixed at <code>64px</code></li>
+              <li>Buttons are fixed at <code>72 x 40</code></li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3 class="info-card__title">HeroBanner Props</h3>
+            <ul class="info-card__list">
+              <li><code>media: { desktop; tablet; mobile }</code></li>
+              <li><code>MediaItem = { kind; src; poster?; alt? }</code></li>
+              <li><code>copy: { label; title; subtitle; price; helperText }</code></li>
+              <li><code>cta: { label; href }</code></li>
+              <li><code>focus?: { desktop?; tablet?; mobile? }</code></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow">Breakpoint Cards</p>
+          <h2 class="section-heading__title">Each breakpoint uses a different card behavior</h2>
+        </div>
+
+        <div class="card-grid">
+          <article class="mode-card">
+            <div class="mode-preview mode-preview--desktop">
+              <div class="mode-preview__overlay mode-preview__overlay--left">
+                <span class="mode-pill">Desktop</span>
+                <strong>16:9 overlay card</strong>
+                <span>video-example-desktop.mov</span>
+              </div>
+            </div>
+            <div class="mode-card__body">
+              <h3 class="mode-card__title">Desktop</h3>
+              <ul class="mode-card__list">
+                <li>Applies at <code>1025px</code> and above</li>
+                <li>Hero stays visually close to the current cinematic desktop version</li>
+                <li>Card keeps the wide overlay composition and bottom-left content stack</li>
+                <li>Width always follows the parent and crops vertically after the height cap</li>
+                <li>Minimum outer gutter is <code>64px</code></li>
+                <li>Card radius is <code>18px</code></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="mode-card">
+            <div class="mode-preview mode-preview--tablet">
+              <div class="mode-preview__overlay mode-preview__overlay--center">
+                <span class="mode-pill">Tablet</span>
+                <strong>Top-aligned square art</strong>
+                <span>video-example-tablet.mov</span>
+              </div>
+            </div>
+            <div class="mode-card__body">
+              <h3 class="mode-card__title">Tablet</h3>
+              <ul class="mode-card__list">
+              <li>Applies from <code>768px</code> to <code>1024px</code></li>
+              <li><code>1:1</code> is the creative target ratio, not a hard live lock</li>
+              <li>Width always follows the parent and height caps at <code>90svh</code></li>
+              <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
+              <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
+              <li>Card radius is <code>14px</code> with <code>32px</code> outer gutter</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="mode-card">
+            <div class="mode-preview mode-preview--mobile">
+              <div class="mode-preview__overlay mode-preview__overlay--center">
+                <span class="mode-pill">Mobile</span>
+                <strong>Top-aligned 5:7 art</strong>
+                <span>video-example-mobile.mov</span>
+              </div>
+            </div>
+            <div class="mode-card__body">
+              <h3 class="mode-card__title">Mobile</h3>
+              <ul class="mode-card__list">
+              <li>Applies at <code>767px</code> and below</li>
+              <li>Hero remains inset, never full-bleed</li>
+              <li><code>5:7</code> is the creative target ratio, not a hard live lock</li>
+              <li>Width always follows the parent and height caps at <code>90svh</code></li>
+              <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
+              <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
+              <li>Card radius is <code>14px</code> with <code>16px</code> outer gutter</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow">Glow + Border</p>
+          <h2 class="section-heading__title">The glow is sampled at runtime and the hero uses a two-layer border</h2>
+        </div>
+
+        <div class="two-up-grid">
+          <article class="info-card">
+            <h3 class="info-card__title">Glow Engine</h3>
+            <ul class="info-card__list">
+              <li>Glow exists inside <code>.hero-demo</code> only</li>
+              <li>The glow layer is centered on the live hero card, not the viewport</li>
+              <li>Geometry is updated with <code>ResizeObserver</code></li>
+              <li>Glow geometry is clamped so it never widens the layout or causes body overflow</li>
+              <li>Stills are sampled once; videos are sampled from live frames at a throttled rate</li>
+              <li>Artwork colors are sampled from top, left, right, and lower-mid regions</li>
+              <li>Poster or fallback colors are used before sampling completes or if sampling fails</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3 class="info-card__title">Border Stack</h3>
+            <ul class="info-card__list">
+              <li>Base border: <code>1px</code> solid white at <code>10%</code> opacity</li>
+              <li>Overlay border uses a masked vertical gradient</li>
+              <li><code>0%</code>: white at <code>0%</code> opacity</li>
+              <li><code>30%</code>: <code>#FFFA00</code> at <code>60%</code></li>
+              <li><code>50%</code>: <code>#FFAA00</code> at <code>40%</code></li>
+              <li><code>70%</code>: <code>#64FCDC</code> at <code>20%</code></li>
+              <li><code>100%</code>: white at <code>0%</code> opacity</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow">Creative Guidance</p>
+          <h2 class="section-heading__title">Keep the focus area high and leave the lower copy zone calm</h2>
+          <p class="section-heading__text">
+            The live copy always occupies the lower portion of the card. The media
+            should carry the story higher in the frame so the copy and CTA can remain
+            readable without flattening the art. Motion uses the same safe-space and
+            crop rules as stills.
+          </p>
+        </div>
+
+        <div class="two-up-grid">
+          <article class="info-card">
+            <h3 class="info-card__title">Desktop Creative Rules</h3>
+            <ul class="info-card__list">
+              <li>Keep the main subject on the right half of the <code>16:9</code> frame</li>
+              <li>Leave the lower-left text zone darker and quieter</li>
+              <li>Avoid bright faces or highlights behind the left copy block</li>
+              <li>Desktop still uses one landscape master across large widths</li>
+            </ul>
+          </article>
+
+          <article class="info-card">
+            <h3 class="info-card__title">Tablet and Mobile Rules</h3>
+            <ul class="info-card__list">
+              <li>Keep the subject in the upper-middle of the square and mobile art</li>
+              <li>The lower third of the card should stay calmer for live copy</li>
+              <li>Tablet art should be composed to survive a square target ratio with vertical crop</li>
+              <li>Mobile art must still survive the tighter <code>5:7</code> live frame and height cap</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="section-heading">
+          <p class="section-heading__eyebrow">QA Matrix</p>
+          <h2 class="section-heading__title">Acceptance checks for implementation and handoff</h2>
+        </div>
+
+        <div class="check-grid">
+          <article class="check-card">
+            <p class="check-card__title">Layout</p>
+            <ul class="check-card__list">
+              <li>Desktop: <code>1440</code>, <code>1920</code></li>
+              <li>Tablet: <code>1024</code>, <code>768</code></li>
+              <li>Mobile: <code>767</code>, <code>430</code>, <code>390</code>, <code>375</code></li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <p class="check-card__title">Spacing</p>
+            <ul class="check-card__list">
+              <li>Header and hero share the same top-aligned outer gutters</li>
+              <li>Desktop <code>64px</code>, tablet <code>32px</code>, mobile <code>16px</code></li>
+              <li>Tablet/mobile hero radius stays <code>14px</code></li>
+              <li>Hero width always tracks the parent with no fixed-width plateau between breakpoints</li>
+            </ul>
+          </article>
+          <article class="check-card">
+            <p class="check-card__title">Runtime</p>
+            <ul class="check-card__list">
+              <li>Glow updates on active art change and resize</li>
+              <li>Build succeeds through Vite</li>
+              <li>No layout shift on first image load</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
