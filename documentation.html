@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DAZN Hero Documentation</title>
+    <title>DAZN Hero Guidelines WC26</title>
     <link
       rel="preload"
       href="fonts/DAZNOscine-Regular.ttf"
@@ -22,269 +22,362 @@
   </head>
   <body class="doc-body">
     <main class="doc-shell">
-      <section class="doc-hero">
-        <div class="doc-hero__copy">
-          <p class="doc-eyebrow">DAZN Hero System</p>
-          <h1 class="doc-hero__title">React card hero with image or video media, measured glow, and breakpoint-driven art direction</h1>
-          <p class="doc-hero__text">
-            The live hero is now a Vite + React implementation with one desktop card,
-            one square tablet card, and one portrait mobile card. The glow is sampled
-            from the active still or live video frame at runtime and stays centered
-            inside the hero wrapper while the card always follows the parent width.
+      <section class="doc-overview" id="overview">
+        <div class="doc-overview__copy">
+          <p class="doc-overview__eyebrow">DAZN Hero Banner WC26</p>
+          <h1 class="doc-overview__title">A compact guide for the creative asset and the product modules that sit on top of it.</h1>
+          <p class="doc-overview__text">
+            This page is the handoff for the hero banner system. It focuses on the
+            two things that matter most for rollout: how the creative should be built
+            for the live layout, and how product should decide which hero modules to
+            switch on.
           </p>
         </div>
 
-        <div class="doc-hero__summary">
-          <article class="summary-card">
-            <p class="summary-card__label">Runtime</p>
-            <p class="summary-card__value">React + Vite</p>
-            <p class="summary-card__meta">
-              Componentized header and hero, measured with <code>ResizeObserver</code>,
-              built with a multi-page Vite setup.
-            </p>
+        <div class="doc-overview__stats">
+          <article class="doc-stat">
+            <p class="doc-stat__label">Creative ratios</p>
+            <p class="doc-stat__value">16:9 / 1:1 / 5:7</p>
           </article>
-          <article class="summary-card">
-            <p class="summary-card__label">Breakpoints</p>
-            <p class="summary-card__value">1025 / 768 / 767</p>
-            <p class="summary-card__meta">
-              Desktop <code>1025px+</code>, tablet <code>768px–1024px</code>, mobile
-              <code>767px</code> and below.
-            </p>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Outer gutters</p>
+            <p class="doc-stat__value">64 / 32 / 16</p>
           </article>
-          <article class="summary-card">
-            <p class="summary-card__label">Outer Gutters</p>
-            <p class="summary-card__value">64 / 32 / 16</p>
-            <p class="summary-card__meta">
-              Header and hero share the same outside spacing: <code>64px</code> desktop,
-              <code>32px</code> tablet, <code>16px</code> mobile.
-            </p>
-          </article>
-          <article class="summary-card">
-            <p class="summary-card__label">Card Radius</p>
-            <p class="summary-card__value">18 / 14</p>
-            <p class="summary-card__meta">
-              Desktop hero radius stays <code>18px</code>; tablet and mobile use
-              <code>14px</code>.
-            </p>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Header-aware height</p>
+            <p class="doc-stat__value">Live viewport logic</p>
           </article>
         </div>
       </section>
 
-      <section class="doc-section">
-        <div class="section-heading">
-          <p class="section-heading__eyebrow">Component Contract</p>
-          <h2 class="section-heading__title">Live system is split into header and hero components</h2>
-        </div>
+      <nav class="doc-nav" aria-label="Guideline sections">
+        <a class="doc-nav__link" href="#overview">Overview</a>
+        <a class="doc-nav__link" href="#creative">Creative</a>
+        <a class="doc-nav__link" href="#product">Product</a>
+      </nav>
 
-        <div class="two-up-grid">
-          <article class="info-card">
-            <h3 class="info-card__title">SiteHeader Props</h3>
-            <ul class="info-card__list">
-              <li><code>variant?: "countdown" | "default"</code></li>
-              <li><code>logoSrc: string</code></li>
-              <li><code>actions?: { label; variant; href? }[]</code></li>
-              <li><code>countdownTarget?: string | Date</code></li>
-              <li><code>eventBrand?: { logoSrc; title; subtitle }</code></li>
-            </ul>
-          </article>
-
-          <article class="info-card">
-            <h3 class="info-card__title">HeroBanner Props</h3>
-            <ul class="info-card__list">
-              <li><code>media: { desktop; tablet; mobile }</code></li>
-              <li><code>MediaItem = { kind; src; poster?; alt? }</code></li>
-              <li><code>copy: { logo?; label?; title; subtitle; price?; helperText? }</code></li>
-              <li><code>cta: { label; href; variant? }[]</code></li>
-              <li><code>focus?: { desktop?; tablet?; mobile? }</code></li>
-              <li><code>layout?: { contentAlignment; theme; titleSize }</code></li>
-              <li><code>carousel?: { totalSlides; activeIndex } | null</code></li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="doc-section">
-        <div class="section-heading">
-          <p class="section-heading__eyebrow">Breakpoint Cards</p>
-          <h2 class="section-heading__title">Each breakpoint uses a different card behavior</h2>
-        </div>
-
-        <div class="card-grid">
-          <article class="mode-card">
-            <div class="mode-preview mode-preview--desktop">
-              <div class="mode-preview__overlay mode-preview__overlay--left">
-                <span class="mode-pill">Desktop</span>
-                <strong>16:9 overlay card</strong>
-                <span>video-example-desktop.mov</span>
-              </div>
-            </div>
-            <div class="mode-card__body">
-              <h3 class="mode-card__title">Desktop</h3>
-              <ul class="mode-card__list">
-                <li>Applies at <code>1025px</code> and above</li>
-                <li>Hero stays visually close to the current cinematic desktop version</li>
-                <li>Card keeps the wide overlay composition and bottom-left content stack</li>
-                <li>Width always follows the parent and the height cap is calculated from the available viewport after the header</li>
-                <li>A soft minimum height protects the layout on rotated or shorter screens without forcing overflow</li>
-                <li>Minimum outer gutter is <code>64px</code></li>
-                <li>Card radius is <code>18px</code></li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="mode-card">
-            <div class="mode-preview mode-preview--tablet">
-              <div class="mode-preview__overlay mode-preview__overlay--center">
-                <span class="mode-pill">Tablet</span>
-                <strong>Top-aligned square art</strong>
-                <span>video-example-tablet.mov</span>
-              </div>
-            </div>
-            <div class="mode-card__body">
-              <h3 class="mode-card__title">Tablet</h3>
-              <ul class="mode-card__list">
-              <li>Applies from <code>768px</code> to <code>1024px</code></li>
-              <li><code>1:1</code> is the creative target ratio, not a hard live lock</li>
-              <li>Width always follows the parent and height caps at <code>85%</code> of the available viewport after the header</li>
-              <li>A true minimum height keeps the card stable in shorter or rotated tablet states</li>
-              <li>In those cases, more page scroll is expected and intentional</li>
-              <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
-              <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
-              <li>Card radius is <code>14px</code> with <code>32px</code> outer gutter</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="mode-card">
-            <div class="mode-preview mode-preview--mobile">
-              <div class="mode-preview__overlay mode-preview__overlay--center">
-                <span class="mode-pill">Mobile</span>
-                <strong>Top-aligned 5:7 art</strong>
-                <span>video-example-mobile.mov</span>
-              </div>
-            </div>
-            <div class="mode-card__body">
-              <h3 class="mode-card__title">Mobile</h3>
-              <ul class="mode-card__list">
-              <li>Applies at <code>767px</code> and below</li>
-              <li>Hero remains inset, never full-bleed</li>
-              <li><code>5:7</code> is the creative target ratio, not a hard live lock</li>
-              <li>Width always follows the parent and height caps at <code>90%</code> of the available viewport after the header</li>
-              <li>A true minimum height keeps the content stack from collapsing in shorter or rotated mobile states</li>
-              <li>In those cases, more page scroll is expected and intentional</li>
-              <li>Once capped, the card crops vertically instead of freezing horizontal resize</li>
-              <li>Artwork keeps a slightly upward crop bias so a small bottom strip stays visible</li>
-              <li>Card radius is <code>14px</code> with <code>16px</code> outer gutter</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="doc-section">
-        <div class="section-heading">
-          <p class="section-heading__eyebrow">Glow + Border</p>
-          <h2 class="section-heading__title">The glow is sampled at runtime and the hero uses a two-layer border</h2>
-        </div>
-
-        <div class="two-up-grid">
-          <article class="info-card">
-            <h3 class="info-card__title">Glow Engine</h3>
-            <ul class="info-card__list">
-              <li>Glow exists inside <code>.hero-banner-demo</code> only</li>
-              <li>The glow layer is centered on the live hero card, not the viewport</li>
-              <li>Geometry is updated with <code>ResizeObserver</code></li>
-              <li>Glow geometry is clamped so it never widens the layout or causes body overflow</li>
-              <li>Stills are sampled once; videos are sampled from live frames at a throttled rate</li>
-              <li>Artwork colors are sampled from top, left, right, and lower-mid regions</li>
-              <li>Poster or fallback colors are used before sampling completes or if sampling fails</li>
-            </ul>
-          </article>
-
-          <article class="info-card">
-            <h3 class="info-card__title">Border Stack</h3>
-            <ul class="info-card__list">
-              <li>Base border: <code>1px</code> solid white at <code>10%</code> opacity</li>
-              <li>Overlay border uses a masked vertical gradient</li>
-              <li><code>0%</code>: white at <code>0%</code> opacity</li>
-              <li><code>30%</code>: <code>#FFFA00</code> at <code>60%</code></li>
-              <li><code>50%</code>: <code>#FFAA00</code> at <code>40%</code></li>
-              <li><code>70%</code>: <code>#64FCDC</code> at <code>20%</code></li>
-              <li><code>100%</code>: white at <code>0%</code> opacity</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section class="doc-section">
-        <div class="section-heading">
-          <p class="section-heading__eyebrow">Creative Guidance</p>
-          <h2 class="section-heading__title">Keep the focus area high and leave the lower copy zone calm</h2>
-          <p class="section-heading__text">
-            The live copy always occupies the lower portion of the card. The media
-            should carry the story higher in the frame so the copy and CTA can remain
-            readable without flattening the art. Motion uses the same safe-space and
-            crop rules as stills.
+      <section class="doc-section" id="creative">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Creative</p>
+          <h2 class="doc-section__title">Build the asset for the live text zones, crop behavior, and alignment modes.</h2>
+          <p class="doc-section__text">
+            The hero is never shown as a clean empty image. It always carries live
+            content, crop behavior, and a bottom content stack, so the artwork needs
+            to reserve those regions from the start.
           </p>
         </div>
 
-        <div class="two-up-grid">
-          <article class="info-card">
-            <h3 class="info-card__title">Desktop Creative Rules</h3>
-            <ul class="info-card__list">
-              <li>Keep the main subject on the right half of the <code>16:9</code> frame</li>
-              <li>Leave the lower-left text zone darker and quieter</li>
-              <li>Avoid bright faces or highlights behind the left copy block</li>
-              <li>Desktop still uses one landscape master across large widths</li>
-            </ul>
-          </article>
+        <section class="doc-tabs" aria-label="Creative breakpoint views">
+          <div class="doc-tabs__controls" role="tablist" aria-label="Breakpoints">
+            <button
+              class="doc-tabs__button is-active"
+              id="tab-button-desktop"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="tab-panel-desktop"
+              data-doc-tab="desktop"
+            >
+              Desktop
+            </button>
+            <button
+              class="doc-tabs__button"
+              id="tab-button-tablet"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-panel-tablet"
+              data-doc-tab="tablet"
+            >
+              Tablet
+            </button>
+            <button
+              class="doc-tabs__button"
+              id="tab-button-mobile"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="tab-panel-mobile"
+              data-doc-tab="mobile"
+            >
+              Mobile
+            </button>
+          </div>
 
-          <article class="info-card">
-            <h3 class="info-card__title">Tablet and Mobile Rules</h3>
-            <ul class="info-card__list">
-              <li>Keep the subject in the upper-middle of the square and mobile art</li>
-              <li>The lower third of the card should stay calmer for live copy</li>
-              <li>Tablet art should be composed to survive a square target ratio with vertical crop</li>
-              <li>Mobile art must still survive the tighter <code>5:7</code> live frame and height cap</li>
-            </ul>
+          <div class="doc-legend">
+            <span class="doc-legend__item doc-legend__item--subject">Creative-SAFE AREA</span>
+            <span class="doc-legend__item doc-legend__item--copy">Content-safe area</span>
+            <span class="doc-legend__item doc-legend__item--risk">Crop-risk perimeter</span>
+            <span class="doc-legend__item doc-legend__item--header">Top breathing zone</span>
+            <span class="doc-legend__item doc-legend__item--cta">CTA + helper zone</span>
+          </div>
+
+          <div
+            class="doc-tabs__panel is-active"
+            id="tab-panel-desktop"
+            role="tabpanel"
+            aria-labelledby="tab-button-desktop"
+            data-doc-panel="desktop"
+          >
+            <div class="creative-panel creative-panel--desktop">
+              <div class="creative-panel__states">
+                <article class="creative-state">
+                  <div class="creative-state__frame creative-state__frame--desktop creative-state__frame--desktop-left">
+                    <div class="creative-zone creative-zone--risk"></div>
+                    <div class="creative-zone creative-zone--header"></div>
+                    <div class="creative-zone creative-zone--subject"></div>
+                    <div class="creative-zone creative-zone--copy"></div>
+                    <div class="creative-zone creative-zone--cta"></div>
+
+                    <span class="creative-callout creative-callout--risk">Crop-risk perimeter</span>
+                    <span class="creative-callout creative-callout--header">Top breathing zone</span>
+                    <span class="creative-callout creative-callout--subject">Creative-SAFE AREA</span>
+                    <span class="creative-callout creative-callout--copy">Left content-safe area</span>
+                    <span class="creative-callout creative-callout--cta">CTA + helper zone</span>
+                  </div>
+                  <p class="creative-state__caption">Desktop / left-aligned bottom content</p>
+                </article>
+
+                <article class="creative-state">
+                  <div class="creative-state__frame creative-state__frame--desktop creative-state__frame--desktop-center">
+                    <div class="creative-zone creative-zone--risk"></div>
+                    <div class="creative-zone creative-zone--header"></div>
+                    <div class="creative-zone creative-zone--subject"></div>
+                    <div class="creative-zone creative-zone--copy"></div>
+                    <div class="creative-zone creative-zone--cta"></div>
+
+                    <span class="creative-callout creative-callout--risk">Crop-risk perimeter</span>
+                    <span class="creative-callout creative-callout--header">Top breathing zone</span>
+                    <span class="creative-callout creative-callout--subject">Creative-SAFE AREA</span>
+                    <span class="creative-callout creative-callout--copy">Centered content-safe area</span>
+                    <span class="creative-callout creative-callout--cta">CTA + helper zone</span>
+                  </div>
+                  <p class="creative-state__caption">Desktop / centered bottom content</p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="doc-tabs__panel"
+            id="tab-panel-tablet"
+            role="tabpanel"
+            aria-labelledby="tab-button-tablet"
+            data-doc-panel="tablet"
+            hidden
+          >
+            <div class="creative-panel creative-panel--single">
+              <div class="creative-state">
+                <div class="creative-state__frame creative-state__frame--tablet">
+                  <div class="creative-zone creative-zone--risk"></div>
+                  <div class="creative-zone creative-zone--header"></div>
+                  <div class="creative-zone creative-zone--subject"></div>
+                  <div class="creative-zone creative-zone--copy"></div>
+                  <div class="creative-zone creative-zone--cta"></div>
+
+                  <span class="creative-callout creative-callout--risk">Crop-risk perimeter</span>
+                  <span class="creative-callout creative-callout--header">Top breathing zone</span>
+                  <span class="creative-callout creative-callout--subject">Creative-SAFE AREA</span>
+                  <span class="creative-callout creative-callout--copy">Content-protected band</span>
+                  <span class="creative-callout creative-callout--cta">CTA + helper zone</span>
+                </div>
+                <p class="creative-state__caption">Tablet / centered content</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="doc-tabs__panel"
+            id="tab-panel-mobile"
+            role="tabpanel"
+            aria-labelledby="tab-button-mobile"
+            data-doc-panel="mobile"
+            hidden
+          >
+            <div class="creative-panel creative-panel--single">
+              <div class="creative-state">
+                <div class="creative-state__frame creative-state__frame--mobile">
+                  <div class="creative-zone creative-zone--risk"></div>
+                  <div class="creative-zone creative-zone--header"></div>
+                  <div class="creative-zone creative-zone--subject"></div>
+                  <div class="creative-zone creative-zone--copy"></div>
+                  <div class="creative-zone creative-zone--cta"></div>
+
+                  <span class="creative-callout creative-callout--risk">Crop-risk perimeter</span>
+                  <span class="creative-callout creative-callout--header">Top breathing zone</span>
+                  <span class="creative-callout creative-callout--subject">Creative-SAFE AREA</span>
+                  <span class="creative-callout creative-callout--copy">Content-protected band</span>
+                  <span class="creative-callout creative-callout--cta">CTA + helper zone</span>
+                </div>
+                <p class="creative-state__caption">Mobile / centered content</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="doc-card doc-card--wide">
+          <h3 class="doc-card__title">Live crop behavior</h3>
+          <ul class="doc-card__list">
+            <li>Width always follows the parent container.</li>
+            <li>The listed ratio is the target, not a hard lock at every screen height.</li>
+            <li>Height is capped by the available viewport after the `64px` header.</li>
+            <li>Tablet and mobile keep true minimum heights, so rotated states may scroll more on purpose.</li>
+          </ul>
+        </div>
+
+        <div class="doc-examples">
+          <article class="doc-example doc-example--do">
+            <p class="doc-example__badge">Do</p>
+            <h3 class="doc-example__title">Place the main subject higher than the live content stack</h3>
+            <p class="doc-example__text">
+              Faces, trophies, logos, and key action should sit above the protected
+              text zone so the hero can hold title, subtitle, and CTA cleanly.
+            </p>
+          </article>
+          <article class="doc-example doc-example--dont">
+            <p class="doc-example__badge">Don't</p>
+            <h3 class="doc-example__title">Fill the lower content-safe area with bright or dense detail</h3>
+            <p class="doc-example__text">
+              The scrim helps, but it should not be the only thing saving readability.
+            </p>
+          </article>
+          <article class="doc-example doc-example--do">
+            <p class="doc-example__badge">Do</p>
+            <h3 class="doc-example__title">Deliver matching stills and posters for every motion asset</h3>
+            <p class="doc-example__text">
+              The poster is part of the experience, not a fallback afterthought.
+            </p>
+          </article>
+          <article class="doc-example doc-example--dont">
+            <p class="doc-example__badge">Don't</p>
+            <h3 class="doc-example__title">Add the top logo when the artwork is already busy</h3>
+            <p class="doc-example__text">
+              If the creative already carries marks, badges, or fine detail, keep the
+              live stack lighter.
+            </p>
           </article>
         </div>
       </section>
 
-      <section class="doc-section">
-        <div class="section-heading">
-          <p class="section-heading__eyebrow">QA Matrix</p>
-          <h2 class="section-heading__title">Acceptance checks for implementation and handoff</h2>
+      <section class="doc-section" id="product">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Product</p>
+          <h2 class="doc-section__title">Use the modules deliberately so the hero tells one clear story at a time.</h2>
+          <p class="doc-section__text">
+            The live demo exposes multiple switches, but in product usage each one
+            should answer a specific communication need rather than simply adding more
+            surface area to the banner.
+          </p>
         </div>
 
-        <div class="check-grid">
-          <article class="check-card">
-            <p class="check-card__title">Layout</p>
-            <ul class="check-card__list">
-              <li>Desktop: <code>1440</code>, <code>1920</code></li>
-              <li>Tablet: <code>1024</code>, <code>768</code></li>
-              <li>Mobile: <code>767</code>, <code>430</code>, <code>390</code>, <code>375</code></li>
+        <div class="doc-grid doc-grid--two">
+          <article class="product-card">
+            <h3 class="product-card__title">Copy limits</h3>
+            <ul class="doc-card__list">
+              <li>Larger title: up to about `32` characters including spaces.</li>
+              <li>Large title: up to about `48` characters including spaces.</li>
+              <li>Subtitle: about `70` characters, assuming the creative tolerates up to 3 lines on desktop.</li>
+              <li>Label: about `24` characters.</li>
+              <li>Helper text: about `72` characters.</li>
             </ul>
           </article>
-          <article class="check-card">
-            <p class="check-card__title">Spacing</p>
-            <ul class="check-card__list">
-              <li>Header and hero share the same top-aligned outer gutters</li>
-              <li>Desktop <code>64px</code>, tablet <code>32px</code>, mobile <code>16px</code></li>
-              <li>Tablet/mobile hero radius stays <code>14px</code></li>
-              <li>Hero width always tracks the parent with no fixed-width plateau between breakpoints</li>
-            </ul>
+          <article class="product-card">
+            <h3 class="product-card__title">Title</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>Keep the title as the main message of the hero and use the larger size only for short, punchy headlines.</dd></div>
+              <div><dt>Avoid when</dt><dd>The title becomes too long, wraps awkwardly, or starts fighting the artwork for attention.</dd></div>
+              <div><dt>Impact</dt><dd>The title defines the hierarchy of the entire content stack and directly affects how much room is left for the subtitle below it.</dd></div>
+            </dl>
           </article>
-          <article class="check-card">
-            <p class="check-card__title">Runtime</p>
-            <ul class="check-card__list">
-              <li>Glow updates on active art change and resize</li>
-              <li>Build succeeds through Vite</li>
-              <li>No layout shift on first image load</li>
-            </ul>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Subtitle</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>Add one supporting layer of context that helps the title land without overloading it.</dd></div>
+              <div><dt>Avoid when</dt><dd>The subtitle repeats the title, becomes body copy, or pushes the stack too deep for the creative.</dd></div>
+              <div><dt>Impact</dt><dd>The safe area supports up to 3 lines on desktop, but shorter copy keeps the banner cleaner across all breakpoints.</dd></div>
+            </dl>
           </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Logo</h3>
+            <dl class="product-card__facts">
+              <div><dt>Purpose</dt><dd>Add event or property branding above the label.</dd></div>
+              <div><dt>Use when</dt><dd>The logo adds recognition without crowding the art.</dd></div>
+              <div><dt>Avoid when</dt><dd>The artwork already contains logos, badges, or small detailed marks.</dd></div>
+              <div><dt>Impact</dt><dd>Adds brand signal but increases visual density in the stack.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Label</h3>
+            <dl class="product-card__facts">
+              <div><dt>Purpose</dt><dd>Surface the event date range, promo note, or discount message.</dd></div>
+              <div><dt>Use when</dt><dd>A short timestamp or offer cue improves scanning.</dd></div>
+              <div><dt>Avoid when</dt><dd>The title already carries the same information.</dd></div>
+              <div><dt>Impact</dt><dd>Adds a small pre-title module without changing the full hierarchy.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Helper text</h3>
+            <dl class="product-card__facts">
+              <div><dt>Purpose</dt><dd>Handle conditions, rights notes, or legal clarification.</dd></div>
+              <div><dt>Use when</dt><dd>Extra context is required but should stay secondary.</dd></div>
+              <div><dt>Avoid when</dt><dd>The text is non-essential and only adds visual weight.</dd></div>
+              <div><dt>Impact</dt><dd>Extends the vertical footprint of the bottom content stack.</dd></div>
+            </dl>
+          </article>
+
         </div>
       </section>
+
+      <footer class="doc-footer">
+        <a class="doc-footer__link" href="index.html">Open live demo</a>
+        <a
+          class="doc-footer__link doc-footer__link--github"
+          href="https://github.com/georgelabadze/DAZN-hero-banner-wc26.git"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <svg
+            aria-hidden="true"
+            class="doc-footer__icon"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.66 7.66 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+          <span>DAZN Hero Banner WC26</span>
+        </a>
+      </footer>
     </main>
+
+    <script>
+      (() => {
+        const buttons = Array.from(document.querySelectorAll("[data-doc-tab]"));
+        const panels = Array.from(document.querySelectorAll("[data-doc-panel]"));
+
+        function setActiveTab(target) {
+          buttons.forEach((button) => {
+            const isActive = button.dataset.docTab === target;
+            button.classList.toggle("is-active", isActive);
+            button.setAttribute("aria-selected", String(isActive));
+          });
+
+          panels.forEach((panel) => {
+            const isActive = panel.dataset.docPanel === target;
+            panel.classList.toggle("is-active", isActive);
+            panel.hidden = !isActive;
+          });
+        }
+
+        buttons.forEach((button) => {
+          button.addEventListener("click", () => {
+            setActiveTab(button.dataset.docTab);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>

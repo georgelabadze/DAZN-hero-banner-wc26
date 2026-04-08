@@ -406,7 +406,7 @@
 .hero-banner__helper {
   margin: 0;
   color: var(--text-muted);
-  font-size: clamp(0.84rem, 0.8rem + 0.22vw, 0.95rem);
+  font-size: clamp(0.75rem, 0.72rem + 0.18vw, 0.875rem);
   line-height: 1.4;
 }
 
@@ -439,12 +439,16 @@
   padding:
     0
     var(--hero-safe-inline)
-    max(var(--hero-safe-block), env(safe-area-inset-bottom));
+    max(2rem, env(safe-area-inset-bottom));
 }
 
 .hero-banner--has-carousel.hero-banner--tablet .hero-banner__content,
 .hero-banner--has-carousel.hero-banner--mobile .hero-banner__content {
   padding-bottom: calc(max(var(--hero-safe-block), env(safe-area-inset-bottom)) + 3rem);
+}
+
+.hero-banner--has-carousel.hero-banner--mobile .hero-banner__content {
+  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
 }
 
 .hero-banner--tablet .hero-banner__content-measure,
@@ -484,10 +488,14 @@
 .hero-banner--mobile .hero-banner__cta-group {
   width: 100%;
   flex-direction: column;
+  align-items: center;
 }
 
 .hero-banner--mobile .hero-banner__cta {
-  width: 100%;
+  inline-size: auto;
+  width: auto;
+  min-inline-size: 12rem;
+  max-inline-size: 100%;
 }
 
 .hero-banner--tablet .hero-banner__title,
@@ -511,7 +519,7 @@
 }
 
 .hero-banner--mobile .hero-banner__helper {
-  font-size: clamp(0.78rem, 0.76rem + 0.18vw, 0.9rem);
+  font-size: clamp(0.75rem, 0.73rem + 0.14vw, 0.84rem);
 }
 
 @media (max-width: 767px) {
@@ -522,7 +530,7 @@
 
 @media (max-width: 430px) {
   .hero-banner--mobile .hero-banner__cta {
-    min-inline-size: 9.4rem;
+    min-inline-size: 12rem;
     min-block-size: 2.95rem;
   }
 }
@@ -560,13 +568,13 @@
   }
 
   .hero-banner--mobile .hero-banner__cta {
-    min-inline-size: 9.15rem;
+    min-inline-size: 12rem;
     min-block-size: 2.8rem;
     padding-block: 0.72rem;
   }
 
   .hero-banner--mobile .hero-banner__helper {
-    font-size: 0.76rem;
+    font-size: 0.75rem;
     line-height: 1.3;
   }
 }
