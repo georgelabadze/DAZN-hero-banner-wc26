@@ -24,7 +24,7 @@ const headerEventBrand = {
 };
 
 const headerCountdownCta = {
-  label: "Get started",
+  label: "Log in",
   href: "#hero-banner",
 };
 
@@ -34,7 +34,10 @@ const heroContent = {
     alt: "FIFA World Cup 26 logo",
   },
   label: "11 jun - 19 jul 2026",
-  title: "There's whole World Cup experience only on DAZN",
+  title: {
+    lead: "There's whole World Cup",
+    accent: "experience only on DAZN",
+  },
   subtitle: "Access all 104 matches live in 4K HDR across USA, Canada, and Mexico.",
   price: {
     prefix: "From",
@@ -96,7 +99,7 @@ const heroCarousel = {
 };
 
 const heroCtas = [
-  { label: "Start Watching", href: "#hero-banner", variant: "primary" },
+  { label: "Get started", href: "#hero-banner", variant: "primary" },
   { label: "Explore", href: "#hero-banner", variant: "secondary" },
 ];
 
@@ -105,6 +108,7 @@ const initialHeroSettings = {
   mediaMode: "video",
   desktopTextAlign: "center",
   titleScale: "medium",
+  goldTheme: true,
   showLogo: false,
   showLabel: false,
   showPrice: false,
@@ -144,9 +148,10 @@ export default function App() {
   const heroLayout = useMemo(
     () => ({
       desktopAlign: heroSettings.desktopTextAlign,
+      goldTheme: heroSettings.goldTheme,
       titleScale: heroSettings.titleScale,
     }),
-    [heroSettings.desktopTextAlign, heroSettings.titleScale],
+    [heroSettings.desktopTextAlign, heroSettings.goldTheme, heroSettings.titleScale],
   );
 
   const settingsItems = [
@@ -201,6 +206,19 @@ export default function App() {
         })),
       onLabel: "Medium",
       offLabel: "Default",
+    },
+    {
+      id: "hero-gold-theme",
+      title: "Gold / Standard",
+      description: "Switches the highlighted title segment and the primary CTA between the gold treatment and the standard white style.",
+      checked: heroSettings.goldTheme,
+      onToggle: () =>
+        setHeroSettings((current) => ({
+          ...current,
+          goldTheme: !current.goldTheme,
+        })),
+      onLabel: "Gold",
+      offLabel: "Standard",
     },
     {
       id: "hero-logo",
@@ -304,14 +322,6 @@ export default function App() {
           layout={heroLayout}
           media={activeHeroMedia}
         />
-
-        <section aria-labelledby="upcoming-events-title" className="hero-followup">
-          <div className="hero-followup__inner">
-            <h2 className="hero-followup__title" id="upcoming-events-title">
-              Upcoming events
-            </h2>
-          </div>
-        </section>
 
         <HeroSettingsPanel carouselItem={carouselItem} items={settingsItems} />
       </div>

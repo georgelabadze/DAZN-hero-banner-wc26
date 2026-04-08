@@ -76,6 +76,14 @@ function CountdownHeader({ countdownCta, countdownTarget, eventBrand, logoSrc })
   const countdown = useCountdown(countdownTarget);
   const ctaLabel = countdownCta?.label ?? "Get started";
   const ctaHref = countdownCta?.href;
+  const countdownTimer = (
+    <div className="countdown-header__timer">
+      <CountdownUnit label="days" value={countdown.days} />
+      <CountdownUnit label="hours" value={countdown.hours} />
+      <CountdownUnit label="mins" value={countdown.mins} />
+      <CountdownUnit label="secs" value={countdown.secs} />
+    </div>
+  );
 
   const ctaContent = ctaHref ? (
     <a className="countdown-header__cta" href={ctaHref}>
@@ -108,15 +116,14 @@ function CountdownHeader({ countdownCta, countdownTarget, eventBrand, logoSrc })
             <p className="countdown-header__eventSubtitle">{eventBrand?.subtitle}</p>
           </div>
         </div>
+
+        <div className="countdown-header__mobileTimer" aria-hidden="true">
+          {countdownTimer}
+        </div>
       </div>
 
       <div className="countdown-header__right">
-        <div className="countdown-header__timer">
-          <CountdownUnit label="days" value={countdown.days} />
-          <CountdownUnit label="hours" value={countdown.hours} />
-          <CountdownUnit label="mins" value={countdown.mins} />
-          <CountdownUnit label="secs" value={countdown.secs} />
-        </div>
+        <div className="countdown-header__desktopTimer">{countdownTimer}</div>
 
         {ctaContent}
       </div>

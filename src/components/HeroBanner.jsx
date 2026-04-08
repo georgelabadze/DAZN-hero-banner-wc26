@@ -111,6 +111,19 @@ function renderPrice(price) {
   );
 }
 
+function renderTitle(title) {
+  if (typeof title === "string") {
+    return title;
+  }
+
+  return (
+    <>
+      {title.lead}{" "}
+      <span className="hero-banner__titleAccent">{title.accent}</span>
+    </>
+  );
+}
+
 export default function HeroBanner({
   alt,
   carousel = { activeIndex: 2, totalSlides: 8 },
@@ -126,6 +139,7 @@ export default function HeroBanner({
   const cardRef = useRef(null);
   const mediaRef = useRef(null);
   const desktopAlign = layout.desktopAlign ?? "left";
+  const goldTheme = layout.goldTheme ?? false;
   const titleScale = layout.titleScale ?? "default";
   const hasCarousel = Boolean(carousel);
 
@@ -154,6 +168,7 @@ export default function HeroBanner({
   const heroClassName = [
     `hero-banner hero-banner--${viewportMode}`,
     hasCarousel ? "hero-banner--with-carousel" : "",
+    goldTheme ? "hero-banner--gold" : "hero-banner--standard",
     titleScale === "medium" ? "hero-banner--title-medium" : "",
     viewportMode === "desktop" && desktopAlign === "center" ? "hero-banner--desktop-center" : "",
   ]
@@ -199,7 +214,6 @@ export default function HeroBanner({
           className={heroClassName}
         >
           <div aria-hidden className="hero-banner__scrim" />
-          <div aria-hidden className="hero-banner__sheen" />
           <div className="hero-banner__media">
             {activeMedia.kind === "video" ? (
               <video
@@ -240,7 +254,7 @@ export default function HeroBanner({
               ) : null}
               {copy.label ? <p className="hero-banner__label">{copy.label}</p> : null}
               <h1 className="hero-banner__title" id="hero-banner-title">
-                {copy.title}
+                {renderTitle(copy.title)}
               </h1>
               <p className="hero-banner__subtitle">{copy.subtitle}</p>
               {copy.price ? <p className="hero-banner__price">{renderPrice(copy.price)}</p> : null}

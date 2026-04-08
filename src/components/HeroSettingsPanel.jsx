@@ -2,8 +2,6 @@ function SettingRow({
   checked,
   description,
   id,
-  offLabel,
-  onLabel,
   onToggle,
   title,
 }) {
@@ -12,15 +10,6 @@ function SettingRow({
 
   return (
     <article className="hero-setting">
-      <div className="hero-setting__copy">
-        <h3 className="hero-setting__title" id={titleId}>
-          {title}
-        </h3>
-        <p className="hero-setting__description" id={descriptionId}>
-          {description}
-        </p>
-      </div>
-
       <button
         aria-checked={checked}
         aria-describedby={descriptionId}
@@ -33,10 +22,16 @@ function SettingRow({
         <span aria-hidden="true" className="hero-setting__switchTrack">
           <span className="hero-setting__switchThumb" />
         </span>
-        <span aria-hidden="true" className="hero-setting__switchText">
-          {checked ? onLabel : offLabel}
-        </span>
       </button>
+
+      <div className="hero-setting__copy">
+        <h3 className="hero-setting__title" id={titleId}>
+          {title}
+        </h3>
+        <p className="hero-setting__description" id={descriptionId}>
+          {description}
+        </p>
+      </div>
     </article>
   );
 }

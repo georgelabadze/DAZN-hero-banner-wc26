@@ -26,7 +26,6 @@
   --hero-safe-block: 48px;
   --hero-button-bg: #ffffff;
   --hero-button-text: #060708;
-  --hero-sheen-opacity: 0.28;
   --hero-glow-top: rgba(171, 212, 193, 0.34);
   --hero-glow-left: rgba(38, 72, 84, 0.28);
   --hero-glow-right: rgba(130, 179, 166, 0.24);
@@ -219,6 +218,14 @@ select {
   min-width: 0;
 }
 
+.countdown-header__mobileTimer {
+  display: none;
+}
+
+.countdown-header__desktopTimer {
+  display: contents;
+}
+
 .countdown-header__eventTitle,
 .countdown-header__eventSubtitle {
   margin: 0;
@@ -281,9 +288,9 @@ select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 108px;
+  min-width: 72px;
   height: 40px;
-  padding: 0 16px;
+  padding: 6px 8px;
   border: 0;
   border-radius: 8px;
   background: #f9fafa;
@@ -373,7 +380,6 @@ select {
 }
 
 .hero-banner__scrim,
-.hero-banner__sheen,
 .hero-banner__media {
   position: absolute;
   inset: 0;
@@ -381,10 +387,6 @@ select {
 
 .hero-banner__scrim {
   z-index: 1;
-}
-
-.hero-banner__sheen {
-  z-index: 2;
 }
 
 .hero-banner__media {
@@ -449,36 +451,6 @@ select {
       rgba(3, 5, 9, 0.08) 0%,
       rgba(3, 5, 9, 0.18) 52%,
       rgba(3, 5, 9, 0.46) 100%
-    );
-}
-
-.hero-banner--desktop .hero-banner__sheen {
-  background:
-    radial-gradient(
-      circle at 78% 22%,
-      rgba(196, 234, 255, var(--hero-sheen-opacity)) 0%,
-      rgba(196, 234, 255, 0) 30%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.025) 0%,
-      rgba(255, 255, 255, 0) 42%,
-      rgba(0, 0, 0, 0.16) 100%
-    );
-}
-
-.hero-banner--desktop-center .hero-banner__sheen {
-  background:
-    radial-gradient(
-      circle at 50% 16%,
-      rgba(196, 234, 255, calc(var(--hero-sheen-opacity) + 0.04)) 0%,
-      rgba(196, 234, 255, 0) 34%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.02) 0%,
-      rgba(255, 255, 255, 0) 45%,
-      rgba(0, 0, 0, 0.14) 100%
     );
 }
 
@@ -650,10 +622,21 @@ select {
   margin: 0;
   font-size: var(--hero-title-size, clamp(2.35rem, 1.1rem + 3.2vw, 5rem));
   font-weight: 700;
-  line-height: 0.94;
-  letter-spacing: -0.045em;
-  text-shadow: 0 2px 1px rgba(8, 14, 18, 0.35);
+  line-height: 1.1;
+  letter-spacing: 0;
+  text-shadow: 0 2px 16px rgba(8, 14, 18, 0.35);
   text-wrap: balance;
+}
+
+.hero-banner__titleAccent {
+  color: inherit;
+}
+
+.hero-banner--gold .hero-banner__titleAccent {
+  background: linear-gradient(90deg, #f2af3d 0%, #fbed7d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero-banner__subtitle {
@@ -754,6 +737,14 @@ select {
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 
+.hero-banner--gold .hero-banner__cta--primary {
+  background: linear-gradient(90deg, #f2af3d 0%, #fbed7d 100%);
+  color: #080e12;
+  box-shadow:
+    0 0.75rem 1.6rem rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
 .hero-banner__cta--secondary {
   background: rgba(255, 255, 255, 0.2);
   color: #ffffff;
@@ -827,22 +818,6 @@ select {
       rgba(0, 0, 0, 0) 0%,
       rgba(0, 0, 0, 0.16) 58%,
       rgba(0, 0, 0, 0.58) 100%
-    );
-}
-
-.hero-banner--tablet .hero-banner__sheen,
-.hero-banner--mobile .hero-banner__sheen {
-  background:
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(196, 234, 255, calc(var(--hero-sheen-opacity) + 0.08)) 0%,
-      rgba(196, 234, 255, 0) 32%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.02) 0%,
-      rgba(255, 255, 255, 0) 45%,
-      rgba(0, 0, 0, 0.18) 100%
     );
 }
 
@@ -945,19 +920,12 @@ select {
   }
 
   .header-module__header___1mgxU {
-    min-height: 56px;
-  }
-
-  .tp-button {
-    min-inline-size: 68px;
-    inline-size: 68px;
-    block-size: 32px;
-    font-size: 13px;
+    min-height: 64px;
   }
 
   .header-module__header--countdown {
     gap: 0.875rem;
-    min-height: 56px;
+    min-height: 64px;
   }
 
   .countdown-header__left {
@@ -970,10 +938,6 @@ select {
 
   .countdown-header__divider {
     height: 24px;
-  }
-
-  .countdown-header__eventLogo {
-    height: 28px;
   }
 
   .countdown-header__eventTitle {
@@ -994,18 +958,11 @@ select {
   }
 
   .countdown-header__value {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .countdown-header__label {
     font-size: 10px;
-  }
-
-  .countdown-header__cta {
-    min-width: 88px;
-    height: 32px;
-    padding: 0 12px;
-    font-size: 12px;
   }
 
   .hero-settings {
@@ -1027,11 +984,6 @@ select {
 
   .header-module__buttonsContainer___OUMUU {
     gap: 8px;
-  }
-
-  .tp-button {
-    min-inline-size: 64px;
-    inline-size: 64px;
   }
 
   .header-module__header--countdown {
@@ -1056,34 +1008,40 @@ select {
     min-width: 0;
   }
 
-  .countdown-header__eventLogo {
-    height: 24px;
+  .countdown-header__eventCopy {
+    display: none;
   }
 
-  .countdown-header__eventTitle {
-    font-size: 12px;
+  .countdown-header__mobileTimer {
+    display: block;
+    min-width: 0;
   }
 
-  .countdown-header__eventSubtitle {
-    font-size: 10px;
+  .countdown-header__desktopTimer {
+    display: none;
+  }
+
+  .countdown-header__right {
+    flex: 0 0 auto;
+    margin-left: auto;
+    gap: 0;
+  }
+
+  .countdown-header__timer {
+    gap: 6px;
   }
 
   .countdown-header__unit {
     width: 24px;
+    gap: 3px;
   }
 
   .countdown-header__value {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .countdown-header__label {
     font-size: 9px;
-  }
-
-  .countdown-header__cta {
-    min-width: 80px;
-    padding: 0 10px;
-    font-size: 12px;
   }
 
   .hero-banner--mobile .hero-banner__contentMeasure {
@@ -1162,26 +1120,6 @@ select {
   }
 }
 
-.hero-followup {
-  width: 100%;
-  margin-top: clamp(2rem, 3.5vw, 3.5rem);
-}
-
-.hero-followup__inner {
-  display: block;
-  padding: 0;
-}
-
-.hero-followup__title {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: clamp(1.375rem, 2.4vw, 1.625rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  text-shadow: 0 2px 1px rgba(8, 14, 18, 0.24);
-}
-
 .hero-settings {
   width: 100%;
   margin-top: clamp(1.5rem, 2.6vw, 2.5rem);
@@ -1236,8 +1174,8 @@ select {
 .hero-setting {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
+  justify-content: flex-start;
+  gap: 1rem;
   min-height: 5.5rem;
   padding: 1.25rem clamp(1rem, 2vw, 1.5rem);
 }
@@ -1250,6 +1188,7 @@ select {
   display: grid;
   gap: 0.28rem;
   min-width: 0;
+  flex: 1 1 auto;
 }
 
 .hero-setting__title {
@@ -1270,20 +1209,13 @@ select {
 .hero-setting__switch {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
-  min-width: 8.75rem;
-  min-height: 3rem;
-  padding: 0.35rem 0.45rem 0.35rem 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-primary);
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
   cursor: pointer;
-  transition:
-    background-color 180ms ease,
-    border-color 180ms ease,
-    opacity 180ms ease;
+  transition: opacity 180ms ease;
 }
 
 .hero-setting__switch:hover {
@@ -1318,41 +1250,12 @@ select {
   transition: transform 180ms ease;
 }
 
-.hero-setting__switchText {
-  min-width: 2.75rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1;
-  text-align: right;
-}
-
-.hero-setting__switch--on {
-  border-color: rgba(100, 252, 220, 0.28);
-  background: rgba(255, 255, 255, 0.1);
-}
-
 .hero-setting__switch--on .hero-setting__switchTrack {
-  background: rgba(100, 252, 220, 0.26);
+  background: #79e99c;
 }
 
 .hero-setting__switch--on .hero-setting__switchThumb {
   transform: translateX(1.35rem);
-}
-
-@media (max-width: 1024px) {
-  .hero-followup {
-    margin-top: clamp(1.5rem, 4vw, 2rem);
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-followup {
-    margin-top: clamp(1rem, 4vw, 1.5rem);
-  }
-
-  .hero-followup__title {
-    font-size: clamp(1.25rem, 6.4vw, 1.5rem);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
