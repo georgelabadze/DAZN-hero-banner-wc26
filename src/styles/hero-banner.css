@@ -152,7 +152,6 @@
   --hero-copy-measure: 60%;
   --hero-title-size: clamp(3.5rem, 5cqw, 5rem);
   --hero-logo-max-height: min(4rem, 4cqw);
-  --hero-subtitle-size: min(1.125rem, 1.5cqw);
   min-block-size: var(--hero-min-height-desktop);
   block-size: min(calc(100cqw * 9 / 16), min(48rem, calc(var(--hero-available-height) * 0.88)));
 }
@@ -313,7 +312,7 @@
   align-items: center;
   justify-self: start;
   width: fit-content;
-  max-width: min(100%, 16rem);
+  max-width: 50%;
 }
 
 .hero-banner__logo {
@@ -374,11 +373,10 @@
   width: var(--hero-copy-measure, 100%);
   max-width: var(--hero-copy-measure, 100%);
   color: var(--text-secondary);
-  font-size: var(--hero-subtitle-size, clamp(0.98rem, 0.88rem + 0.42vw, 1.22rem));
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.25rem);
   line-height: 1.42;
 }
 
-.hero-banner--desktop .hero-banner__logo-slot,
 .hero-banner--desktop .hero-banner__price {
   width: 100%;
   max-width: 100%;
@@ -615,10 +613,6 @@
 .hero-banner--mobile .hero-banner__helper {
   width: 100%;
   max-width: none;
-}
-
-.hero-banner--mobile .hero-banner__subtitle {
-  font-size: clamp(0.94rem, 0.88rem + 0.3vw, 1.02rem);
 }
 
 .hero-banner--mobile .hero-banner__price {

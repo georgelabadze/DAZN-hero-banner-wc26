@@ -395,7 +395,7 @@ export const heroDefaultSettings = {
   contentAlignment: "center",
   headerMode: "countdown",
   mediaMode: "video",
-  showCarousel: false,
+  showCarousel: true,
   showCreativeBlueprint: false,
   showHelperText: false,
   showLabel: false,
