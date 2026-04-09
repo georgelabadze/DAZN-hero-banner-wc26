@@ -1,0 +1,172 @@
+{
+  "mode": "carousel",
+  "autoplayMs": 10000,
+  "transitionMs": 300,
+  "slides": [
+    {
+      "id": "slide-01",
+      "layout": {
+        "contentAlignment": "left",
+        "theme": "standard"
+      },
+      "focus": {
+        "desktop": "center 50%",
+        "tablet": "center 42%",
+        "mobile": "center 40%"
+      },
+      "media": {
+        "desktop": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
+          "alt": "FIFA World Cup hero media for desktop."
+        },
+        "tablet": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
+          "alt": "FIFA World Cup hero video for tablet."
+        },
+        "mobile": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
+          "alt": "FIFA World Cup hero video for mobile."
+        }
+      },
+      "logo": {
+        "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/1qebkBuUEeIFeoh0hJLPhc/cbeac893cbb00299d0d70ba740ac394e/image.png",
+        "alt": "FIFA World Cup 26 logo"
+      },
+      "label": "",
+      "title": {
+        "lead": "Watch the world's best hockey",
+        "accent": "",
+        "size": "large"
+      },
+      "subtitle": "Get every NHL game live and on-demand including the Stanley Cup Playoffs & Stanley Cup Final.",
+      "price": {
+        "prefix": "From",
+        "value": "$19.99",
+        "oldPrice": "$29.99",
+        "suffix": "/month"
+      },
+      "primaryCta": {
+        "label": "Sign up",
+        "href": "#hero-banner"
+      },
+      "secondaryCta": {
+        "label": "",
+        "href": "#hero-banner"
+      },
+      "helperText": "Cancel anytime. Selected events and availability may vary by territory."
+    },
+    {
+      "id": "slide-02",
+      "layout": {
+        "contentAlignment": "left",
+        "theme": "gold"
+      },
+      "focus": {
+        "desktop": "center 50%",
+        "tablet": "center 42%",
+        "mobile": "center 40%"
+      },
+      "media": {
+        "desktop": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/6leG0vpD6YwzAVAPRWDxR9/bdb62f77e73205b31a055647354831de/_16x9__2_.jpg?fm=webp&q=35",
+          "posterUrl": "/hero/desktop.png",
+          "alt": "FIFA World Cup hero video for desktop."
+        },
+        "tablet": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/3eocvMbOZ6FvfWJgIVItgj/a7085ed32354aff9579378772de8ff75/_1x1.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/3eocvMbOZ6FvfWJgIVItgj/a7085ed32354aff9579378772de8ff75/_1x1.jpg?fm=webp&q=35",
+          "alt": "FIFA World Cup hero video for tablet."
+        },
+        "mobile": {
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/3qZjAjrtQ2lVeakv5FI7Aq/4e5ec238a76d225ba633bdcaeac591a9/Design_ohne_Titel__13_.png?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/3qZjAjrtQ2lVeakv5FI7Aq/4e5ec238a76d225ba633bdcaeac591a9/Design_ohne_Titel__13_.png?fm=webp&q=35",
+          "alt": "FIFA World Cup hero video for mobile."
+        }
+      },
+      "logo": {
+        "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/b8Z3yDVyrhfNyqLps6Zxe/1db96ff3a33d90676228b61ae3ce99a3/DSG-12066__3_.png",
+        "alt": "FIFA World Cup 26 logo"
+      },
+      "label": "11 jun - 19 jul 2026",
+      "title": {
+        "lead": "24,99 €/month",
+        "accent": "guaranteed for 2 years",
+        "size": "large"
+      },
+      "subtitle": "The UEFA Champions League quarterfinals live on DAZN: FC Bayern, Real Madrid, Barcelona, Liverpool, PSG and all other teams - only on DAZN.",
+      "price": {
+        "prefix": "",
+        "value": "",
+        "oldPrice": "",
+        "suffix": ""
+      },
+      "primaryCta": {
+        "label": "Sign up",
+        "href": "#hero-banner"
+      },
+      "secondaryCta": {
+        "label": "",
+        "href": "#hero-banner"
+      },
+      "helperText": "UEFA Champions League included until July 2027. From Summer 2027 enjoy UEFA Europa and Conference League."
+    },
+    {
+      "id": "slide-03",
+      "layout": {
+        "contentAlignment": "center",
+        "theme": "gold"
+      },
+      "focus": {
+        "desktop": "center 50%",
+        "tablet": "center 42%",
+        "mobile": "center 40%"
+      },
+      "media": {
+        "desktop": {
+          "url": "/hero/video-example-desktop.mov",
+          "posterUrl": "/hero/desktop.png",
+          "alt": "FIFA World Cup hero video for desktop."
+        },
+        "tablet": {
+          "url": "/hero/video-example-tablet.mov",
+          "posterUrl": "/hero/tablet.png",
+          "alt": "FIFA World Cup hero video for tablet."
+        },
+        "mobile": {
+          "url": "/hero/video-example-mobile.mov",
+          "posterUrl": "/hero/mobile.png",
+          "alt": "FIFA World Cup hero video for mobile."
+        }
+      },
+      "logo": {
+        "url": "",
+        "alt": "FIFA World Cup 26 logo"
+      },
+      "label": "11 jun - 19 jul 2026",
+      "title": {
+        "lead": "There's whole World Cup",
+        "accent": "experience only on DAZN",
+        "size": "large"
+      },
+      "subtitle": "Access all 104 matches live in 4K HDR across USA, Canada, and Mexico.",
+      "price": {
+        "prefix": "",
+        "value": "",
+        "oldPrice": "",
+        "suffix": ""
+      },
+      "primaryCta": {
+        "label": "Get started",
+        "href": "#hero-banner"
+      },
+      "secondaryCta": {
+        "label": "",
+        "href": "#hero-banner"
+      },
+      "helperText": ""
+    }
+  ]
+}

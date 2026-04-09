@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 const AUTOPLAY_DURATION_MS = 10000;
 
@@ -7,44 +7,24 @@ function getVisibleCount(totalSlides) {
 }
 
 export default function HeroCarousel({
-  activeIndex = 2,
+  activeIndex = 0,
+  autoplayMs = AUTOPLAY_DURATION_MS,
   className = "",
+  cycleKey = 0,
+  onSelect,
   totalSlides = 8,
 }) {
   const visibleCount = getVisibleCount(totalSlides);
-  const normalizedInitialIndex = Math.max(0, Math.min(activeIndex, visibleCount - 1));
-  const [currentIndex, setCurrentIndex] = useState(normalizedInitialIndex);
-  const [cycleKey, setCycleKey] = useState(0);
-
-  useEffect(() => {
-    setCurrentIndex(normalizedInitialIndex);
-    setCycleKey((current) => current + 1);
-  }, [normalizedInitialIndex]);
-
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setCurrentIndex((current) => (current + 1) % visibleCount);
-      setCycleKey((current) => current + 1);
-    }, AUTOPLAY_DURATION_MS);
-
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, [currentIndex, cycleKey, visibleCount]);
+  const normalizedActiveIndex = Math.max(0, Math.min(activeIndex, visibleCount - 1));
 
   const dots = useMemo(
     () =>
       Array.from({ length: visibleCount }, (_, index) => ({
         index,
-        active: index === currentIndex,
+        active: index === normalizedActiveIndex,
       })),
-    [currentIndex, visibleCount],
+    [normalizedActiveIndex, visibleCount],
   );
-
-  const handleDotClick = (index) => {
-    setCurrentIndex(index);
-    setCycleKey((current) => current + 1);
-  };
 
   return (
     <div
@@ -64,13 +44,13 @@ export default function HeroCarousel({
               .filter(Boolean)
               .join(" ")}
             key={`hero-carousel-${dot.index}`}
-            onClick={() => handleDotClick(dot.index)}
+            onClick={() => onSelect?.(dot.index)}
             type="button"
           >
             <span
               className="hero-carousel__dot-indicator"
               key={dot.active ? `hero-carousel-indicator-${dot.index}-${cycleKey}` : undefined}
-              style={dot.active ? { animationDuration: `${AUTOPLAY_DURATION_MS}ms` } : undefined}
+              style={dot.active ? { animationDuration: `${autoplayMs}ms` } : undefined}
             />
           </button>
         ))}

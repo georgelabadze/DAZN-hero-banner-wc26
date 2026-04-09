@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
+  buildHeroDeckForDisplay,
   CREATIVE_GUIDELINES_URL,
   HERO_GITHUB_URL,
-  heroCarousel,
-  heroContent,
-  heroCtas,
   heroDefaultSettings,
-  heroFocus,
-  heroMediaSets,
   siteHeaderActions,
   siteHeaderCountdownCta,
   siteHeaderCountdownTarget,
@@ -28,28 +24,10 @@ function toggleBooleanSetting(setState, key) {
 
 export default function App() {
   const [heroSettings, setHeroSettings] = useState(heroDefaultSettings);
-
-  const activeHeroMedia = heroSettings.showCreativeBlueprint
-    ? heroMediaSets.blueprint
-    : heroMediaSets[heroSettings.mediaMode];
-
-  const activeHeroCopy = {
-    ...heroContent,
-    helperText: heroSettings.showHelperText ? heroContent.helperText : "",
-    label: heroSettings.showLabel ? heroContent.label : "",
-    logo: heroSettings.showLogo ? heroContent.logo : null,
-    price: heroSettings.showPrice ? heroContent.price : null,
-  };
-
-  const activeHeroCtas = heroSettings.showSecondaryCta
-    ? heroCtas
-    : heroCtas.filter((item) => item.variant !== "secondary");
-
-  const heroLayout = {
-    contentAlignment: heroSettings.contentAlignment,
-    theme: heroSettings.theme,
-    titleSize: heroSettings.titleSize,
-  };
+  const activeHeroDeck = useMemo(
+    () => buildHeroDeckForDisplay(heroSettings),
+    [heroSettings],
+  );
 
   const settingsItems = [
     {
@@ -187,13 +165,7 @@ export default function App() {
         />
 
         <HeroBanner
-          alt="FIFA World Cup hero media inside the DAZN banner."
-          carousel={heroSettings.showCarousel ? heroCarousel : null}
-          copy={activeHeroCopy}
-          cta={activeHeroCtas}
-          focus={heroFocus}
-          layout={heroLayout}
-          media={activeHeroMedia}
+          deck={activeHeroDeck}
         />
 
         <HeroSettingsPanel footerItems={footerItems} items={settingsItems} />

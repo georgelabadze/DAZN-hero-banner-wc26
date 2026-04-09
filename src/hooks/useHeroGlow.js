@@ -131,6 +131,7 @@ function samplePaletteFromSource(source, canvas, context) {
 async function loadImage(imageSrc) {
   const image = new Image();
   image.decoding = "async";
+  image.crossOrigin = "anonymous";
   image.src = imageSrc;
 
   if (typeof image.decode === "function") {
