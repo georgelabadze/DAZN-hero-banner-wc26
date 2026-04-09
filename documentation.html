@@ -222,13 +222,14 @@
             <li>Width always follows the parent container.</li>
             <li>The listed ratio is the target, not a hard lock at every screen height.</li>
             <li>Desktop remains a `16:9` inset card and still caps against the viewport after the `64px` header.</li>
-            <li>Desktop title reads at roughly `40%` of the hero width, while subtitle and helper text read at roughly `30%`.</li>
+            <li>Desktop title reads at roughly `50%` of the hero width, while subtitle and helper text read at roughly `30%`.</li>
             <li>Tablet and mobile both use the header fixed over the creative from first paint.</li>
             <li>Tablet targets a true `5:7` full-width creative frame and uses an `80%` title width with `60%` subtitle and helper widths.</li>
-            <li>Mobile targets `9:16` creative, keeps the current centered text widths, and still reserves a small visible peek of the next section.</li>
+            <li>Mobile targets `9:16` creative and keeps the current centered text widths.</li>
             <li>Tablet and mobile drop the card border, radius, and glow chrome so the small-screen experience stays clean and immersive.</li>
             <li>Tablet and mobile also use a stronger top scrim so the overlaid header stays readable against the art.</li>
-            <li>Tablet caps the live hero at about `85%` of the viewport, while mobile now caps at about `90%`, so the next section still keeps showing underneath.</li>
+            <li>Tablet caps the live hero at about `85%` of the viewport, while mobile caps at about `90%` in normal cases, but both now keep stronger minimum heights in short or rotated viewports.</li>
+            <li>When tablet or mobile gets short, the hero stops shrinking past its floor and extra page scroll is expected instead.</li>
             <li>Live media keeps the full focus position on taller viewports, but when the hero becomes height-constrained it preserves only horizontal framing from data and crops from the bottom.</li>
           </ul>
         </div>

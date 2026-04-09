@@ -20,14 +20,15 @@
 ## Layout Intent
 - Desktop remains an inset cinematic card inside the shell gutters
 - Desktop content sits as a bottom overlay and still caps against the viewport after the `64px` header
-- Desktop title should comfortably support a live measure of about `40%` of the hero width
+- Desktop title should comfortably support a live measure of about `50%` of the hero width
 - Desktop subtitle and helper text should comfortably support a live measure of about `30%` of the hero width
 - Tablet now stays full width while preserving a true `5:7` frame, while mobile remains a full-bleed, full-screen hero section
 - Tablet and mobile no longer use card border, radius, or glow chrome
 - On tablet and mobile the header sits over the creative from first paint, so the top of the artwork needs a calm protected band
 - Tablet title should comfortably support a live measure of about `80%` of the hero width
 - Tablet subtitle and helper text should comfortably support a live measure of about `60%` of the hero width
-- Tablet caps the live hero at about `85%` of the viewport, while mobile now caps at about `90%`, so the next section remains visible underneath
+- Tablet caps the live hero at about `85%` of the viewport, while mobile caps at about `90%` in normal cases
+- Tablet and mobile now keep stronger minimum heights on short or rotated viewports, even if that pushes more content below the fold
 - Mobile keeps the current centered text width behavior, so the creative should still leave a generous lower band for copy
 - Live crop now keeps the full focus position on taller viewports, but once the hero becomes height-constrained it preserves horizontal framing and lets the lower edge of the artwork get cropped first
 
@@ -45,7 +46,7 @@
   - Build for a vertical `9:16` composition
   - Keep the focal subject in the upper and upper-middle part of the frame
   - Avoid bright or high-detail elements directly behind the lower CTA and helper area
-  - Leave enough tolerance that the live hero can still keep a small visible peek of the next section below
+  - Leave enough tolerance that the live hero can still hold up when shorter screens force more page scroll
 
 ## Motion and Posters
 - Provide a matching poster for every motion asset

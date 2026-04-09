@@ -19,9 +19,9 @@
   --site-header-height: 64px;
   --hero-available-height: calc(100svh - var(--site-header-height));
   --hero-min-height-desktop: 34rem;
-  --hero-min-height-tablet: 32rem;
+  --hero-min-height-tablet: 36rem;
   --hero-tablet-peek-height: 2.5rem;
-  --hero-min-height-mobile: 33rem;
+  --hero-min-height-mobile: 38rem;
   --hero-mobile-peek-height: 2.5rem;
   --shell-gutter: 64px;
   --shell-max-width: 1600px;

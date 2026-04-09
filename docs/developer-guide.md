@@ -42,24 +42,26 @@
   - hero remains an inset `16:9` card inside the shell gutters
   - height still caps against the viewport after subtracting the `64px` header
   - minimum height uses a true `34rem` floor
-  - title measure is `40%` of the hero width
+  - title measure is `50%` of the hero width
   - subtitle and helper measure are `30%` of the hero width
   - desktop glow and overlay border remain active
 - Tablet: `768px` to `1024px`
   - creative target stays `5:7`
   - live hero stays full width and preserves a true `5:7` frame
-  - live height caps at about `85svh` so the next section remains visible
-  - minimum height uses a bounded `32rem` floor against that cap
+  - live height caps at about `85svh` in normal cases
+  - minimum height uses a true `36rem` floor
   - title measure is `80%` of the hero width
   - subtitle and helper measure are `60%` of the hero width
   - border, radius, shadow, and glow are removed
+  - in short or rotated states, more page scroll is expected and intentional
 - Mobile: `767px` and below
   - creative target stays `9:16`
-  - live hero becomes full-bleed and full-screen, with a small reserved peek for the next section
-  - live height caps at about `90svh` so the next section remains visible
-  - minimum height uses a bounded `33rem` floor against that cap
+  - live hero becomes full-bleed and full-screen
+  - live height caps at about `90svh` in normal cases
+  - minimum height uses a true `38rem` floor
   - mobile text widths stay on the existing centered behavior
   - border, radius, shadow, and glow are removed
+  - in short or rotated states, more page scroll is expected and intentional
 
 ## Header Rules
 - Header height is `64px`

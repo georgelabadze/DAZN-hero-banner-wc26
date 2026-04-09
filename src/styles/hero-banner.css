@@ -148,7 +148,7 @@
 }
 
 .hero-banner--desktop {
-  --hero-title-measure: 80%;
+  --hero-title-measure: 100%;
   --hero-copy-measure: 60%;
   --hero-title-size: clamp(3.5rem, 5cqw, 5rem);
   --hero-logo-max-height: min(4rem, 4cqw);
@@ -162,7 +162,7 @@
   --hero-copy-measure: 60%;
   --hero-title-size: clamp(2.9rem, 7cqw, 3.5rem);
   --hero-logo-max-height: clamp(3rem, 7cqw, 3.5rem);
-  min-block-size: min(var(--hero-min-height-tablet), 85svh);
+  min-block-size: var(--hero-min-height-tablet);
   block-size: min(
     calc(100cqw * 7 / 5),
     85svh
@@ -174,10 +174,7 @@
   --hero-copy-measure: 100%;
   --hero-title-size: clamp(2rem, 9.4cqw, 2.25rem);
   --hero-logo-max-height: clamp(2.5rem, 12cqw, 3rem);
-  min-block-size: min(
-    var(--hero-min-height-mobile),
-    90svh
-  );
+  min-block-size: var(--hero-min-height-mobile);
   block-size: min(
     calc(100cqw * 16 / 9),
     90svh
