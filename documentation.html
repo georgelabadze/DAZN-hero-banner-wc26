@@ -37,7 +37,7 @@
         <div class="doc-overview__stats">
           <article class="doc-stat">
             <p class="doc-stat__label">Creative ratios</p>
-            <p class="doc-stat__value">16:9 / 1:1 / 5:7</p>
+            <p class="doc-stat__value">16:9 / 5:7 / 9:16</p>
           </article>
           <article class="doc-stat">
             <p class="doc-stat__label">Outer gutters</p>
@@ -221,7 +221,9 @@
             <li>Width always follows the parent container.</li>
             <li>The listed ratio is the target, not a hard lock at every screen height.</li>
             <li>Height is capped by the available viewport after the `64px` header.</li>
-            <li>Tablet and mobile keep true minimum heights, so rotated states may scroll more on purpose.</li>
+            <li>Tablet and mobile both use bounded minimum heights so the next section can still peek through.</li>
+            <li>Tablet now targets `5:7`, while mobile targets `9:16`.</li>
+            <li>Mobile now targets `9:16` and keeps a small reserved peek of the next section by design.</li>
           </ul>
         </div>
 

@@ -2,13 +2,13 @@
 
 ## Core Creative Outputs
 - Desktop master: `16:9`
-- Tablet master: `1:1`
-- Mobile master: `5:7`
+- Tablet master: `5:7`
+- Mobile master: `9:16`
 - Each breakpoint can be delivered as a still or as a video using the same safe-space rules
 - Recommended exports:
   - Desktop: `3840 x 2160`
-  - Tablet: `2160 x 2160`
-  - Mobile: `2160 x 3024`
+  - Tablet: `2160 x 3024`
+  - Mobile: `2160 x 3840`
 - Do not bake live UI, runtime glow, or border treatment into the artwork
 
 ## Breakpoint Mapping
@@ -20,11 +20,13 @@
 ## Layout Intent
 - Desktop remains a wide cinematic card with content anchored bottom-left
 - Tablet and mobile are no longer full-bleed
-- Tablet and mobile are inset cards that stay top-aligned and cap at `90svh`
+- Tablet and mobile are inset cards that stay top-aligned and cap against the available viewport after the header
 - Hero width always follows the parent width inside the active gutters
-- Tablet uses `1:1` as the target creative ratio and mobile uses `5:7` as the target creative ratio
+- Tablet uses `5:7` as the target creative ratio and mobile uses `9:16` as the target creative ratio
 - Once the live card hits its height cap, it crops vertically instead of locking the width
 - The live content sits as a bottom overlay inside both cards
+- Tablet reserves a small amount of space for the next section to remain visible below the hero
+- Mobile reserves a small amount of space for the next section to remain visible below the hero
 
 ## Outer Gutters and Radius
 - Desktop outside gutter: `64px`
@@ -39,14 +41,14 @@
   - Keep the lower-left copy zone darker and calmer
   - Motion should avoid rapid high-contrast changes directly behind the copy block
 - Tablet:
-  - Keep the subject centered in the upper-middle of the square frame
+  - Keep the subject centered in the upper-middle of the `5:7` frame
   - The lower half of the card still needs room for live copy, so avoid noisy detail there
-  - Compose the square art to survive vertical crop when the live card hits the height cap
+  - Compose the vertical art to survive vertical crop when the live card hits the height cap
   - If using motion, keep the primary action in the upper-middle safe zone
 - Mobile:
-  - Keep the subject in the upper-middle of the `5:7` frame
+  - Keep the subject in the upper-middle of the `9:16` frame
   - Protect the lower card area for the live copy stack
-  - Leave enough tolerance that a small amount of the lower creative can remain visible
+  - Leave enough tolerance that the live card can reserve a small visible peek of the next section below
   - Avoid bright highlights directly behind the CTA zone
   - Motion should still read clearly on the poster frame because posters are used during load and fallback
 
