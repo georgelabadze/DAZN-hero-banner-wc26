@@ -41,11 +41,11 @@
           </article>
           <article class="doc-stat">
             <p class="doc-stat__label">Outer gutters</p>
-            <p class="doc-stat__value">64 / 32 / 16</p>
+            <p class="doc-stat__value">64 / 32 / 16 safe insets</p>
           </article>
           <article class="doc-stat">
-            <p class="doc-stat__label">Header-aware height</p>
-            <p class="doc-stat__value">Live viewport logic</p>
+            <p class="doc-stat__label">Header treatment</p>
+            <p class="doc-stat__value">Inset desktop / overlay small screens</p>
           </article>
         </div>
       </section>
@@ -61,9 +61,10 @@
           <p class="doc-section__eyebrow">Creative</p>
           <h2 class="doc-section__title">Build the asset for the live text zones, crop behavior, and alignment modes.</h2>
           <p class="doc-section__text">
-            The hero is never shown as a clean empty image. It always carries live
-            content, crop behavior, and a bottom content stack, so the artwork needs
-            to reserve those regions from the start.
+            The hero is never shown as a clean empty image. Desktop keeps the inset
+            card treatment, tablet now stays full width while preserving a true
+            `5:7` frame, and mobile still runs full-bleed with the header over the
+            creative, so the artwork needs to reserve those regions from the start.
           </p>
         </div>
 
@@ -216,14 +217,19 @@
         </section>
 
         <div class="doc-card doc-card--wide">
-          <h3 class="doc-card__title">Live crop behavior</h3>
+          <h3 class="doc-card__title">Live layout behavior</h3>
           <ul class="doc-card__list">
             <li>Width always follows the parent container.</li>
             <li>The listed ratio is the target, not a hard lock at every screen height.</li>
-            <li>Height is capped by the available viewport after the `64px` header.</li>
-            <li>Tablet and mobile both use bounded minimum heights so the next section can still peek through.</li>
-            <li>Tablet now targets `5:7`, while mobile targets `9:16`.</li>
-            <li>Mobile now targets `9:16` and keeps a small reserved peek of the next section by design.</li>
+            <li>Desktop remains a `16:9` inset card and still caps against the viewport after the `64px` header.</li>
+            <li>Desktop title reads at roughly `40%` of the hero width, while subtitle and helper text read at roughly `30%`.</li>
+            <li>Tablet and mobile both use the header fixed over the creative from first paint.</li>
+            <li>Tablet targets a true `5:7` full-width creative frame and uses an `80%` title width with `60%` subtitle and helper widths.</li>
+            <li>Mobile targets `9:16` creative, keeps the current centered text widths, and still reserves a small visible peek of the next section.</li>
+            <li>Tablet and mobile drop the card border, radius, and glow chrome so the small-screen experience stays clean and immersive.</li>
+            <li>Tablet and mobile also use a stronger top scrim so the overlaid header stays readable against the art.</li>
+            <li>Tablet and mobile both cap the live hero at about `85%` of the viewport so the next section keeps showing underneath.</li>
+            <li>Live media now keeps horizontal framing from data, but vertical crop is top-anchored so shorter viewports lose image only from the bottom.</li>
           </ul>
         </div>
 

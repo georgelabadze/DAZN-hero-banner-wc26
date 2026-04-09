@@ -10,18 +10,15 @@
 ## Project Structure
 - `src/App.jsx`: live demo composition, settings state, and prop wiring
 - `src/config/heroDemoConfig.js`: content, media sets, header config, defaults
-- `src/components/SiteHeader.jsx`: default and countdown header variants
-- `src/components/HeroBanner.jsx`: responsive hero card
-- `src/components/HeroCarousel.jsx`: carousel prototype overlay
+- `src/components/SiteHeader.jsx`: default and countdown header variants with responsive fixed-scroll behavior
+- `src/components/HeroBanner.jsx`: responsive hero banner and carousel handoff
+- `src/components/HeroCarousel.jsx`: carousel overlay
 - `src/components/HeroSettingsPanel.jsx`: demo settings UI
 - `src/components/HeroFooterLinks.jsx`: bottom resource links
-- `src/hooks/useHeroGlow.js`: image/video glow sampling and geometry logic
-- `src/styles/base.css`: global tokens, fonts, shell layout
-- `src/styles/site-header.css`: header block styles
-- `src/styles/hero-banner.css`: hero block styles
-- `src/styles/hero-carousel.css`: carousel block styles
-- `src/styles/hero-settings.css`: settings block styles
-- `src/styles/hero-footer-links.css`: bottom resource links styles
+- `src/hooks/useHeroGlow.js`: desktop image/video glow sampling and geometry logic
+- `src/styles/base.css`: global tokens, fonts, and shell layout
+- `src/styles/site-header.css`: header shell, fixed states, and variant styling
+- `src/styles/hero-banner.css`: hero layout, media, copy, and breakpoint-specific chrome
 
 ## Public Component Contract
 ### `SiteHeader`
@@ -33,52 +30,54 @@
 - `eventBrand?: { logoSrc: string; title: string; subtitle: string }`
 
 ### `HeroBanner`
+- `deck: { mode: "single" | "carousel"; autoplayMs?: number; transitionMs?: number; slides: HeroSlide[] }`
+- `HeroSlide = { id; media; focus?; layout?; logo?; label?; title?; subtitle?; price?; primaryCta?; secondaryCta?; helperText? }`
 - `media: { desktop: MediaItem; tablet: MediaItem; mobile: MediaItem }`
 - `MediaItem = { kind: "image" | "video"; src: string; poster?: string; alt?: string }`
-- `copy: { logo?; label?; title; subtitle; price?; helperText? }`
-- `cta: { label: string; href: string; variant?: "primary" | "secondary" }[]`
-- `focus?: { desktop?: string; tablet?: string; mobile?: string }`
 - `layout?: { contentAlignment?: "left" | "center"; theme?: "gold" | "standard"; titleSize?: "large" | "larger" }`
-- `carousel?: { totalSlides: number; activeIndex: number } | null`
-- `alt: string`
+- `focus` now acts as horizontal framing control; vertical crop is top-anchored in the live hero
 
 ## Breakpoints and Layout Rules
 - Desktop: `1025px` and above
-  - `16:9` is the target creative ratio
-  - height caps against the available viewport after subtracting the `64px` header
-  - soft minimum height uses a `34rem` baseline and relaxes on shorter viewports
-  - outer gutter is `64px`
-  - hero radius is `18px`
+  - hero remains an inset `16:9` card inside the shell gutters
+  - height still caps against the viewport after subtracting the `64px` header
+  - minimum height uses a true `34rem` floor
+  - title measure is `40%` of the hero width
+  - subtitle and helper measure are `30%` of the hero width
+  - desktop glow and overlay border remain active
 - Tablet: `768px` to `1024px`
-  - `5:7` is the target creative ratio
-  - height caps against the available viewport after subtracting the `64px` header and reserving a small below-section peek
-  - minimum height uses a bounded `32rem` baseline so the next section can still remain partly visible
-  - in rotated or short-height cases, more page scroll is expected and intentional
-  - outer gutter is `32px`
-  - hero radius is `14px`
+  - creative target stays `5:7`
+  - live hero stays full width and preserves a true `5:7` frame
+  - live height caps at about `85svh` so the next section remains visible
+  - minimum height uses a bounded `32rem` floor against that cap
+  - title measure is `80%` of the hero width
+  - subtitle and helper measure are `60%` of the hero width
+  - border, radius, shadow, and glow are removed
 - Mobile: `767px` and below
-  - `9:16` is the target creative ratio
-  - height caps against the available viewport after subtracting the `64px` header and reserving a small below-section peek
-  - minimum height uses a bounded `33rem` baseline so the next section can still remain partly visible
-  - in rotated or short-height cases, more page scroll is expected and intentional
-  - outer gutter is `16px`
-  - hero radius is `14px`
+  - creative target stays `9:16`
+  - live hero becomes full-bleed and full-screen, with a small reserved peek for the next section
+  - live height caps at about `85svh` so the next section remains visible
+  - minimum height uses a bounded `33rem` floor against that cap
+  - mobile text widths stay on the existing centered behavior
+  - border, radius, shadow, and glow are removed
 
 ## Header Rules
 - Header height is `64px`
-- DAZN logo is `32 x 32`
-- Header action buttons keep `72 x 40`
-- Default header:
-  - secondary button uses `#3d4549`
-  - primary button uses white background with dark text
-- Countdown header:
-  - shares the same shell width and top alignment
-  - uses live countdown values for `days / hours / mins / secs`
+- Desktop:
+  - header stays in normal flow on first paint
+  - once the page scrolls, the header becomes fixed
+  - the fixed bar spans the viewport while the inner content stays aligned to the existing shell width and gutters
+- Tablet and mobile:
+  - header is fixed from first paint and overlays the hero
+  - the initial state is transparent over the creative
+  - on scroll, the header gains `rgba(8, 14, 18, 0.85)` background plus `blur(10px)`
 
 ## Hero Rules
-- Desktop content measure is `50%` of the hero width
+- Desktop content measure remains `50%` of the hero width
 - Desktop content can be left aligned or centered
 - Tablet and mobile content stay centered
+- Tablet and mobile use a stronger top scrim to protect the overlaid header from the creative underneath
+- Live media keeps horizontal focus from slide data, while vertical crop is anchored to the top so shorter viewports lose content from the bottom first
 - Gold theme:
   - applies gold gradient to the title accent
   - applies the same gradient to the primary CTA
@@ -86,47 +85,17 @@
   - title accent returns to plain text color
   - primary CTA returns to the white button style
 
-## Glow System
-- Glow is rendered inside `.hero-banner-demo`
-- Glow is centered on the measured hero card, not the viewport
-- Card bounds are measured with `ResizeObserver`
-- Geometry is clamped so glow never increases layout width
-- The active media is sampled in four regions:
-  - top center
-  - left middle
-  - right middle
-  - lower middle
-- Images are sampled once after load
-- Videos are sampled from live frames at a throttled rate
-- Poster art is used as the first glow state and as the fallback if video sampling fails
-
-## Video Behavior
-- Videos autoplay, loop, stay muted, and play inline
-- `preload="metadata"` is used
-- Matching poster frames are required for all video media items
-- Image and video share the same object-position focus logic
-
-## Border System
-- Base border: `1px solid rgba(255, 255, 255, 0.1)`
-- Overlay border is a masked vertical gradient with these stops:
-  - `0%`: `rgba(255, 255, 255, 0)`
-  - `30%`: `rgba(255, 250, 0, 0.6)`
-  - `50%`: `rgba(255, 170, 0, 0.4)`
-  - `70%`: `rgba(100, 252, 220, 0.2)`
-  - `100%`: `rgba(255, 255, 255, 0)`
+## Glow and Border System
+- Desktop only:
+  - glow is rendered inside `.hero-banner-demo`
+  - glow is sampled from the active media frame
+  - overlay border remains the masked vertical gradient treatment
+- Tablet and mobile:
+  - no sampled glow
+  - no border overlay
 
 ## Adoption Notes
-- `heroDemoConfig.js` is the clean starting point for implementation handoff
+- `hero-banner-data.json` is the content source for carousel mode
+- `heroDemoConfig.js` remains the single-slide preview adapter for manual toggle mode
 - The live settings panel is demo-only and should not be treated as production product UI
-- The hero component API is media-first; there is no legacy image fallback path in the v1 component
-- The visual docs page is the preferred entry point for creative review, while this file is the developer handoff reference
-
-## QA Checklist
-- Confirm `npm run build` succeeds
-- Confirm both entrypoints build:
-  - `index.html`
-  - `documentation.html`
-- Confirm header, hero, carousel, glow, and settings behave the same as the live demo
-- Check `1440`, `1024`, `768`, `390`, and `375`
-- Confirm settings rows keep the left-toggle, right-copy layout on all breakpoints
-- Confirm bottom resource links align with the shell and wrap cleanly on mobile
+- The visual docs page is the preferred entry point for creative review

@@ -1,5 +1,17 @@
 import { useEffect, useState } from "react";
 
+const DESKTOP_HEADER_BREAKPOINT = 1025;
+
+function getIsDesktopViewport() {
+  return typeof window === "undefined"
+    ? true
+    : window.innerWidth >= DESKTOP_HEADER_BREAKPOINT;
+}
+
+function getIsPageScrolled() {
+  return typeof window === "undefined" ? false : window.scrollY > 0;
+}
+
 function padCountdownValue(value) {
   return String(Math.max(0, value)).padStart(2, "0");
 }
@@ -34,6 +46,44 @@ function useCountdown(target) {
   }, [target]);
 
   return countdown;
+}
+
+function useHeaderShellState() {
+  const [isDesktopViewport, setIsDesktopViewport] = useState(() =>
+    getIsDesktopViewport(),
+  );
+  const [isScrolled, setIsScrolled] = useState(() => getIsPageScrolled());
+
+  useEffect(() => {
+    const handleResize = () => {
+      const nextViewportState = getIsDesktopViewport();
+      setIsDesktopViewport((current) =>
+        current === nextViewportState ? current : nextViewportState,
+      );
+    };
+
+    const handleScroll = () => {
+      const nextScrollState = getIsPageScrolled();
+      setIsScrolled((current) =>
+        current === nextScrollState ? current : nextScrollState,
+      );
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleResize();
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return {
+    isDesktopViewport,
+    isScrolled,
+  };
 }
 
 function SiteHeaderAction({ action }) {
@@ -148,8 +198,22 @@ export default function SiteHeader({
   logoSrc,
   variant = "default",
 }) {
+  const { isDesktopViewport, isScrolled } = useHeaderShellState();
+  const shellClassName = [
+    "site-header-shell",
+    isDesktopViewport
+      ? "site-header-shell--desktop"
+      : "site-header-shell--overlay",
+    !isDesktopViewport || isScrolled ? "site-header-shell--fixed" : "",
+    isScrolled ? "site-header-shell--scrolled" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  let headerContent;
+
   if (variant === "countdown") {
-    return (
+    headerContent = (
       <CountdownSiteHeader
         countdownCta={countdownCta}
         countdownTarget={countdownTarget}
@@ -157,7 +221,15 @@ export default function SiteHeader({
         logoSrc={logoSrc}
       />
     );
+  } else {
+    headerContent = <DefaultSiteHeader actions={actions} logoSrc={logoSrc} />;
   }
 
-  return <DefaultSiteHeader actions={actions} logoSrc={logoSrc} />;
+  return (
+    <div className={shellClassName}>
+      <div className="site-header-shell__bar">
+        <div className="site-header-shell__inner">{headerContent}</div>
+      </div>
+    </div>
+  );
 }

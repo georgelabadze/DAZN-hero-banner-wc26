@@ -401,13 +401,13 @@ code {
 }
 
 .creative-state__frame--tablet {
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 5 / 7;
   background-image: url("assets/hero/tablet-guideline.png");
   max-width: 360px;
 }
 
 .creative-state__frame--mobile {
-  aspect-ratio: 5 / 7;
+  aspect-ratio: 9 / 16;
   background-image: url("assets/hero/mobile-guideline.png");
   max-width: 290px;
 }

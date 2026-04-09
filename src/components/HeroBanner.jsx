@@ -41,9 +41,25 @@ function useViewportMode() {
   return mode;
 }
 
+function getHorizontalFocus(position) {
+  const normalized = typeof position === "string" ? position.trim() : "";
+
+  if (!normalized) {
+    return "center";
+  }
+
+  const [firstToken = "center"] = normalized.split(/\s+/);
+
+  if (firstToken === "top" || firstToken === "bottom") {
+    return "center";
+  }
+
+  return firstToken;
+}
+
 function buildMediaStyle(position) {
   return {
-    objectPosition: position ?? "center center",
+    objectPosition: `${getHorizontalFocus(position)} top`,
   };
 }
 
@@ -219,6 +235,7 @@ function HeroBannerSlide({
 
 export default function HeroBanner({ deck }) {
   const viewportMode = useViewportMode();
+  const shouldShowGlow = viewportMode === "desktop";
   const demoRef = useRef(null);
   const cardRef = useRef(null);
   const mediaRef = useRef(null);
@@ -240,7 +257,7 @@ export default function HeroBanner({ deck }) {
   const glowStyle = useHeroGlow({
     cardRef,
     demoRef,
-    media: currentMedia,
+    media: shouldShowGlow ? currentMedia : null,
     mediaRef,
   });
   const bannerClassName = [
@@ -365,9 +382,11 @@ export default function HeroBanner({ deck }) {
       ref={demoRef}
       aria-label="Hero banner"
       className={`hero-banner-demo hero-banner-demo--${viewportMode}`}
-      style={glowStyle}
+      style={shouldShowGlow ? glowStyle : undefined}
     >
-      <div aria-hidden className="hero-banner-demo__glow" />
+      {shouldShowGlow ? (
+        <div aria-hidden className="hero-banner-demo__glow" />
+      ) : null}
 
       <div className="hero-banner-demo__frame">
         <article
