@@ -72,7 +72,7 @@
       "media": {
         "desktop": {
           "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/6leG0vpD6YwzAVAPRWDxR9/bdb62f77e73205b31a055647354831de/_16x9__2_.jpg?fm=webp&q=35",
-          "posterUrl": "/hero/desktop.png",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/6leG0vpD6YwzAVAPRWDxR9/bdb62f77e73205b31a055647354831de/_16x9__2_.jpg?fm=webp&q=35",
           "alt": "FIFA World Cup hero video for desktop."
         },
         "tablet": {
