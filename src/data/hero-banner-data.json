@@ -6,8 +6,8 @@
     {
       "id": "slide-01",
       "layout": {
-        "contentAlignment": "left",
-        "theme": "standard"
+        "contentAlignment": "center",
+        "theme": "gold"
       },
       "focus": {
         "desktop": "center 50%",
@@ -16,47 +16,47 @@
       },
       "media": {
         "desktop": {
-          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
-          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
-          "alt": "FIFA World Cup hero media for desktop."
+          "url": "/hero/video-example-desktop.mov",
+          "posterUrl": "/hero/desktop.png",
+          "alt": "FIFA World Cup hero video for desktop."
         },
         "tablet": {
-          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
-          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
+          "url": "/hero/video-example-tablet.mov",
+          "posterUrl": "/hero/tablet.png",
           "alt": "FIFA World Cup hero video for tablet."
         },
         "mobile": {
-          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
-          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
+          "url": "/hero/video-example-mobile.mov",
+          "posterUrl": "/hero/mobile.png",
           "alt": "FIFA World Cup hero video for mobile."
         }
       },
       "logo": {
-        "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/1qebkBuUEeIFeoh0hJLPhc/cbeac893cbb00299d0d70ba740ac394e/image.png",
+        "url": "",
         "alt": "FIFA World Cup 26 logo"
       },
-      "label": "",
+      "label": "11 jun - 19 jul 2026",
       "title": {
-        "lead": "Watch the world's best hockey",
-        "accent": "",
+        "lead": "There's whole World Cup",
+        "accent": "experience only on DAZN",
         "size": "large"
       },
-      "subtitle": "Get every NHL game live and on-demand including the Stanley Cup Playoffs & Stanley Cup Final.",
+      "subtitle": "Access all 104 matches live in 4K HDR across USA, Canada, and Mexico.",
       "price": {
-        "prefix": "From",
-        "value": "$19.99",
-        "oldPrice": "$29.99",
-        "suffix": "/month"
+        "prefix": "",
+        "value": "",
+        "oldPrice": "",
+        "suffix": ""
       },
       "primaryCta": {
-        "label": "Sign up",
+        "label": "Get started",
         "href": "#hero-banner"
       },
       "secondaryCta": {
         "label": "",
         "href": "#hero-banner"
       },
-      "helperText": "Cancel anytime. Selected events and availability may vary by territory."
+      "helperText": ""
     },
     {
       "id": "slide-02",
@@ -113,11 +113,11 @@
       },
       "helperText": "UEFA Champions League included until July 2027. From Summer 2027 enjoy UEFA Europa and Conference League."
     },
-    {
+        {
       "id": "slide-03",
       "layout": {
-        "contentAlignment": "center",
-        "theme": "gold"
+        "contentAlignment": "left",
+        "theme": "standard"
       },
       "focus": {
         "desktop": "center 50%",
@@ -126,47 +126,48 @@
       },
       "media": {
         "desktop": {
-          "url": "/hero/video-example-desktop.mov",
-          "posterUrl": "/hero/desktop.png",
-          "alt": "FIFA World Cup hero video for desktop."
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/Mf4O7mwTCbbtJeVI6TcbH/7d90c7f691715eafea784a353fbed4b7/04-Desktop__LRD_and_Tablet_Landscape_-_16x9_2x.jpg?fm=webp&q=35",
+          "alt": "FIFA World Cup hero media for desktop."
         },
         "tablet": {
-          "url": "/hero/video-example-tablet.mov",
-          "posterUrl": "/hero/tablet.png",
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2R3kNaEMJUoQZUn9cLXyB0/d693360daf2515d225d9abe64ff1f626/03-Tablet_-1x1_2x_copy.jpg?fm=webp&q=35",
           "alt": "FIFA World Cup hero video for tablet."
         },
         "mobile": {
-          "url": "/hero/video-example-mobile.mov",
-          "posterUrl": "/hero/mobile.png",
+          "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
+          "posterUrl": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/2wZ1WhReEJPkRihV7DbzzS/92a82cdb3308d98312b55fe65c298fd4/01-Mobile_-5x7_2x.jpg?fm=webp&q=35",
           "alt": "FIFA World Cup hero video for mobile."
         }
       },
       "logo": {
-        "url": "",
+        "url": "https://contentful-asset-proxy.sd.indazn.com/vhp9jnid12wf/1qebkBuUEeIFeoh0hJLPhc/cbeac893cbb00299d0d70ba740ac394e/image.png",
         "alt": "FIFA World Cup 26 logo"
       },
-      "label": "11 jun - 19 jul 2026",
+      "label": "",
       "title": {
-        "lead": "There's whole World Cup",
-        "accent": "experience only on DAZN",
+        "lead": "Watch the world's best hockey",
+        "accent": "",
         "size": "large"
       },
-      "subtitle": "Access all 104 matches live in 4K HDR across USA, Canada, and Mexico.",
+      "subtitle": "Get every NHL game live and on-demand including the Stanley Cup Playoffs & Stanley Cup Final.",
       "price": {
-        "prefix": "",
-        "value": "",
-        "oldPrice": "",
-        "suffix": ""
+        "prefix": "From",
+        "value": "$19.99",
+        "oldPrice": "$29.99",
+        "suffix": "/month"
       },
       "primaryCta": {
-        "label": "Get started",
+        "label": "Sign up",
         "href": "#hero-banner"
       },
       "secondaryCta": {
         "label": "",
         "href": "#hero-banner"
       },
-      "helperText": ""
+      "helperText": "Cancel anytime. Selected events and availability may vary by territory."
     }
+
   ]
 }
