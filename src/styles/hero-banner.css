@@ -176,11 +176,11 @@
   --hero-logo-max-height: clamp(2.5rem, 12cqw, 3rem);
   min-block-size: min(
     var(--hero-min-height-mobile),
-    85svh
+    90svh
   );
   block-size: min(
     calc(100cqw * 16 / 9),
-    85svh
+    90svh
   );
 }
 
@@ -559,11 +559,7 @@
 
 .hero-banner--has-carousel.hero-banner--tablet .hero-banner__content,
 .hero-banner--has-carousel.hero-banner--mobile .hero-banner__content {
-  padding-bottom: calc(max(var(--hero-safe-block), env(safe-area-inset-bottom)) + 3rem);
-}
-
-.hero-banner--has-carousel.hero-banner--mobile .hero-banner__content {
-  padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+  padding-bottom: max(48px, env(safe-area-inset-bottom));
 }
 
 .hero-banner--tablet .hero-banner__content-measure,

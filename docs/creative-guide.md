@@ -27,7 +27,7 @@
 - On tablet and mobile the header sits over the creative from first paint, so the top of the artwork needs a calm protected band
 - Tablet title should comfortably support a live measure of about `80%` of the hero width
 - Tablet subtitle and helper text should comfortably support a live measure of about `60%` of the hero width
-- Tablet and mobile both cap the live hero at about `85%` of the viewport so the next section remains visible underneath
+- Tablet caps the live hero at about `85%` of the viewport, while mobile now caps at about `90%`, so the next section remains visible underneath
 - Mobile keeps the current centered text width behavior, so the creative should still leave a generous lower band for copy
 - Live crop now keeps the full focus position on taller viewports, but once the hero becomes height-constrained it preserves horizontal framing and lets the lower edge of the artwork get cropped first
 

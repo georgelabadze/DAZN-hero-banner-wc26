@@ -56,7 +56,7 @@
 - Mobile: `767px` and below
   - creative target stays `9:16`
   - live hero becomes full-bleed and full-screen, with a small reserved peek for the next section
-  - live height caps at about `85svh` so the next section remains visible
+  - live height caps at about `90svh` so the next section remains visible
   - minimum height uses a bounded `33rem` floor against that cap
   - mobile text widths stay on the existing centered behavior
   - border, radius, shadow, and glow are removed
