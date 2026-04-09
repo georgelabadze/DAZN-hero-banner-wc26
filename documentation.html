@@ -59,12 +59,12 @@
       <section class="doc-section" id="creative">
         <div class="doc-section__heading">
           <p class="doc-section__eyebrow">Creative</p>
-          <h2 class="doc-section__title">Build the asset for the live text zones, crop behavior, and alignment modes.</h2>
+          <h2 class="doc-section__title">Build the asset for the live safe zones, crop behavior, and desktop alignment modes.</h2>
           <p class="doc-section__text">
-            The hero is never shown as a clean empty image. Desktop keeps the inset
-            card treatment, tablet now stays full width while preserving a true
-            `5:7` frame, and mobile still runs full-bleed with the header over the
-            creative, so the artwork needs to reserve those regions from the start.
+            Use the percentages below as the working creative geometry for the live
+            hero. They describe where the key visual can safely live, where copy
+            should be avoided, and which parts of the artwork are most likely to crop
+            first under the current implementation.
           </p>
         </div>
 
@@ -156,6 +156,40 @@
                   <p class="creative-state__caption">Desktop / centered bottom content</p>
                 </article>
               </div>
+
+              <div class="doc-grid doc-grid--two creative-panel__meta">
+                <article class="doc-card creative-spec">
+                  <h3 class="doc-card__title">Desktop / left-aligned</h3>
+                  <ul class="doc-card__list">
+                    <li>Ratio: <code>16:9</code></li>
+                    <li>Crop-risk perimeter: outer <code>4%</code></li>
+                    <li>Top breathing zone: <code>x 7–93%</code>, <code>y 5–16%</code></li>
+                    <li>Key visual safe zone: <code>x 42–92%</code>, <code>y 10–78%</code></li>
+                    <li>Copy-safe zone: <code>x 4–52%</code>, <code>y 50–94%</code></li>
+                    <li>CTA + helper zone: <code>x 8–42%</code>, <code>y 78–91%</code></li>
+                  </ul>
+                  <div class="creative-spec__notes">
+                    <p class="creative-spec__note"><strong>Crop first:</strong> If the desktop window gets short, the hero becomes height-capped and the lower part of the artwork crops first.</p>
+                    <p class="creative-spec__note"><strong>Place the key visual:</strong> Keep the subject in the right or upper-right part of the frame and keep the lower-left band clear for copy.</p>
+                  </div>
+                </article>
+
+                <article class="doc-card creative-spec">
+                  <h3 class="doc-card__title">Desktop / centered</h3>
+                  <ul class="doc-card__list">
+                    <li>Ratio: <code>16:9</code></li>
+                    <li>Crop-risk perimeter: outer <code>4%</code></li>
+                    <li>Top breathing zone: <code>x 7–93%</code>, <code>y 5–16%</code></li>
+                    <li>Key visual safe zone: <code>x 24–76%</code>, <code>y 10–68%</code></li>
+                    <li>Copy-safe zone: <code>x 24–76%</code>, <code>y 54–94%</code></li>
+                    <li>CTA + helper zone: <code>x 32–68%</code>, <code>y 78–91%</code></li>
+                  </ul>
+                  <div class="creative-spec__notes">
+                    <p class="creative-spec__note"><strong>Crop first:</strong> On short desktop heights the card stops growing, so the lower part of the artwork is the first area to disappear.</p>
+                    <p class="creative-spec__note"><strong>Place the key visual:</strong> Keep the subject in the upper-middle of the frame and leave the lower-center area tolerant of copy and CTA overlap.</p>
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
 
@@ -183,6 +217,24 @@
                   <span class="creative-callout creative-callout--cta">CTA + helper zone</span>
                 </div>
                 <p class="creative-state__caption">Tablet / centered content</p>
+              </div>
+
+              <div class="creative-panel__meta">
+                <article class="doc-card creative-spec">
+                  <h3 class="doc-card__title">Tablet</h3>
+                  <ul class="doc-card__list">
+                    <li>Ratio: <code>5:7</code></li>
+                    <li>Crop-risk perimeter: <code>6%</code> left/right/top, <code>12%</code> bottom</li>
+                    <li>Top breathing zone: <code>x 8–92%</code>, <code>y 6–16%</code></li>
+                    <li>Key visual safe zone: <code>x 18–82%</code>, <code>y 12–60%</code></li>
+                    <li>Copy-safe zone: <code>x 8–92%</code>, <code>y 68–92%</code></li>
+                    <li>CTA + helper zone: <code>x 12–88%</code>, <code>y 78–90%</code></li>
+                  </ul>
+                  <div class="creative-spec__notes">
+                    <p class="creative-spec__note"><strong>Crop first:</strong> Tablet stays full width and targets <code>5:7</code>, but when height is constrained the bottom of the artwork crops first.</p>
+                    <p class="creative-spec__note"><strong>Place the key visual:</strong> Keep the strongest focal content in the upper and upper-middle part of the frame and leave the top band calm for the overlaid header.</p>
+                  </div>
+                </article>
               </div>
             </div>
           </div>
@@ -212,74 +264,47 @@
                 </div>
                 <p class="creative-state__caption">Mobile / centered content</p>
               </div>
+
+              <div class="creative-panel__meta">
+                <article class="doc-card creative-spec">
+                  <h3 class="doc-card__title">Mobile</h3>
+                  <ul class="doc-card__list">
+                    <li>Ratio: <code>9:16</code></li>
+                    <li>Crop-risk perimeter: <code>6%</code> left/right, <code>8%</code> top, <code>14%</code> bottom</li>
+                    <li>Top breathing zone: <code>x 8–92%</code>, <code>y 5–15%</code></li>
+                    <li>Key visual safe zone: <code>x 18–82%</code>, <code>y 10–56%</code></li>
+                    <li>Copy-safe zone: <code>x 8–92%</code>, <code>y 64–90%</code></li>
+                    <li>CTA + helper zone: <code>x 12–88%</code>, <code>y 76–88%</code></li>
+                  </ul>
+                  <div class="creative-spec__notes">
+                    <p class="creative-spec__note"><strong>Crop first:</strong> Mobile keeps <code>9:16</code> in normal cases, but on shorter heights the lower part of the artwork is what gets cropped first.</p>
+                    <p class="creative-spec__note"><strong>Place the key visual:</strong> Keep the subject in the upper or upper-middle part of the frame and avoid bright or high-detail elements behind the lower content stack.</p>
+                  </div>
+                </article>
+              </div>
             </div>
           </div>
         </section>
 
-        <div class="doc-card doc-card--wide">
-          <h3 class="doc-card__title">Live layout behavior</h3>
-          <ul class="doc-card__list">
-            <li>Width always follows the parent container.</li>
-            <li>The listed ratio is the target, not a hard lock at every screen height.</li>
-            <li>Desktop remains a `16:9` inset card and still caps against the viewport after the `64px` header.</li>
-            <li>Desktop title reads at roughly `50%` of the hero width, while subtitle and helper text read at roughly `30%`.</li>
-            <li>Tablet and mobile both use the header fixed over the creative from first paint.</li>
-            <li>Tablet targets a true `5:7` full-width creative frame and uses an `80%` title width with `60%` subtitle and helper widths.</li>
-            <li>Mobile targets `9:16` creative and keeps the current centered text widths.</li>
-            <li>Tablet and mobile drop the card border, radius, and glow chrome so the small-screen experience stays clean and immersive.</li>
-            <li>Tablet and mobile also use a stronger top scrim so the overlaid header stays readable against the art.</li>
-            <li>Tablet caps the live hero at about `85%` of the viewport, while mobile caps at about `90%` in normal cases, but both now keep stronger minimum heights in short or rotated viewports.</li>
-            <li>When tablet or mobile gets short, the hero stops shrinking past its floor and extra page scroll is expected instead.</li>
-            <li>Live media keeps the full focus position on taller viewports, but when the hero becomes height-constrained it preserves only horizontal framing from data and crops from the bottom.</li>
-          </ul>
-        </div>
+        <div class="doc-grid doc-grid--two creative-runtime-grid">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Runtime crop behavior</h3>
+            <ul class="doc-card__list">
+              <li>All hero media uses <code>object-fit: cover</code>.</li>
+              <li>On taller viewports the authored focus position is used as-is.</li>
+              <li>When the hero becomes height-constrained, horizontal focus is preserved but vertical crop becomes top-anchored.</li>
+              <li>In practice, the lower part of the artwork is what gets cropped first.</li>
+            </ul>
+          </article>
 
-        <div class="doc-examples">
-          <article class="doc-example doc-example--do">
-            <p class="doc-example__badge">Do</p>
-            <h3 class="doc-example__title">Keep the top breathing zone visually calm</h3>
-            <p class="doc-example__text">
-              Leave space under the header for cleaner separation. Soft background,
-              negative space, or low-contrast detail works best here.
-            </p>
-          </article>
-          <article class="doc-example doc-example--dont">
-            <p class="doc-example__badge">Don't</p>
-            <h3 class="doc-example__title">Place faces, logos, or hard contrast directly under the header</h3>
-            <p class="doc-example__text">
-              If the top edge is too busy, the hero feels cramped and the artwork
-              competes with the page chrome before the main message even starts.
-            </p>
-          </article>
-          <article class="doc-example doc-example--do">
-            <p class="doc-example__badge">Do</p>
-            <h3 class="doc-example__title">Place the main subject higher than the live content stack</h3>
-            <p class="doc-example__text">
-              Faces, trophies, logos, and key action should sit above the protected
-              text zone so the hero can hold title, subtitle, and CTA cleanly.
-            </p>
-          </article>
-          <article class="doc-example doc-example--dont">
-            <p class="doc-example__badge">Don't</p>
-            <h3 class="doc-example__title">Fill the lower content-safe area with bright or dense detail</h3>
-            <p class="doc-example__text">
-              The scrim helps, but it should not be the only thing saving readability.
-            </p>
-          </article>
-          <article class="doc-example doc-example--do">
-            <p class="doc-example__badge">Do</p>
-            <h3 class="doc-example__title">Deliver matching stills and posters for every motion asset</h3>
-            <p class="doc-example__text">
-              The poster is part of the experience, not a fallback afterthought.
-            </p>
-          </article>
-          <article class="doc-example doc-example--dont">
-            <p class="doc-example__badge">Don't</p>
-            <h3 class="doc-example__title">Add the top logo when the artwork is already busy</h3>
-            <p class="doc-example__text">
-              If the creative already carries marks, badges, or fine detail, keep the
-              live stack lighter.
-            </p>
+          <article class="doc-card">
+            <h3 class="doc-card__title">What This Means for Art Direction</h3>
+            <ul class="doc-card__list">
+              <li>Keep critical subject matter in the upper or upper-middle part of the frame.</li>
+              <li>Keep lower bands more tolerant of copy overlap and bottom-first cropping.</li>
+              <li>Desktop remains an inset card, while tablet and mobile carry the header over the creative from first paint.</li>
+              <li>Tablet and mobile may require extra scroll on short or rotated screens rather than shrinking the hero too much.</li>
+            </ul>
           </article>
         </div>
       </section>

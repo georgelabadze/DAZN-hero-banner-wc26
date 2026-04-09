@@ -17,53 +17,83 @@
 - Mobile creative is used at `767px` and below
 - Live motion assets should provide matching poster frames for each breakpoint
 
-## Layout Intent
-- Desktop remains an inset cinematic card inside the shell gutters
-- Desktop content sits as a bottom overlay and still caps against the viewport after the `64px` header
-- Desktop title should comfortably support a live measure of about `50%` of the hero width
-- Desktop subtitle and helper text should comfortably support a live measure of about `30%` of the hero width
-- Tablet now stays full width while preserving a true `5:7` frame, while mobile remains a full-bleed, full-screen hero section
-- Tablet and mobile no longer use card border, radius, or glow chrome
-- On tablet and mobile the header sits over the creative from first paint, so the top of the artwork needs a calm protected band
-- Tablet title should comfortably support a live measure of about `80%` of the hero width
-- Tablet subtitle and helper text should comfortably support a live measure of about `60%` of the hero width
-- Tablet caps the live hero at about `85%` of the viewport, while mobile caps at about `90%` in normal cases
-- Tablet and mobile now keep stronger minimum heights on short or rotated viewports, even if that pushes more content below the fold
-- Mobile keeps the current centered text width behavior, so the creative should still leave a generous lower band for copy
-- Live crop now keeps the full focus position on taller viewports, but once the hero becomes height-constrained it preserves horizontal framing and lets the lower edge of the artwork get cropped first
+## Runtime Crop Behavior
+- All hero media uses `object-fit: cover`
+- On taller viewports the authored focus position is used as-is
+- When the hero becomes height-constrained, horizontal focus is preserved and vertical crop becomes top-anchored
+- In practice, the lower part of the artwork is what gets cropped first
+- Keep critical subject matter in the upper or upper-middle part of the frame
 
-## Safe-Zone Direction
-- Desktop:
-  - Keep the main subject on the right side or high enough that the lower content zone stays clear
-  - Preserve the top breathing zone under the header
-  - Allow the lower content-safe band to hold title, subtitle, CTA row, and optional helper text
-- Tablet:
-  - Build for a vertical `5:7` composition
+## Desktop / Left-Aligned
+- Ratio: `16:9`
+- Crop-risk perimeter: outer `4%`
+- Top breathing zone: `x 7–93%`, `y 5–16%`
+- Key visual safe zone: `x 42–92%`, `y 10–78%`
+- Copy-safe zone: `x 4–52%`, `y 50–94%`
+- CTA + helper zone: `x 8–42%`, `y 78–91%`
+- Layout notes:
+  - Desktop remains an inset card
+  - Desktop title reads at about `50%` width
+  - Desktop subtitle and helper read at about `30%` width
+  - On shorter desktop heights, the lower part of the artwork can crop first
+- Art direction:
+  - Keep the subject in the right or upper-right part of the frame
+  - Keep the lower-left band tolerant of live copy and CTA overlap
+
+## Desktop / Centered
+- Ratio: `16:9`
+- Crop-risk perimeter: outer `4%`
+- Top breathing zone: `x 7–93%`, `y 5–16%`
+- Key visual safe zone: `x 24–76%`, `y 10–68%`
+- Copy-safe zone: `x 24–76%`, `y 54–94%`
+- CTA + helper zone: `x 32–68%`, `y 78–91%`
+- Layout notes:
+  - Desktop remains an inset card
+  - Desktop title reads at about `50%` width
+  - Desktop subtitle and helper read at about `30%` width
+  - On shorter desktop heights, the lower part of the artwork can crop first
+- Art direction:
+  - Keep the subject in the upper-middle of the frame
+  - Leave the lower-center area tolerant of copy and CTA overlap
+
+## Tablet
+- Ratio: `5:7`
+- Crop-risk perimeter: `6%` left/right/top, `12%` bottom
+- Top breathing zone: `x 8–92%`, `y 6–16%`
+- Key visual safe zone: `x 18–82%`, `y 12–60%`
+- Copy-safe zone: `x 8–92%`, `y 68–92%`
+- CTA + helper zone: `x 12–88%`, `y 78–90%`
+- Layout notes:
+  - Tablet stays full width and targets a true `5:7` frame
+  - Tablet title reads at about `80%` width
+  - Tablet subtitle and helper read at about `60%` width
+  - Tablet prefers about `85%` of screen height in normal cases
+  - On short or rotated screens, extra page scroll is expected instead of shrinking the hero too much
+- Art direction:
   - Keep the strongest focal content in the upper and upper-middle part of the frame
-  - Leave the top portion calm enough for the overlaid header and top scrim
-  - Protect the lower centered content band for title, subtitle, CTA, and optional helper text
-- Mobile:
-  - Build for a vertical `9:16` composition
-  - Keep the focal subject in the upper and upper-middle part of the frame
-  - Avoid bright or high-detail elements directly behind the lower CTA and helper area
-  - Leave enough tolerance that the live hero can still hold up when shorter screens force more page scroll
+  - Keep the top band calm enough for the overlaid header
 
-## Motion and Posters
-- Provide a matching poster for every motion asset
-- Posters should read as finished key art because they are visible during load and fallback
-- Motion should avoid rapid high-contrast changes directly behind the live copy stack
-- On tablet and mobile, keep the top area especially stable because the header overlays the creative there
-
-## Runtime Chrome
-- Desktop still carries the sampled runtime glow and overlay border treatment
-- Tablet and mobile intentionally do not
-- Artwork should stay clean and cinematic so the desktop runtime chrome can add atmosphere without being duplicated in the asset itself
+## Mobile
+- Ratio: `9:16`
+- Crop-risk perimeter: `6%` left/right, `8%` top, `14%` bottom
+- Top breathing zone: `x 8–92%`, `y 5–15%`
+- Key visual safe zone: `x 18–82%`, `y 10–56%`
+- Copy-safe zone: `x 8–92%`, `y 64–90%`
+- CTA + helper zone: `x 12–88%`, `y 76–88%`
+- Layout notes:
+  - Mobile is full-bleed and full-screen in normal cases
+  - Mobile keeps the current centered text widths
+  - Mobile prefers about `90%` of screen height in normal cases
+  - On short or rotated screens, extra page scroll is expected instead of shrinking the hero too much
+- Art direction:
+  - Keep the subject in the upper or upper-middle part of the frame
+  - Avoid bright or high-detail elements behind the lower content stack
 
 ## Review Pass
 1. Check desktop at `1728`, `1440`, and `1280`
 2. Check tablet at `1024`, `900`, and `768`
 3. Check mobile at `430`, `390`, and `375`
-4. Confirm the desktop text still reads cleanly inside the narrower title and subtitle measures
-5. Confirm tablet keeps its full-width `5:7` shape cleanly and that tablet/mobile still leave the next section visibly underneath
-6. Confirm the top of the artwork stays calm enough for the overlaid small-screen header
-7. If using motion, confirm the poster frame and the moving sequence both hold up under the live copy
+4. Confirm the key visual stays inside the stated safe zone for each breakpoint
+5. Confirm lower bands still tolerate live title, subtitle, CTA, and optional helper text
+6. Confirm the top of the artwork stays calm enough for the header treatment
+7. If using motion, confirm both the poster frame and the moving sequence hold up under the live crop behavior
