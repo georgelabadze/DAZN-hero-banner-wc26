@@ -388,7 +388,7 @@ export function buildHeroDeckForDisplay(settings) {
     return heroBannerDeck;
   }
 
-  return buildSingleSlideDeck(heroBannerDeck.slides[0] ?? fallbackSlide, settings);
+  return buildSingleSlideDeck(fallbackSlide, settings);
 }
 
 export const heroDefaultSettings = {

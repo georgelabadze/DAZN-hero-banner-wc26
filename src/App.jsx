@@ -29,7 +29,7 @@ export default function App() {
     [heroSettings],
   );
 
-  const settingsItems = [
+  const allSettingsItems = [
     {
       id: "header-mode",
       title: "Header",
@@ -132,7 +132,7 @@ export default function App() {
     },
   ];
 
-  const footerItems = [
+  const allFooterItems = [
     {
       id: "hero-carousel",
       title: "Carousel",
@@ -151,6 +151,14 @@ export default function App() {
         toggleBooleanSetting(setHeroSettings, "showCreativeBlueprint"),
     },
   ];
+
+  const settingsItems = heroSettings.showCarousel
+    ? allSettingsItems.filter((item) => item.id === "header-mode")
+    : allSettingsItems;
+
+  const footerItems = heroSettings.showCarousel
+    ? allFooterItems.filter((item) => item.id === "hero-carousel")
+    : allFooterItems;
 
   return (
     <div className="app-shell">
