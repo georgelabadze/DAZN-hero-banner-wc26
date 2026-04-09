@@ -1,4 +1,6 @@
 .site-header-shell {
+  --site-header-surface-alpha: 0;
+  --site-header-blur: 0px;
   position: relative;
   z-index: 30;
 }
@@ -14,7 +16,9 @@
 .site-header-shell__bar {
   inline-size: 100%;
   opacity: 1;
-  transition: all 0.5s ease;
+  background-color: rgba(8, 14, 18, var(--site-header-surface-alpha));
+  -webkit-backdrop-filter: blur(var(--site-header-blur));
+  backdrop-filter: blur(var(--site-header-blur));
 }
 
 .site-header-shell--overlay .site-header-shell__bar,
@@ -23,16 +27,6 @@
   inset-block-start: 0;
   inset-inline: 0;
   z-index: 40;
-}
-
-.site-header-shell--overlay .site-header-shell__bar {
-  background-color: transparent;
-}
-
-.site-header-shell--scrolled .site-header-shell__bar {
-  background-color: rgba(8, 14, 18, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .site-header-shell__inner {

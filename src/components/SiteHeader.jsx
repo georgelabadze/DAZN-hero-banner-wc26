@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const DESKTOP_HEADER_BREAKPOINT = 1025;
+const HEADER_SCROLL_RAMP = 48;
 
 function getIsDesktopViewport() {
   return typeof window === "undefined"
@@ -10,6 +11,14 @@ function getIsDesktopViewport() {
 
 function getIsPageScrolled() {
   return typeof window === "undefined" ? false : window.scrollY > 0;
+}
+
+function getScrollProgress() {
+  if (typeof window === "undefined") {
+    return 0;
+  }
+
+  return Math.min(Math.max(window.scrollY / HEADER_SCROLL_RAMP, 0), 1);
 }
 
 function padCountdownValue(value) {
@@ -49,41 +58,56 @@ function useCountdown(target) {
 }
 
 function useHeaderShellState() {
-  const [isDesktopViewport, setIsDesktopViewport] = useState(() =>
-    getIsDesktopViewport(),
-  );
-  const [isScrolled, setIsScrolled] = useState(() => getIsPageScrolled());
+  const [headerShellState, setHeaderShellState] = useState(() => ({
+    isDesktopViewport: getIsDesktopViewport(),
+    isScrolled: getIsPageScrolled(),
+    scrollProgress: getScrollProgress(),
+  }));
 
   useEffect(() => {
-    const handleResize = () => {
-      const nextViewportState = getIsDesktopViewport();
-      setIsDesktopViewport((current) =>
-        current === nextViewportState ? current : nextViewportState,
+    let frameId = 0;
+
+    const syncHeaderShellState = () => {
+      frameId = 0;
+
+      const nextState = {
+        isDesktopViewport: getIsDesktopViewport(),
+        isScrolled: getIsPageScrolled(),
+        scrollProgress: getScrollProgress(),
+      };
+
+      setHeaderShellState((current) =>
+        current.isDesktopViewport === nextState.isDesktopViewport &&
+        current.isScrolled === nextState.isScrolled &&
+        current.scrollProgress === nextState.scrollProgress
+          ? current
+          : nextState,
       );
     };
 
-    const handleScroll = () => {
-      const nextScrollState = getIsPageScrolled();
-      setIsScrolled((current) =>
-        current === nextScrollState ? current : nextScrollState,
-      );
+    const requestSync = () => {
+      if (frameId !== 0) {
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(syncHeaderShellState);
     };
 
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleResize();
-    handleScroll();
+    window.addEventListener("resize", requestSync);
+    window.addEventListener("scroll", requestSync, { passive: true });
+    syncHeaderShellState();
 
     return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", requestSync);
+      window.removeEventListener("scroll", requestSync);
+
+      if (frameId !== 0) {
+        window.cancelAnimationFrame(frameId);
+      }
     };
   }, []);
 
-  return {
-    isDesktopViewport,
-    isScrolled,
-  };
+  return headerShellState;
 }
 
 function SiteHeaderAction({ action }) {
@@ -198,17 +222,20 @@ export default function SiteHeader({
   logoSrc,
   variant = "default",
 }) {
-  const { isDesktopViewport, isScrolled } = useHeaderShellState();
+  const { isDesktopViewport, isScrolled, scrollProgress } = useHeaderShellState();
   const shellClassName = [
     "site-header-shell",
     isDesktopViewport
       ? "site-header-shell--desktop"
       : "site-header-shell--overlay",
     !isDesktopViewport || isScrolled ? "site-header-shell--fixed" : "",
-    isScrolled ? "site-header-shell--scrolled" : "",
   ]
     .filter(Boolean)
     .join(" ");
+  const shellStyle = {
+    "--site-header-surface-alpha": (scrollProgress * 0.85).toFixed(3),
+    "--site-header-blur": `${(scrollProgress * 10).toFixed(2)}px`,
+  };
 
   let headerContent;
 
@@ -226,7 +253,7 @@ export default function SiteHeader({
   }
 
   return (
-    <div className={shellClassName}>
+    <div className={shellClassName} style={shellStyle}>
       <div className="site-header-shell__bar">
         <div className="site-header-shell__inner">{headerContent}</div>
       </div>

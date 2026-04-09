@@ -69,10 +69,11 @@
   - header stays in normal flow on first paint
   - once the page scrolls, the header becomes fixed
   - the fixed bar spans the viewport while the inner content stays aligned to the existing shell width and gutters
+  - the dark surface treatment ramps in progressively over the first `48px` of scroll
 - Tablet and mobile:
   - header is fixed from first paint and overlays the hero
   - the initial state is transparent over the creative
-  - on scroll, the header gains `rgba(8, 14, 18, 0.85)` background plus `blur(10px)`
+  - while scrolling, the header progressively builds to `rgba(8, 14, 18, 0.85)` plus `blur(10px)` over the first `48px`
 
 ## Hero Rules
 - Desktop content measure remains `50%` of the hero width
