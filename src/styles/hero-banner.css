@@ -7,9 +7,9 @@
 
 .hero-banner-demo--tablet,
 .hero-banner-demo--mobile {
-  inline-size: 100vw;
-  max-inline-size: 100vw;
-  margin-inline: calc(50% - 50vw);
+  inline-size: calc(100% + (var(--shell-gutter) * 2));
+  max-inline-size: none;
+  margin-inline: calc(var(--shell-gutter) * -1);
 }
 
 .hero-banner-demo__frame {

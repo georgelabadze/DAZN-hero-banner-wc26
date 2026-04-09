@@ -35,7 +35,7 @@
 - `media: { desktop: MediaItem; tablet: MediaItem; mobile: MediaItem }`
 - `MediaItem = { kind: "image" | "video"; src: string; poster?: string; alt?: string }`
 - `layout?: { contentAlignment?: "left" | "center"; theme?: "gold" | "standard"; titleSize?: "large" | "larger" }`
-- `focus` now acts as horizontal framing control; vertical crop is top-anchored in the live hero
+- `focus` is used as the full media position on unconstrained layouts; when the hero becomes height-constrained, only the horizontal framing is preserved and vertical crop is top-anchored
 
 ## Breakpoints and Layout Rules
 - Desktop: `1025px` and above
@@ -77,7 +77,7 @@
 - Desktop content can be left aligned or centered
 - Tablet and mobile content stay centered
 - Tablet and mobile use a stronger top scrim to protect the overlaid header from the creative underneath
-- Live media keeps horizontal focus from slide data, while vertical crop is anchored to the top so shorter viewports lose content from the bottom first
+- Live media keeps the authored focus position on unconstrained layouts; when the hero height is capped, vertical crop switches to top-anchored while horizontal focus is preserved
 - Gold theme:
   - applies gold gradient to the title accent
   - applies the same gradient to the primary CTA

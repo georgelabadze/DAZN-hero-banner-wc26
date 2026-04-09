@@ -6,6 +6,11 @@ const DESKTOP_BREAKPOINT = 1025;
 const TABLET_BREAKPOINT = 768;
 const DEFAULT_AUTOPLAY_MS = 10000;
 const DEFAULT_TRANSITION_MS = 300;
+const HERO_TARGET_HEIGHT_RATIO = {
+  desktop: 9 / 16,
+  tablet: 7 / 5,
+  mobile: 16 / 9,
+};
 
 function getViewportMode(width) {
   if (width >= DESKTOP_BREAKPOINT) {
@@ -57,9 +62,13 @@ function getHorizontalFocus(position) {
   return firstToken;
 }
 
-function buildMediaStyle(position) {
+function buildMediaStyle(position, isHeightConstrained) {
+  const normalized = typeof position === "string" ? position.trim() : "";
+
   return {
-    objectPosition: `${getHorizontalFocus(position)} top`,
+    objectPosition: isHeightConstrained
+      ? `${getHorizontalFocus(normalized)} top`
+      : normalized || "center center",
   };
 }
 
@@ -131,6 +140,7 @@ function getSlideClassName(viewportMode, slide, phase) {
 }
 
 function HeroBannerSlide({
+  isHeightConstrained,
   mediaRefCallback,
   phase,
   slide,
@@ -142,7 +152,10 @@ function HeroBannerSlide({
     viewportMode === "desktop"
       ? "hero-banner__content hero-banner__content--desktop"
       : "hero-banner__content hero-banner__content--compact";
-  const mediaStyle = buildMediaStyle(slide?.focus?.[viewportMode]);
+  const mediaStyle = buildMediaStyle(
+    slide?.focus?.[viewportMode],
+    isHeightConstrained,
+  );
   const slideClassName = getSlideClassName(viewportMode, slide, phase);
   const shouldBindMediaRef = phase !== "exit";
 
@@ -249,6 +262,7 @@ export default function HeroBanner({ deck }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [cycleKey, setCycleKey] = useState(0);
+  const [isHeightConstrained, setIsHeightConstrained] = useState(false);
   const totalSlides = slides.length;
   const hasCarousel =
     deck?.mode === "carousel" && totalSlides > 1;
@@ -282,6 +296,39 @@ export default function HeroBanner({ deck }) {
       mediaRef.current = null;
     }
   }, [currentMedia]);
+
+  useEffect(() => {
+    const cardElement = cardRef.current;
+
+    if (!cardElement || typeof ResizeObserver === "undefined") {
+      return undefined;
+    }
+
+    const measureConstraint = () => {
+      const targetRatio =
+        HERO_TARGET_HEIGHT_RATIO[viewportMode] ?? HERO_TARGET_HEIGHT_RATIO.desktop;
+      const width = cardElement.clientWidth;
+      const height = cardElement.clientHeight;
+      const targetHeight = width * targetRatio;
+      const nextState = height < targetHeight - 1;
+
+      setIsHeightConstrained((current) =>
+        current === nextState ? current : nextState,
+      );
+    };
+
+    measureConstraint();
+
+    const observer = new ResizeObserver(() => {
+      measureConstraint();
+    });
+
+    observer.observe(cardElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [viewportMode, currentSlide, totalSlides]);
 
   useEffect(() => {
     if (currentMedia?.kind !== "video") {
@@ -397,6 +444,7 @@ export default function HeroBanner({ deck }) {
         >
           {exitingSlide ? (
             <HeroBannerSlide
+              isHeightConstrained={isHeightConstrained}
               key={`${exitingSlide.id}-exit-${cycleKey}`}
               mediaRefCallback={setActiveMediaRef}
               phase="exit"
@@ -406,6 +454,7 @@ export default function HeroBanner({ deck }) {
           ) : null}
 
           <HeroBannerSlide
+            isHeightConstrained={isHeightConstrained}
             key={
               exitingSlide
                 ? `${currentSlide.id}-enter-${cycleKey}`
