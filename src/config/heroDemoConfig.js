@@ -1,6 +1,10 @@
 import heroBannerData from "../data/hero-banner-data.json";
 
-export const CREATIVE_GUIDELINES_URL = "/documentation.html";
+export const HERO_RESOURCE_LINKS = [
+  { label: "Creative guidelines", href: "/creative.html" },
+  { label: "Product guidelines", href: "/product.html" },
+  { label: "Development guidelines", href: "/development.html" },
+];
 export const HERO_GITHUB_URL =
   "https://github.com/georgelabadze/DAZN-hero-banner-wc26.git";
 export const SITE_HEADER_LOGO_URL = "https://static.dazndn.com/logos/dazn.svg";

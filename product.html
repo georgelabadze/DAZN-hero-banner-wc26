@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Guidelines • DAZN Hero Banner WC26</title>
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="documentation.css" />
+  </head>
+  <body class="doc-body">
+    <main class="doc-shell">
+      <section class="doc-overview">
+        <div class="doc-overview__copy">
+          <p class="doc-overview__eyebrow">DAZN Hero Banner WC26</p>
+          <h1 class="doc-overview__title">Product guidelines for deciding which hero modules belong in the story.</h1>
+          <p class="doc-overview__text">
+            This page is the high-level product handoff for the live hero content
+            stack. Use it to decide which modules should be active, how much copy the
+            banner can hold, and how to keep the hero focused on one clear message.
+          </p>
+        </div>
+
+        <div class="doc-overview__stats">
+          <article class="doc-stat">
+            <p class="doc-stat__label">Approved modules</p>
+            <p class="doc-stat__value">6 core content blocks</p>
+          </article>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Headline fit</p>
+            <p class="doc-stat__value">32 / 48 character guidance</p>
+          </article>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Decision lens</p>
+            <p class="doc-stat__value">One clear story at a time</p>
+          </article>
+        </div>
+      </section>
+
+      <nav class="doc-nav" aria-label="Guideline pages">
+        <a class="doc-nav__link" href="creative.html">Creative</a>
+        <a class="doc-nav__link" href="product.html" aria-current="page">Product</a>
+        <a class="doc-nav__link" href="development.html">Development</a>
+      </nav>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Product</p>
+          <h2 class="doc-section__title">Use the modules deliberately so the hero tells one clear story at a time.</h2>
+          <p class="doc-section__text">
+            The live demo exposes multiple switches, but product decisions should not
+            be made switch by switch. Choose only the modules that materially improve
+            clarity, hierarchy, or confidence for the user.
+          </p>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title">What good hero composition looks like</h3>
+            <ul class="doc-card__list">
+              <li>Keep one dominant message in the title and use the rest of the stack to support it.</li>
+              <li>Every added module should either improve clarity or add essential context.</li>
+              <li>If a module repeats information already visible elsewhere, it should usually be removed.</li>
+              <li>Shorter stacks travel better across desktop, tablet, and mobile.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">What to avoid</h3>
+            <ul class="doc-card__list">
+              <li>Using every available module just because the space exists.</li>
+              <li>Turning the subtitle into body copy or legal copy.</li>
+              <li>Adding badges, logos, and helper text when the creative is already busy.</li>
+              <li>Letting lower-priority details compete with the title or CTA.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section" id="product-modules">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Modules</p>
+          <h2 class="doc-section__title">Use each module for a specific job.</h2>
+          <p class="doc-section__text">
+            These are the approved hero content modules for the current product
+            implementation. Treat them as purposeful building blocks, not optional
+            decoration.
+          </p>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="product-card">
+            <h3 class="product-card__title">Copy limits</h3>
+            <ul class="doc-card__list">
+              <li>Larger title: up to about <code>32</code> characters including spaces.</li>
+              <li>Large title: up to about <code>48</code> characters including spaces.</li>
+              <li>Subtitle: about <code>70</code> characters, assuming the creative tolerates up to 3 lines on desktop.</li>
+              <li>Label: about <code>24</code> characters.</li>
+              <li>Helper text: about <code>72</code> characters.</li>
+            </ul>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Title</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>The hero needs one clear message that can carry the full value of the promotion on its own.</dd></div>
+              <div><dt>Avoid when</dt><dd>The headline becomes too long, wraps awkwardly, or needs the subtitle to explain what it really means.</dd></div>
+              <div><dt>Impact</dt><dd>The title sets the hierarchy for the whole stack and determines how much room remains for every other module below it.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Subtitle</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>You need one supporting layer of context that helps the title land without turning the hero into a text block.</dd></div>
+              <div><dt>Avoid when</dt><dd>The subtitle repeats the headline, starts reading like paragraph copy, or pushes the content stack too deep for the creative.</dd></div>
+              <div><dt>Impact</dt><dd>It explains the headline, but it is also the easiest module to overuse. Short, specific copy keeps the banner cleaner across all breakpoints.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Logo</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>The property or event brand adds recognition and helps the hero scan faster.</dd></div>
+              <div><dt>Avoid when</dt><dd>The artwork already contains logos, badges, or detailed marks, or when the brand signal does not add useful meaning.</dd></div>
+              <div><dt>Impact</dt><dd>It adds instant brand context above the label, but it also increases visual density in the most crowded part of the content stack.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Label</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>You need a short event date, season range, promo note, or offer cue that improves scanning before the title.</dd></div>
+              <div><dt>Avoid when</dt><dd>The title already carries the same information or the message is too long to stay lightweight.</dd></div>
+              <div><dt>Impact</dt><dd>It introduces context without changing the main hierarchy, as long as it stays short and genuinely useful.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Helper text</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>Extra conditions, rights notes, or legal clarifications are required but should stay visually secondary to the CTA.</dd></div>
+              <div><dt>Avoid when</dt><dd>The text is non-essential, marketing-led, or only adds visual weight without reducing user uncertainty.</dd></div>
+              <div><dt>Impact</dt><dd>It extends the vertical footprint of the bottom content stack, so it should only be used when the extra context is genuinely necessary.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <a class="doc-footer__link" href="index.html">Open live demo</a>
+        <a
+          class="doc-footer__link doc-footer__link--github"
+          href="https://github.com/georgelabadze/DAZN-hero-banner-wc26.git"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <svg
+            aria-hidden="true"
+            class="doc-footer__icon"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.66 7.66 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+          <span>DAZN Hero Banner WC26</span>
+        </a>
+      </footer>
+    </main>
+  </body>
+</html>

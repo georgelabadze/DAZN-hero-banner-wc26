@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DAZN Hero Guidelines WC26</title>
+    <title>Creative Guidelines • DAZN Hero Banner WC26</title>
     <link
       rel="preload"
       href="fonts/DAZNOscine-Regular.ttf"
@@ -22,38 +22,37 @@
   </head>
   <body class="doc-body">
     <main class="doc-shell">
-      <section class="doc-overview" id="overview">
+      <section class="doc-overview">
         <div class="doc-overview__copy">
           <p class="doc-overview__eyebrow">DAZN Hero Banner WC26</p>
-          <h1 class="doc-overview__title">A compact guide for the creative asset and the product modules that sit on top of it.</h1>
+          <h1 class="doc-overview__title">Creative guidelines for building safe, crop-tolerant hero assets.</h1>
           <p class="doc-overview__text">
-            This page is the handoff for the hero banner system. It focuses on the
-            two things that matter most for rollout: how the creative should be built
-            for the live layout, and how product should decide which hero modules to
-            switch on.
+            Use this page as the creative handoff for the live hero. It defines the
+            real safe zones, crop-risk bands, and content-protected areas the artwork
+            needs to support across desktop, tablet, and mobile.
           </p>
         </div>
 
         <div class="doc-overview__stats">
           <article class="doc-stat">
-            <p class="doc-stat__label">Creative ratios</p>
+            <p class="doc-stat__label">Master ratios</p>
             <p class="doc-stat__value">16:9 / 5:7 / 9:16</p>
           </article>
           <article class="doc-stat">
-            <p class="doc-stat__label">Outer gutters</p>
-            <p class="doc-stat__value">64 / 32 / 16 safe insets</p>
+            <p class="doc-stat__label">Crop model</p>
+            <p class="doc-stat__value">Bottom-first when height is constrained</p>
           </article>
           <article class="doc-stat">
-            <p class="doc-stat__label">Header treatment</p>
-            <p class="doc-stat__value">Inset desktop / overlay small screens</p>
+            <p class="doc-stat__label">Header overlap</p>
+            <p class="doc-stat__value">Inset on desktop / overlay on small screens</p>
           </article>
         </div>
       </section>
 
-      <nav class="doc-nav" aria-label="Guideline sections">
-        <a class="doc-nav__link" href="#overview">Overview</a>
-        <a class="doc-nav__link" href="#creative">Creative</a>
-        <a class="doc-nav__link" href="#product">Product</a>
+      <nav class="doc-nav" aria-label="Guideline pages">
+        <a class="doc-nav__link" href="creative.html" aria-current="page">Creative</a>
+        <a class="doc-nav__link" href="product.html">Product</a>
+        <a class="doc-nav__link" href="development.html">Development</a>
       </nav>
 
       <section class="doc-section" id="creative">
@@ -61,9 +60,9 @@
           <p class="doc-section__eyebrow">Creative</p>
           <h2 class="doc-section__title">Build the asset for the live safe zones, crop behavior, and desktop alignment modes.</h2>
           <p class="doc-section__text">
-            Use the percentages below as the working creative geometry for the live
-            hero. They describe where the key visual can safely live, where copy
-            should be avoided, and which parts of the artwork are most likely to crop
+            Use the percentages below as the working geometry for the live hero.
+            They define where the key visual can safely live, where live product
+            content will sit, and which parts of the artwork are most likely to crop
             first under the current implementation.
           </p>
         </div>
@@ -306,79 +305,6 @@
               <li>Tablet and mobile may require extra scroll on short or rotated screens rather than shrinking the hero too much.</li>
             </ul>
           </article>
-        </div>
-      </section>
-
-      <section class="doc-section" id="product">
-        <div class="doc-section__heading">
-          <p class="doc-section__eyebrow">Product</p>
-          <h2 class="doc-section__title">Use the modules deliberately so the hero tells one clear story at a time.</h2>
-          <p class="doc-section__text">
-            The live demo exposes multiple switches, but in product usage each one
-            should answer a specific communication need rather than simply adding more
-            surface area to the banner.
-          </p>
-        </div>
-
-        <div class="doc-grid doc-grid--two">
-          <article class="product-card">
-            <h3 class="product-card__title">Copy limits</h3>
-            <ul class="doc-card__list">
-              <li>Larger title: up to about `32` characters including spaces.</li>
-              <li>Large title: up to about `48` characters including spaces.</li>
-              <li>Subtitle: about `70` characters, assuming the creative tolerates up to 3 lines on desktop.</li>
-              <li>Label: about `24` characters.</li>
-              <li>Helper text: about `72` characters.</li>
-            </ul>
-          </article>
-          <article class="product-card">
-            <h3 class="product-card__title">Title</h3>
-            <dl class="product-card__facts">
-              <div><dt>Use when</dt><dd>Keep the title as the main message of the hero and use the larger size only for short, punchy headlines.</dd></div>
-              <div><dt>Avoid when</dt><dd>The title becomes too long, wraps awkwardly, or starts fighting the artwork for attention.</dd></div>
-              <div><dt>Impact</dt><dd>The title defines the hierarchy of the entire content stack and directly affects how much room is left for the subtitle below it.</dd></div>
-            </dl>
-          </article>
-
-          <article class="product-card">
-            <h3 class="product-card__title">Subtitle</h3>
-            <dl class="product-card__facts">
-              <div><dt>Use when</dt><dd>Add one supporting layer of context that helps the title land without overloading it.</dd></div>
-              <div><dt>Avoid when</dt><dd>The subtitle repeats the title, becomes body copy, or pushes the stack too deep for the creative.</dd></div>
-              <div><dt>Impact</dt><dd>The safe area supports up to 3 lines on desktop, but shorter copy keeps the banner cleaner across all breakpoints.</dd></div>
-            </dl>
-          </article>
-
-          <article class="product-card">
-            <h3 class="product-card__title">Logo</h3>
-            <dl class="product-card__facts">
-              <div><dt>Purpose</dt><dd>Add event or property branding above the label.</dd></div>
-              <div><dt>Use when</dt><dd>The logo adds recognition without crowding the art.</dd></div>
-              <div><dt>Avoid when</dt><dd>The artwork already contains logos, badges, or small detailed marks.</dd></div>
-              <div><dt>Impact</dt><dd>Adds brand signal but increases visual density in the stack.</dd></div>
-            </dl>
-          </article>
-
-          <article class="product-card">
-            <h3 class="product-card__title">Label</h3>
-            <dl class="product-card__facts">
-              <div><dt>Purpose</dt><dd>Surface the event date range, promo note, or discount message.</dd></div>
-              <div><dt>Use when</dt><dd>A short timestamp or offer cue improves scanning.</dd></div>
-              <div><dt>Avoid when</dt><dd>The title already carries the same information.</dd></div>
-              <div><dt>Impact</dt><dd>Adds a small pre-title module without changing the full hierarchy.</dd></div>
-            </dl>
-          </article>
-
-          <article class="product-card">
-            <h3 class="product-card__title">Helper text</h3>
-            <dl class="product-card__facts">
-              <div><dt>Purpose</dt><dd>Handle conditions, rights notes, or legal clarification.</dd></div>
-              <div><dt>Use when</dt><dd>Extra context is required but should stay secondary.</dd></div>
-              <div><dt>Avoid when</dt><dd>The text is non-essential and only adds visual weight.</dd></div>
-              <div><dt>Impact</dt><dd>Extends the vertical footprint of the bottom content stack.</dd></div>
-            </dl>
-          </article>
-
         </div>
       </section>
 

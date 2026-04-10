@@ -11,16 +11,19 @@ function GithubIcon() {
   );
 }
 
-export default function HeroFooterLinks({ creativeGuidelinesUrl, githubUrl }) {
+export default function HeroFooterLinks({ resourceLinks, githubUrl }) {
   return (
     <section className="hero-footer-links" aria-label="Project resources">
       <div className="hero-footer-links__list">
-        <a
-          className="hero-footer-links__link"
-          href={creativeGuidelinesUrl}
-        >
-          Further creative guidelines
-        </a>
+        {resourceLinks.map((link) => (
+          <a
+            key={link.href}
+            className="hero-footer-links__link"
+            href={link.href}
+          >
+            {link.label}
+          </a>
+        ))}
 
         <a
           className="hero-footer-links__link hero-footer-links__link--github"

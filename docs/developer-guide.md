@@ -4,7 +4,9 @@
 - Vite + React
 - Multi-page build with:
   - `index.html` for the live demo
-  - `documentation.html` for the visual guideline page
+  - `creative.html` for creative guidance
+  - `product.html` for product guidance
+  - `development.html` for implementation guidance
 - Runtime glow sampling with canvas + `ResizeObserver`
 
 ## Project Structure
@@ -101,4 +103,4 @@
 - `hero-banner-data.json` is the content source for carousel mode
 - `heroDemoConfig.js` remains the single-slide preview adapter for manual toggle mode
 - The live settings panel is demo-only and should not be treated as production product UI
-- The visual docs page is the preferred entry point for creative review
+- The dedicated creative, product, and development pages are the preferred review entry points

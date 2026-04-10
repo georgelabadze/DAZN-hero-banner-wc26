@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Development Guidelines • DAZN Hero Banner WC26</title>
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Regular.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/DAZNOscine-Bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="documentation.css" />
+  </head>
+  <body class="doc-body">
+    <main class="doc-shell">
+      <section class="doc-overview">
+        <div class="doc-overview__copy">
+          <p class="doc-overview__eyebrow">DAZN Hero Banner WC26</p>
+          <h1 class="doc-overview__title">Development guidelines for the live hero, docs pages, and responsive runtime rules.</h1>
+          <p class="doc-overview__text">
+            This page is the engineering-facing runtime guide for the project. It
+            describes the current app structure, the public component contracts, and
+            the layout and behavior rules the implementation is expected to preserve.
+          </p>
+        </div>
+
+        <div class="doc-overview__stats">
+          <article class="doc-stat">
+            <p class="doc-stat__label">Build pages</p>
+            <p class="doc-stat__value">index + 3 docs pages</p>
+          </article>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Breakpoints</p>
+            <p class="doc-stat__value">1025 / 768 / 767</p>
+          </article>
+          <article class="doc-stat">
+            <p class="doc-stat__label">Hero modes</p>
+            <p class="doc-stat__value">Manual preview / JSON carousel</p>
+          </article>
+        </div>
+      </section>
+
+      <nav class="doc-nav" aria-label="Guideline pages">
+        <a class="doc-nav__link" href="creative.html">Creative</a>
+        <a class="doc-nav__link" href="product.html">Product</a>
+        <a class="doc-nav__link" href="development.html" aria-current="page">Development</a>
+      </nav>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Stack and build</p>
+          <h2 class="doc-section__title">The project is a Vite + React multi-page demo with shared runtime and guideline assets.</h2>
+          <p class="doc-section__text">
+            The live app and the guideline pages ship from the same codebase. The
+            goal is to keep the runtime hero, the visual handoff, and the engineering
+            spec aligned rather than maintaining separate sources of truth.
+          </p>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Stack</h3>
+            <ul class="doc-card__list">
+              <li><code>Vite</code> for local dev and static multi-page builds.</li>
+              <li><code>React</code> for the live demo app shell and hero runtime.</li>
+              <li>Shared CSS layers for the hero, header, settings panel, and docs pages.</li>
+              <li>Runtime glow sampling via canvas plus <code>ResizeObserver</code>.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Static pages</h3>
+            <ul class="doc-card__list">
+              <li><code>index.html</code> for the live demo.</li>
+              <li><code>creative.html</code> for creative safe-zone guidance.</li>
+              <li><code>product.html</code> for product module guidance.</li>
+              <li><code>development.html</code> for implementation guidance.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Project structure</p>
+          <h2 class="doc-section__title">Keep the live runtime, docs wiring, and source data cleanly separated.</h2>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Core runtime files</h3>
+            <ul class="doc-card__list">
+              <li><code>src/App.jsx</code>: live demo composition, settings state, and prop wiring.</li>
+              <li><code>src/components/SiteHeader.jsx</code>: default and countdown header variants with fixed-scroll behavior.</li>
+              <li><code>src/components/HeroBanner.jsx</code>: responsive hero banner and carousel handoff.</li>
+              <li><code>src/components/HeroCarousel.jsx</code>: carousel overlay and autoplay presentation.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Supporting files</h3>
+            <ul class="doc-card__list">
+              <li><code>src/config/heroDemoConfig.js</code>: content, defaults, docs links, and preview adapters.</li>
+              <li><code>src/data/hero-banner-data.json</code>: URL-first carousel content source.</li>
+              <li><code>src/hooks/useHeroGlow.js</code>: desktop image/video glow sampling logic.</li>
+              <li><code>documentation.css</code>: shared visual system for the three guideline pages.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Public contracts</p>
+          <h2 class="doc-section__title">These are the interfaces the live demo composes around.</h2>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title"><code>SiteHeader</code></h3>
+            <ul class="doc-card__list">
+              <li><code>variant?: "countdown" | "default"</code></li>
+              <li><code>logoSrc: string</code></li>
+              <li><code>actions?: { label; variant; href? }[]</code></li>
+              <li><code>countdownTarget?: string | Date</code></li>
+              <li><code>countdownCta?: { label; href? }</code></li>
+              <li><code>eventBrand?: { logoSrc; title; subtitle }</code></li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title"><code>HeroBanner</code></h3>
+            <ul class="doc-card__list">
+              <li><code>deck: { mode; autoplayMs?; transitionMs?; slides }</code></li>
+              <li><code>HeroSlide = { id; media; focus?; layout?; logo?; label?; title?; subtitle?; price?; primaryCta?; secondaryCta?; helperText? }</code></li>
+              <li><code>media: { desktop; tablet; mobile }</code> where each item is an image or video source.</li>
+              <li><code>layout?: { contentAlignment?; theme?; titleSize? }</code></li>
+              <li><code>focus</code> provides authored framing; when height is constrained, horizontal focus stays while vertical crop becomes top-anchored.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Breakpoints and layout</p>
+          <h2 class="doc-section__title">Each breakpoint keeps its own ratio, chrome treatment, and height strategy.</h2>
+        </div>
+
+        <div class="doc-grid doc-grid--three">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Desktop</h3>
+            <ul class="doc-card__list">
+              <li><code>1025px</code> and above.</li>
+              <li>Inset <code>16:9</code> card inside the shell gutters.</li>
+              <li>Height still caps against the viewport after subtracting the <code>64px</code> header.</li>
+              <li>Minimum height uses a true <code>34rem</code> floor.</li>
+              <li>Title measure is <code>50%</code>; subtitle and helper measure are <code>30%</code>.</li>
+              <li>Glow and overlay border remain active.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Tablet</h3>
+            <ul class="doc-card__list">
+              <li><code>768px</code> to <code>1024px</code>.</li>
+              <li>Creative target stays <code>5:7</code> and the hero remains full width.</li>
+              <li>Height prefers about <code>85%</code> of the screen in normal cases.</li>
+              <li>Minimum height uses a true <code>36rem</code> floor.</li>
+              <li>Title measure is <code>80%</code>; subtitle and helper measure are <code>60%</code>.</li>
+              <li>Border, radius, shadow, and glow are removed.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Mobile</h3>
+            <ul class="doc-card__list">
+              <li><code>767px</code> and below.</li>
+              <li>Creative target stays <code>9:16</code> and the hero is full-bleed.</li>
+              <li>Height prefers about <code>90%</code> of the screen in normal cases.</li>
+              <li>Minimum height uses a true <code>38rem</code> floor.</li>
+              <li>Text widths stay on the current centered mobile behavior.</li>
+              <li>Border, radius, shadow, and glow are removed.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Runtime behavior</p>
+          <h2 class="doc-section__title">Header, hero, and chrome rules should stay consistent across demo and docs.</h2>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Header rules</h3>
+            <ul class="doc-card__list">
+              <li>Header height is <code>64px</code>.</li>
+              <li>Desktop header stays in normal flow on first paint, then becomes fixed once the page scrolls.</li>
+              <li>The dark desktop surface treatment ramps in progressively over the first <code>48px</code> of scroll.</li>
+              <li>Tablet and mobile headers are fixed from first paint and overlay the hero.</li>
+              <li>On small screens, the same dark surface and blur build progressively while scrolling.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Hero rules</h3>
+            <ul class="doc-card__list">
+              <li>Desktop content can be left aligned or centered; tablet and mobile content stay centered.</li>
+              <li>Tablet and mobile use a stronger top scrim to protect the overlaid header.</li>
+              <li>Live media keeps the authored focus position on unconstrained layouts.</li>
+              <li>When hero height is capped, vertical crop switches to top-anchored while horizontal focus is preserved.</li>
+              <li>Gold theme applies the title accent and primary CTA gradient; standard theme returns both to the neutral style.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Glow and border system</h3>
+            <ul class="doc-card__list">
+              <li>Desktop only: glow is rendered inside <code>.hero-banner-demo</code>.</li>
+              <li>Desktop only: glow is sampled from the active media frame.</li>
+              <li>Desktop only: overlay border remains the masked vertical gradient treatment.</li>
+              <li>Tablet and mobile do not use sampled glow or border overlays.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Adoption notes</h3>
+            <ul class="doc-card__list">
+              <li><code>hero-banner-data.json</code> is the content source for carousel mode.</li>
+              <li><code>heroDemoConfig.js</code> remains the single-slide preview adapter for manual toggle mode.</li>
+              <li>The settings panel is demo-only and should not be treated as production product UI.</li>
+              <li>The dedicated creative, product, and development pages are the preferred review entry points.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <footer class="doc-footer">
+        <a class="doc-footer__link" href="index.html">Open live demo</a>
+        <a
+          class="doc-footer__link doc-footer__link--github"
+          href="https://github.com/georgelabadze/DAZN-hero-banner-wc26.git"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <svg
+            aria-hidden="true"
+            class="doc-footer__icon"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+          >
+            <path d="M8 0C3.58 0 0 3.58 0 8a8 8 0 0 0 5.47 7.59c.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.66 7.66 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
+          </svg>
+          <span>DAZN Hero Banner WC26</span>
+        </a>
+      </footer>
+    </main>
+  </body>
+</html>

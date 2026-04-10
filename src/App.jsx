@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import {
   buildHeroDeckForDisplay,
-  CREATIVE_GUIDELINES_URL,
   HERO_GITHUB_URL,
+  HERO_RESOURCE_LINKS,
   heroDefaultSettings,
   siteHeaderActions,
   siteHeaderCountdownCta,
@@ -178,8 +178,8 @@ export default function App() {
 
         <HeroSettingsPanel footerItems={footerItems} items={settingsItems} />
         <HeroFooterLinks
-          creativeGuidelinesUrl={CREATIVE_GUIDELINES_URL}
           githubUrl={HERO_GITHUB_URL}
+          resourceLinks={HERO_RESOURCE_LINKS}
         />
       </div>
     </div>
