@@ -112,8 +112,115 @@ function renderTitle(title) {
   );
 }
 
+function BestValueIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="hero-banner__cta-note-icon"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6.0703 7.76562L4.97656 6.6901C4.84288 6.55642 4.69097 6.48958 4.52083 6.48958C4.35069 6.48958 4.19878 6.55642 4.0651 6.6901C3.93142 6.82378 3.86458 6.97872 3.86458 7.15494C3.86458 7.33115 3.93142 7.4861 4.0651 7.61978L5.61458 9.16926C5.74826 9.30294 5.90017 9.36978 6.0703 9.36978C6.24044 9.36978 6.39235 9.30294 6.52603 9.16926L9.93488 5.76041C10.0686 5.62673 10.1354 5.47178 10.1354 5.29557C10.1354 5.11935 10.0686 4.9644 9.93488 4.83072C9.8012 4.69704 9.64929 4.6302 9.47915 4.6302C9.30902 4.6302 9.15711 4.69704 9.02343 4.83072L6.0703 7.76562ZM6.99999 14C6.03992 14 5.13454 13.8177 4.28385 13.4531C3.43316 13.0885 2.6888 12.5872 2.05078 11.9492C1.41276 11.3112 0.911457 10.5668 0.546874 9.71613C0.182291 8.86544 0 7.96006 0 6.99999C0 6.02777 0.182291 5.11935 0.546874 4.27473C0.911457 3.43012 1.41276 2.6888 2.05078 2.05078C2.6888 1.41276 3.43316 0.911457 4.28385 0.546874C5.13454 0.182291 6.03992 0 6.99999 0C7.97221 0 8.88063 0.182291 9.72525 0.546874C10.5699 0.911457 11.3112 1.41276 11.9492 2.05078C12.5872 2.6888 13.0885 3.43012 13.4531 4.27473C13.8177 5.11935 14 6.02777 14 6.99999C14 7.96006 13.8177 8.86544 13.4531 9.71613C13.0885 10.5668 12.5872 11.3112 11.9492 11.9492C11.3112 12.5872 10.5699 13.0885 9.72525 13.4531C8.88063 13.8177 7.97221 14 6.99999 14Z"
+        fill="url(#hero-banner-best-value-gradient)"
+      />
+      <defs>
+        <linearGradient
+          id="hero-banner-best-value-gradient"
+          x1="0"
+          y1="0"
+          x2="13.0091"
+          y2="3.09359"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F2AF3D" />
+          <stop offset="1" stopColor="#FBED7D" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
 function getSlideCtas(slide) {
   return [slide?.primaryCta, slide?.secondaryCta].filter(Boolean);
+}
+
+function getDualCtaContent(slide) {
+  if (
+    slide?.ctaLayout !== "dual" ||
+    !slide?.primaryCta ||
+    !slide?.secondaryCta
+  ) {
+    return null;
+  }
+
+  return {
+    standard: slide.secondaryCta,
+    gold: slide.primaryCta,
+    note: typeof slide.goldButtonNote === "string" ? slide.goldButtonNote.trim() : "",
+  };
+}
+
+function renderDefaultCtas(slide) {
+  const ctas = getSlideCtas(slide);
+
+  if (!ctas.length) {
+    return null;
+  }
+
+  return (
+    <div className="hero-banner__cta-group">
+      {ctas.map((item) => (
+        <a
+          key={`${slide.id}-${item.label}-${item.variant ?? "primary"}`}
+          className={`hero-banner__cta hero-banner__cta--${item.variant ?? "primary"}`}
+          href={item.href}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  );
+}
+
+function renderDualCtas(slide) {
+  const dualCta = getDualCtaContent(slide);
+
+  if (!dualCta) {
+    return renderDefaultCtas(slide);
+  }
+
+  return (
+    <div className="hero-banner__cta-dual" role="group" aria-label="Hero call to action options">
+      <a
+        className="hero-banner__cta hero-banner__cta--standard"
+        href={dualCta.standard.href}
+      >
+        {dualCta.standard.label}
+      </a>
+
+      <span className="hero-banner__cta-divider" aria-hidden="true">
+        or
+      </span>
+
+      <div className="hero-banner__cta-highlight">
+        <a
+          className="hero-banner__cta hero-banner__cta--gold"
+          href={dualCta.gold.href}
+        >
+          {dualCta.gold.label}
+        </a>
+
+        {dualCta.note ? (
+          <span className="hero-banner__cta-note">
+            <BestValueIcon />
+            <span>{dualCta.note}</span>
+          </span>
+        ) : null}
+      </div>
+    </div>
+  );
 }
 
 function getSlideClassName(viewportMode, slide, phase) {
@@ -147,7 +254,6 @@ function HeroBannerSlide({
   viewportMode,
 }) {
   const activeMedia = slide?.media?.[viewportMode] ?? null;
-  const ctas = getSlideCtas(slide);
   const contentClassName =
     viewportMode === "desktop"
       ? "hero-banner__content hero-banner__content--desktop"
@@ -223,19 +329,7 @@ function HeroBannerSlide({
             <p className="hero-banner__price">{renderPrice(slide.price)}</p>
           ) : null}
 
-          {ctas.length ? (
-            <div className="hero-banner__cta-group">
-              {ctas.map((item) => (
-                <a
-                  key={`${slide.id}-${item.label}-${item.variant ?? "primary"}`}
-                  className={`hero-banner__cta hero-banner__cta--${item.variant ?? "primary"}`}
-                  href={item.href}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          ) : null}
+          {renderDualCtas(slide)}
 
           {slide.helperText ? (
             <p className="hero-banner__helper">{slide.helperText}</p>

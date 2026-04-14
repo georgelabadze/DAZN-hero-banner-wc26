@@ -115,13 +115,26 @@ export default function App() {
       onToggle: () => toggleBooleanSetting(setHeroSettings, "showPrice"),
     },
     {
-      id: "hero-secondary-cta",
-      title: "Secondary CTA",
+      id: "hero-two-buttons",
+      title: "Two buttons",
       description:
-        "Use this when there is a second action alongside the primary CTA.",
-      checked: heroSettings.showSecondaryCta,
-      onToggle: () => toggleBooleanSetting(setHeroSettings, "showSecondaryCta"),
+        "Use this when the hero needs a standard button plus a highlighted gold button with an `or` divider between them.",
+      checked: heroSettings.showTwoButtons,
+      onToggle: () => toggleBooleanSetting(setHeroSettings, "showTwoButtons"),
     },
+    ...(heroSettings.showTwoButtons
+      ? [
+          {
+            id: "hero-best-value",
+            title: "Best value",
+            description:
+              "Adds a small `Best value` note below the gold button when the two-button layout is active.",
+            checked: heroSettings.showBestValue,
+            isChild: true,
+            onToggle: () => toggleBooleanSetting(setHeroSettings, "showBestValue"),
+          },
+        ]
+      : []),
     {
       id: "hero-helper-text",
       title: "Helper text",

@@ -54,6 +54,10 @@ function normalizeTitleSize(value) {
   return value === "larger" ? "larger" : "large";
 }
 
+function normalizeCtaLayout(value) {
+  return value === "dual" ? "dual" : "single";
+}
+
 function normalizeFocus(focus = {}) {
   return {
     desktop: normalizeText(focus.desktop) || DEFAULT_FOCUS.desktop,
@@ -202,6 +206,7 @@ function normalizeSlide(slide, index) {
       ...layout,
       titleSize: title.size ?? layout.titleSize,
     },
+    ctaLayout: normalizeCtaLayout(slide.ctaLayout),
     focus: normalizeFocus(slide.focus),
     media: normalizeMediaSet(slide.media),
     logo: normalizeLogo(slide.logo),
@@ -211,6 +216,7 @@ function normalizeSlide(slide, index) {
     price: normalizePrice(slide.price),
     primaryCta: normalizeCta(slide.primaryCta, "primary"),
     secondaryCta: normalizeCta(slide.secondaryCta, "secondary"),
+    goldButtonNote: normalizeText(slide.goldButtonNote),
     helperText: normalizeText(slide.helperText),
   };
 }
@@ -355,7 +361,10 @@ function buildSingleSlideDeck(baseSlide, settings) {
         logo: settings.showLogo ? baseSlide.logo : null,
         label: settings.showLabel ? baseSlide.label : "",
         price: settings.showPrice ? baseSlide.price : null,
-        secondaryCta: settings.showSecondaryCta ? baseSlide.secondaryCta : null,
+        ctaLayout: settings.showTwoButtons ? "dual" : "single",
+        secondaryCta: settings.showTwoButtons ? baseSlide.secondaryCta : null,
+        goldButtonNote:
+          settings.showTwoButtons && settings.showBestValue ? "Best value" : "",
         helperText: settings.showHelperText ? baseSlide.helperText : "",
       },
     ],
@@ -401,11 +410,12 @@ export const heroDefaultSettings = {
   mediaMode: "video",
   showCarousel: true,
   showCreativeBlueprint: false,
+  showBestValue: false,
   showHelperText: false,
   showLabel: false,
   showLogo: false,
   showPrice: false,
-  showSecondaryCta: false,
+  showTwoButtons: false,
   theme: "gold",
   titleSize: "large",
 };

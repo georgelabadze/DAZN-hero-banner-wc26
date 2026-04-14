@@ -33,7 +33,7 @@
 
 ### `HeroBanner`
 - `deck: { mode: "single" | "carousel"; autoplayMs?: number; transitionMs?: number; slides: HeroSlide[] }`
-- `HeroSlide = { id; media; focus?; layout?; logo?; label?; title?; subtitle?; price?; primaryCta?; secondaryCta?; helperText? }`
+- `HeroSlide = { id; media; focus?; layout?; ctaLayout?; goldButtonNote?; logo?; label?; title?; subtitle?; price?; primaryCta?; secondaryCta?; helperText? }`
 - `media: { desktop: MediaItem; tablet: MediaItem; mobile: MediaItem }`
 - `MediaItem = { kind: "image" | "video"; src: string; poster?: string; alt?: string }`
 - `layout?: { contentAlignment?: "left" | "center"; theme?: "gold" | "standard"; titleSize?: "large" | "larger" }`

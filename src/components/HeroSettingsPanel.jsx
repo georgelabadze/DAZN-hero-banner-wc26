@@ -2,6 +2,7 @@ function SettingRow({
   checked,
   description,
   id,
+  isChild = false,
   onToggle,
   title,
 }) {
@@ -9,7 +10,7 @@ function SettingRow({
   const descriptionId = `${id}-description`;
 
   return (
-    <article className="hero-settings__item">
+    <article className={`hero-settings__item ${isChild ? "hero-settings__item--child" : ""}`}>
       <button
         aria-checked={checked}
         aria-describedby={descriptionId}
