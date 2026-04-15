@@ -132,6 +132,58 @@
   block-size: 100%;
 }
 
+.hero-banner__edit-button {
+  position: absolute;
+  top: 16px;
+  z-index: 8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(8, 14, 18, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0.75rem 1.6rem rgba(0, 0, 0, 0.22);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease;
+}
+
+.hero-banner__edit-button--right {
+  right: 16px;
+}
+
+.hero-banner__edit-button--right-offset {
+  top: 64px;
+}
+
+.hero-banner__edit-button:hover {
+  background: rgba(8, 14, 18, 0.72);
+}
+
+.hero-banner__edit-button:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  outline: 2px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.hero-banner__edit-icon {
+  inline-size: 20px;
+  block-size: 20px;
+  flex: 0 0 auto;
+}
+
 .hero-banner__image,
 .hero-banner__video {
   display: block;
@@ -254,6 +306,13 @@
       rgba(2, 4, 7, 0.06) 70%,
       rgba(2, 4, 7, 0.24) 100%
     );
+}
+
+.hero-banner-demo:hover .hero-banner__edit-button,
+.hero-banner-demo:focus-within .hero-banner__edit-button {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .hero-banner--align-center .hero-banner__scrim {
@@ -620,6 +679,21 @@
   block-size: 36px;
 }
 
+.hero-banner--tablet .hero-banner__edit-button,
+.hero-banner--mobile .hero-banner__edit-button {
+  top: calc(env(safe-area-inset-top) + var(--site-header-height) + 16px);
+  inline-size: 36px;
+  block-size: 36px;
+}
+
+.hero-banner--tablet .hero-banner__edit-button--right {
+  right: 32px;
+}
+
+.hero-banner--tablet .hero-banner__edit-button--right-offset {
+  top: calc(env(safe-area-inset-top) + var(--site-header-height) + 64px);
+}
+
 .hero-banner--tablet .hero-banner__content,
 .hero-banner--mobile .hero-banner__content {
   --hero-content-blur-mask:
@@ -716,6 +790,30 @@
   width: 100%;
   flex-direction: column;
   align-items: center;
+}
+
+.hero-banner--mobile .hero-banner__edit-button--right {
+  right: 16px;
+  inline-size: 32px;
+  block-size: 32px;
+}
+
+.hero-banner--mobile .hero-banner__edit-button--right-offset {
+  top: calc(env(safe-area-inset-top) + var(--site-header-height) + 56px);
+}
+
+.hero-banner-demo--tablet .hero-banner__edit-button,
+.hero-banner-demo--mobile .hero-banner__edit-button {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+}
+
+.hero-banner-demo--edit-revealed .hero-banner__edit-button,
+.hero-banner__edit-button--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
 }
 
 .hero-banner--mobile .hero-banner__cta-dual {

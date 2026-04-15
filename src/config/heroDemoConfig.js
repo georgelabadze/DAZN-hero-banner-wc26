@@ -80,6 +80,10 @@ function getPathWithoutQuery(url) {
 }
 
 function detectMediaKind(mediaItem) {
+  if (mediaItem?.kind === "video" || mediaItem?.kind === "image") {
+    return mediaItem.kind;
+  }
+
   if (normalizeUrl(mediaItem?.posterUrl)) {
     return "video";
   }
@@ -148,11 +152,12 @@ function normalizeTitle(title) {
 
   const lead = normalizeText(title.lead);
   const accent = normalizeText(title.accent);
+  const order = normalizeText(title.order) === "accent-first" ? "accent-first" : "lead-first";
   const size = normalizeText(title.size);
 
   if (lead && accent) {
     return {
-      content: { lead, accent },
+      content: { lead, accent, order },
       size: size ? normalizeTitleSize(size) : null,
     };
   }
@@ -220,6 +225,10 @@ function normalizeSlide(slide, index) {
     goldButtonNote: normalizeText(slide.goldButtonNote),
     helperText: normalizeText(slide.helperText),
   };
+}
+
+export function createHeroRuntimeSlide(slide, index = 0) {
+  return normalizeSlide(slide, index);
 }
 
 const fallbackSlide = normalizeSlide(
@@ -403,6 +412,10 @@ export function buildHeroDeckForDisplay(settings) {
     return heroBannerDeck;
   }
 
+  return buildSingleSlideDeck(fallbackSlide, settings);
+}
+
+export function buildStaticHeroDeckForDisplay(settings) {
   return buildSingleSlideDeck(fallbackSlide, settings);
 }
 

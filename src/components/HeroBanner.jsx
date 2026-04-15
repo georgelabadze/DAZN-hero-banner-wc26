@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import HeroCarousel from "./HeroCarousel";
+import { EditIcon } from "./HeroEditorIcons";
 import { useHeroGlow } from "../hooks/useHeroGlow";
 
 const DESKTOP_BREAKPOINT = 1025;
@@ -104,10 +105,27 @@ function renderTitle(title) {
     return title;
   }
 
+  const lead = typeof title?.lead === "string" ? title.lead : "";
+  const accent = typeof title?.accent === "string" ? title.accent : "";
+  const order = title?.order === "accent-first" ? "accent-first" : "lead-first";
+
+  if (!lead || !accent) {
+    return lead || accent;
+  }
+
+  if (order === "accent-first") {
+    return (
+      <>
+        <span className="hero-banner__title-accent">{accent}</span>{" "}
+        {lead}
+      </>
+    );
+  }
+
   return (
     <>
-      {title.lead}{" "}
-      <span className="hero-banner__title-accent">{title.accent}</span>
+      {lead}{" "}
+      <span className="hero-banner__title-accent">{accent}</span>
     </>
   );
 }
@@ -377,12 +395,20 @@ function HeroBannerSlide({
   );
 }
 
-export default function HeroBanner({ deck }) {
+export default function HeroBanner({
+  deck,
+  isEditorOpen = false,
+  onActiveSlideChange,
+  onRequestEditSlide,
+  preferredActiveSlideId = null,
+}) {
   const viewportMode = useViewportMode();
+  const isCompactViewport = viewportMode !== "desktop";
   const shouldShowGlow = viewportMode === "desktop";
   const demoRef = useRef(null);
   const cardRef = useRef(null);
   const mediaRef = useRef(null);
+  const activeSlideIdRef = useRef(null);
   const slides = Array.isArray(deck?.slides) ? deck.slides.filter(Boolean) : [];
   const autoplayMs = Number.isFinite(deck?.autoplayMs)
     ? deck.autoplayMs
@@ -394,6 +420,7 @@ export default function HeroBanner({ deck }) {
   const [previousIndex, setPreviousIndex] = useState(null);
   const [cycleKey, setCycleKey] = useState(0);
   const [isHeightConstrained, setIsHeightConstrained] = useState(false);
+  const [isTouchEditRevealed, setIsTouchEditRevealed] = useState(false);
   const totalSlides = slides.length;
   const hasCarousel =
     deck?.mode === "carousel" && totalSlides > 1;
@@ -421,6 +448,11 @@ export default function HeroBanner({ deck }) {
       mediaRef.current = node;
     }
   };
+
+  useEffect(() => {
+    activeSlideIdRef.current = currentSlide?.id ?? null;
+    onActiveSlideChange?.(currentSlide, activeIndex);
+  }, [activeIndex, currentSlide, onActiveSlideChange]);
 
   useEffect(() => {
     if (!currentMedia?.src) {
@@ -480,10 +512,41 @@ export default function HeroBanner({ deck }) {
   }, [currentMedia]);
 
   useEffect(() => {
-    setActiveIndex(0);
-    setPreviousIndex(null);
-    setCycleKey((current) => current + 1);
-  }, [deck]);
+    if (!slides.length) {
+      return;
+    }
+
+    if (!hasCarousel) {
+      if (activeIndex !== 0) {
+        setPreviousIndex(null);
+        setActiveIndex(0);
+      }
+
+      return;
+    }
+
+    const targetSlideId = preferredActiveSlideId || activeSlideIdRef.current;
+
+    if (targetSlideId) {
+      const targetIndex = slides.findIndex((slide) => slide.id === targetSlideId);
+
+      if (targetIndex !== -1) {
+        if (targetIndex !== activeIndex) {
+          setCycleKey((current) => current + 1);
+          setPreviousIndex(null);
+          setActiveIndex(targetIndex);
+        }
+
+        return;
+      }
+    }
+
+    if (activeIndex >= slides.length) {
+      setActiveIndex(0);
+      setPreviousIndex(null);
+      setCycleKey((current) => current + 1);
+    }
+  }, [activeIndex, hasCarousel, preferredActiveSlideId, slides]);
 
   useEffect(() => {
     if (!hasCarousel) {
@@ -516,7 +579,7 @@ export default function HeroBanner({ deck }) {
   }, [activeIndex, previousIndex, transitionMs]);
 
   useEffect(() => {
-    if (!hasCarousel) {
+    if (!hasCarousel || isEditorOpen) {
       return;
     }
 
@@ -530,7 +593,33 @@ export default function HeroBanner({ deck }) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [activeIndex, autoplayMs, cycleKey, hasCarousel, totalSlides]);
+  }, [activeIndex, autoplayMs, cycleKey, hasCarousel, isEditorOpen, totalSlides]);
+
+  useEffect(() => {
+    if (!isCompactViewport || !isTouchEditRevealed) {
+      return undefined;
+    }
+
+    const handlePointerDown = (event) => {
+      if (demoRef.current?.contains(event.target)) {
+        return;
+      }
+
+      setIsTouchEditRevealed(false);
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [isCompactViewport, isTouchEditRevealed]);
+
+  useEffect(() => {
+    if (!isCompactViewport || isEditorOpen) {
+      setIsTouchEditRevealed(false);
+    }
+  }, [isCompactViewport, isEditorOpen]);
 
   if (!currentSlide) {
     return null;
@@ -555,11 +644,45 @@ export default function HeroBanner({ deck }) {
     setActiveIndex(normalizedIndex);
   };
 
+  const handleRequestEdit = () => {
+    setIsTouchEditRevealed(false);
+    onRequestEditSlide?.(currentSlide.id);
+  };
+
+  const handleDemoClick = (event) => {
+    if (!isCompactViewport || isEditorOpen || !onRequestEditSlide) {
+      return;
+    }
+
+    const target = event.target;
+
+    if (!(target instanceof Element)) {
+      return;
+    }
+
+    if (target.closest(".hero-banner__edit-button")) {
+      return;
+    }
+
+    if (target.closest("a, button, input, textarea, select, label")) {
+      return;
+    }
+
+    setIsTouchEditRevealed((current) => !current);
+  };
+
   return (
     <section
       ref={demoRef}
       aria-label="Hero banner"
-      className={`hero-banner-demo hero-banner-demo--${viewportMode}`}
+      className={[
+        "hero-banner-demo",
+        `hero-banner-demo--${viewportMode}`,
+        isTouchEditRevealed ? "hero-banner-demo--edit-revealed" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      onClick={handleDemoClick}
       style={shouldShowGlow ? glowStyle : undefined}
     >
       {shouldShowGlow ? (
@@ -573,6 +696,24 @@ export default function HeroBanner({ deck }) {
           className={bannerClassName}
           style={{ "--hero-transition-duration": `${transitionMs}ms` }}
         >
+          {onRequestEditSlide ? (
+            <button
+              aria-label="Edit visible slide"
+              className={[
+                "hero-banner__edit-button",
+                "hero-banner__edit-button--right",
+                currentSlide.ppvBadge ? "hero-banner__edit-button--right-offset" : "",
+                isTouchEditRevealed ? "hero-banner__edit-button--visible" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              onClick={handleRequestEdit}
+              type="button"
+            >
+              <EditIcon />
+            </button>
+          ) : null}
+
           {exitingSlide ? (
             <HeroBannerSlide
               isHeightConstrained={isHeightConstrained}

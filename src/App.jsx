@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  buildStaticHeroDeckForDisplay,
   buildHeroDeckForDisplay,
   HERO_GITHUB_URL,
   HERO_RESOURCE_LINKS,
@@ -12,8 +13,13 @@ import {
 } from "./config/heroDemoConfig";
 import HeroBanner from "./components/HeroBanner";
 import HeroFooterLinks from "./components/HeroFooterLinks";
+import HeroSlideEditorModal from "./components/HeroSlideEditorModal";
 import HeroSettingsPanel from "./components/HeroSettingsPanel";
 import SiteHeader from "./components/SiteHeader";
+import {
+  buildHeroSlideFromDraft,
+  getBlobUrlsFromSlide,
+} from "./utils/heroSlideEditor";
 
 function toggleBooleanSetting(setState, key) {
   setState((current) => ({
@@ -24,9 +30,103 @@ function toggleBooleanSetting(setState, key) {
 
 export default function App() {
   const [heroSettings, setHeroSettings] = useState(heroDefaultSettings);
-  const activeHeroDeck = useMemo(
+  const [slideOverridesById, setSlideOverridesById] = useState({});
+  const [customSlides, setCustomSlides] = useState([]);
+  const [sessionDeckMode, setSessionDeckMode] = useState(null);
+  const [activeSlideId, setActiveSlideId] = useState(null);
+  const [preferredActiveSlideId, setPreferredActiveSlideId] = useState(null);
+  const [editorTargetSlideId, setEditorTargetSlideId] = useState(null);
+  const [isSlideEditorOpen, setIsSlideEditorOpen] = useState(false);
+  const customSlideCounterRef = useRef(1);
+  const trackedBlobUrlsRef = useRef(new Set());
+  const baseHeroDeck = useMemo(
     () => buildHeroDeckForDisplay(heroSettings),
     [heroSettings],
+  );
+  const staticHeroDeck = useMemo(
+    () => buildStaticHeroDeckForDisplay(heroSettings),
+    [heroSettings],
+  );
+  const deckSource = useMemo(() => {
+    const shouldUseStaticSessionDeck =
+      heroSettings.showCarousel &&
+      sessionDeckMode === "static" &&
+      customSlides.length > 0;
+
+    if (shouldUseStaticSessionDeck) {
+      return {
+        ...staticHeroDeck,
+        mode: "carousel",
+      };
+    }
+
+    return baseHeroDeck;
+  }, [
+    baseHeroDeck,
+    customSlides.length,
+    heroSettings.showCarousel,
+    sessionDeckMode,
+    staticHeroDeck,
+  ]);
+  const activeHeroDeck = useMemo(() => {
+    const baseSlides = deckSource.slides.map(
+      (slide) => slideOverridesById[slide.id] ?? slide,
+    );
+    const nextSlides =
+      deckSource.mode === "carousel"
+        ? [...baseSlides, ...customSlides]
+        : baseSlides;
+
+    return {
+      ...deckSource,
+      mode: deckSource.mode,
+      slides: nextSlides,
+    };
+  }, [customSlides, deckSource, slideOverridesById]);
+  const editorTargetSlide = useMemo(() => {
+    const requestedSlideId = editorTargetSlideId || activeSlideId;
+
+    if (!requestedSlideId) {
+      return activeHeroDeck.slides[0] ?? null;
+    }
+
+    return (
+      activeHeroDeck.slides.find((slide) => slide.id === requestedSlideId) ??
+      activeHeroDeck.slides[0] ??
+      null
+    );
+  }, [activeHeroDeck.slides, activeSlideId, editorTargetSlideId]);
+
+  useEffect(() => {
+    const activeUrls = new Set(
+      [...Object.values(slideOverridesById), ...customSlides].flatMap((slide) =>
+        getBlobUrlsFromSlide(slide),
+      ),
+    );
+
+    trackedBlobUrlsRef.current.forEach((url) => {
+      if (activeUrls.has(url)) {
+        return;
+      }
+
+      URL.revokeObjectURL(url);
+      trackedBlobUrlsRef.current.delete(url);
+    });
+
+    activeUrls.forEach((url) => {
+      trackedBlobUrlsRef.current.add(url);
+    });
+  }, [customSlides, slideOverridesById]);
+
+  useEffect(
+    () => () => {
+      trackedBlobUrlsRef.current.forEach((url) => {
+        URL.revokeObjectURL(url);
+      });
+
+      trackedBlobUrlsRef.current.clear();
+    },
+    [],
   );
 
   const allSettingsItems = [
@@ -181,6 +281,67 @@ export default function App() {
     ? allFooterItems.filter((item) => item.id === "hero-carousel")
     : allFooterItems;
 
+  const closeSlideEditor = () => {
+    setIsSlideEditorOpen(false);
+    setEditorTargetSlideId(null);
+  };
+
+  const buildEditedSlide = (draft, slideId) => {
+    const slideIndex = activeHeroDeck.slides.findIndex((slide) => slide.id === slideId);
+
+    return buildHeroSlideFromDraft({
+      draft,
+      slideId,
+      slideIndex: slideIndex === -1 ? activeHeroDeck.slides.length : slideIndex,
+      sourceSlide: editorTargetSlide,
+    });
+  };
+
+  const handleSaveSlideChanges = (draft) => {
+    if (!editorTargetSlide) {
+      return;
+    }
+
+    const nextSlide = buildEditedSlide(draft, editorTargetSlide.id);
+    const isCustomSlide = customSlides.some((slide) => slide.id === nextSlide.id);
+
+    if (isCustomSlide) {
+      setCustomSlides((current) =>
+        current.map((slide) => (slide.id === nextSlide.id ? nextSlide : slide)),
+      );
+    } else {
+      setSlideOverridesById((current) => ({
+        ...current,
+        [nextSlide.id]: nextSlide,
+      }));
+    }
+
+    setPreferredActiveSlideId(nextSlide.id);
+    closeSlideEditor();
+  };
+
+  const handleSaveAsNewSlide = (draft) => {
+    if (!editorTargetSlide) {
+      return;
+    }
+
+    const nextSlideId = `custom-slide-${customSlideCounterRef.current++}`;
+    const nextSlide = buildEditedSlide(draft, nextSlideId);
+
+    setCustomSlides((current) => [...current, nextSlide]);
+
+    if (!heroSettings.showCarousel) {
+      setSessionDeckMode("static");
+      setHeroSettings((current) => ({
+        ...current,
+        showCarousel: true,
+      }));
+    }
+
+    setPreferredActiveSlideId(nextSlide.id);
+    closeSlideEditor();
+  };
+
   return (
     <div className="app-shell">
       <div className="app-shell__inner">
@@ -195,12 +356,34 @@ export default function App() {
 
         <HeroBanner
           deck={activeHeroDeck}
+          isEditorOpen={isSlideEditorOpen}
+          onActiveSlideChange={(slide) => {
+            const nextSlideId = slide?.id ?? null;
+
+            setActiveSlideId(nextSlideId);
+
+            if (preferredActiveSlideId && nextSlideId === preferredActiveSlideId) {
+              setPreferredActiveSlideId(null);
+            }
+          }}
+          onRequestEditSlide={(slideId) => {
+            setEditorTargetSlideId(slideId);
+            setIsSlideEditorOpen(true);
+          }}
+          preferredActiveSlideId={preferredActiveSlideId}
         />
 
         <HeroSettingsPanel footerItems={footerItems} items={settingsItems} />
         <HeroFooterLinks
           githubUrl={HERO_GITHUB_URL}
           resourceLinks={HERO_RESOURCE_LINKS}
+        />
+        <HeroSlideEditorModal
+          isOpen={isSlideEditorOpen}
+          onClose={closeSlideEditor}
+          onSaveAsNewSlide={handleSaveAsNewSlide}
+          onSaveChanges={handleSaveSlideChanges}
+          slide={editorTargetSlide}
         />
       </div>
     </div>
