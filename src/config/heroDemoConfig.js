@@ -209,6 +209,7 @@ function normalizeSlide(slide, index) {
     ctaLayout: normalizeCtaLayout(slide.ctaLayout),
     focus: normalizeFocus(slide.focus),
     media: normalizeMediaSet(slide.media),
+    ppvBadge: Boolean(slide.ppvBadge),
     logo: normalizeLogo(slide.logo),
     label: normalizeText(slide.label),
     title: title.content,
@@ -361,6 +362,7 @@ function buildSingleSlideDeck(baseSlide, settings) {
         logo: settings.showLogo ? baseSlide.logo : null,
         label: settings.showLabel ? baseSlide.label : "",
         price: settings.showPrice ? baseSlide.price : null,
+        ppvBadge: settings.showPpvBadge,
         ctaLayout: settings.showTwoButtons ? "dual" : "single",
         secondaryCta: settings.showTwoButtons ? baseSlide.secondaryCta : null,
         goldButtonNote:
@@ -414,6 +416,7 @@ export const heroDefaultSettings = {
   showHelperText: false,
   showLabel: false,
   showLogo: false,
+  showPpvBadge: false,
   showPrice: false,
   showTwoButtons: false,
   theme: "gold",

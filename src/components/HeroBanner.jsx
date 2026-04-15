@@ -142,6 +142,37 @@ function BestValueIcon() {
   );
 }
 
+function PpvBadgeIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      className="hero-banner__ppv-badge-icon"
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="40" height="40" rx="5" fill="url(#hero-banner-ppv-gradient)" />
+      <path
+        d="M12.108 11.7C12.636 11.7 13.196 11.86 13.788 12.18C14.38 12.5 14.796 12.932 15.036 13.476V20.388C14.86 20.804 14.492 21.204 13.932 21.588C13.388 21.956 12.78 22.14 12.108 22.14H11.076V28.5H8.004V11.7H12.108ZM11.628 19.332C11.916 19.332 12.092 19.188 12.156 18.9V14.94C12.092 14.668 11.916 14.532 11.628 14.532H11.076V19.332H11.628ZM20.0533 11.7C20.5813 11.7 21.1413 11.86 21.7333 12.18C22.3253 12.5 22.7413 12.932 22.9813 13.476V20.388C22.8053 20.804 22.4373 21.204 21.8773 21.588C21.3333 21.956 20.7253 22.14 20.0533 22.14H19.0213V28.5H15.9493V11.7H20.0533ZM19.5733 19.332C19.8613 19.332 20.0373 19.188 20.1013 18.9V14.94C20.0373 14.668 19.8613 14.532 19.5733 14.532H19.0213V19.332H19.5733ZM23.7266 14.244V11.7H26.7026L27.3986 24.564H27.6626L28.4066 11.7H31.3346V14.244L29.8706 28.5H25.1906L23.7266 14.244Z"
+        fill="#282000"
+      />
+      <defs>
+        <linearGradient
+          id="hero-banner-ppv-gradient"
+          x1="0"
+          y1="0"
+          x2="40"
+          y2="0.00915259"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F2AF3D" />
+          <stop offset="1" stopColor="#FBED7D" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
 function getSlideCtas(slide) {
   return [slide?.primaryCta, slide?.secondaryCta].filter(Boolean);
 }
@@ -302,6 +333,12 @@ function HeroBannerSlide({
           )
         ) : null}
       </div>
+
+      {slide.ppvBadge ? (
+        <div className="hero-banner__ppv-badge" aria-hidden="true">
+          <PpvBadgeIcon />
+        </div>
+      ) : null}
 
       <div className={contentClassName}>
         <div className="hero-banner__content-measure">

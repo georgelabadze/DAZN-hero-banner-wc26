@@ -122,6 +122,14 @@ export default function App() {
       checked: heroSettings.showTwoButtons,
       onToggle: () => toggleBooleanSetting(setHeroSettings, "showTwoButtons"),
     },
+    {
+      id: "hero-ppv-badge",
+      title: "PPV badge",
+      description:
+        "Adds the PPV badge to the top-right corner of the banner.",
+      checked: heroSettings.showPpvBadge,
+      onToggle: () => toggleBooleanSetting(setHeroSettings, "showPpvBadge"),
+    },
     ...(heroSettings.showTwoButtons
       ? [
           {

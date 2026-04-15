@@ -115,6 +115,23 @@
   z-index: 3;
 }
 
+.hero-banner__ppv-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
+  inline-size: 40px;
+  block-size: 40px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 20px rgba(207, 161, 32, 0.2));
+}
+
+.hero-banner__ppv-badge-icon {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
 .hero-banner__image,
 .hero-banner__video {
   display: block;
@@ -596,6 +613,13 @@
     );
 }
 
+.hero-banner--tablet .hero-banner__ppv-badge {
+  top: calc(env(safe-area-inset-top) + var(--site-header-height) + 16px);
+  right: 32px;
+  inline-size: 36px;
+  block-size: 36px;
+}
+
 .hero-banner--tablet .hero-banner__content,
 .hero-banner--mobile .hero-banner__content {
   --hero-content-blur-mask:
@@ -732,6 +756,13 @@
 .hero-banner--mobile .hero-banner__cta-divider::after {
   flex: 1 1 auto;
   inline-size: auto;
+}
+
+.hero-banner--mobile .hero-banner__ppv-badge {
+  top: calc(env(safe-area-inset-top) + var(--site-header-height) + 16px);
+  right: 16px;
+  inline-size: 32px;
+  block-size: 32px;
 }
 
 .hero-banner--tablet .hero-banner__price,
