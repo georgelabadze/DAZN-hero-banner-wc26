@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import HeroCarousel from "./HeroCarousel";
 import { EditIcon } from "./HeroEditorIcons";
 import { useHeroGlow } from "../hooks/useHeroGlow";
@@ -205,9 +205,16 @@ function getDualCtaContent(slide) {
   }
 
   return {
+    order: slide?.ctaOrder === "gold-first" ? "gold-first" : "standard-first",
     standard: slide.secondaryCta,
     gold: slide.primaryCta,
-    note: typeof slide.goldButtonNote === "string" ? slide.goldButtonNote.trim() : "",
+    showDivider: slide?.showCtaDivider !== false,
+    standardNote:
+      typeof slide?.standardButtonNote === "string"
+        ? slide.standardButtonNote.trim()
+        : "",
+    goldNote:
+      typeof slide?.goldButtonNote === "string" ? slide.goldButtonNote.trim() : "",
   };
 }
 
@@ -240,34 +247,62 @@ function renderDualCtas(slide) {
     return renderDefaultCtas(slide);
   }
 
+  const orderedItems =
+    dualCta.order === "gold-first"
+      ? [
+          { kind: "gold", cta: dualCta.gold, note: dualCta.goldNote },
+          { kind: "standard", cta: dualCta.standard, note: dualCta.standardNote },
+        ]
+      : [
+          { kind: "standard", cta: dualCta.standard, note: dualCta.standardNote },
+          { kind: "gold", cta: dualCta.gold, note: dualCta.goldNote },
+        ];
+
   return (
     <div className="hero-banner__cta-dual" role="group" aria-label="Hero call to action options">
-      <a
-        className="hero-banner__cta hero-banner__cta--standard"
-        href={dualCta.standard.href}
-      >
-        {dualCta.standard.label}
-      </a>
+      {orderedItems.map((item, index) => (
+        <Fragment key={`${item.kind}-${item.cta.label}`}>
+          {index > 0 && dualCta.showDivider ? (
+            <span className="hero-banner__cta-divider" aria-hidden="true">
+              or
+            </span>
+          ) : null}
 
-      <span className="hero-banner__cta-divider" aria-hidden="true">
-        or
-      </span>
+          <div
+            className={`hero-banner__cta-highlight ${
+              item.kind === "gold"
+                ? "hero-banner__cta-highlight--gold"
+                : "hero-banner__cta-highlight--standard"
+            }`}
+          >
+            <a
+              className={`hero-banner__cta ${
+                item.kind === "gold"
+                  ? "hero-banner__cta--gold"
+                  : "hero-banner__cta--standard"
+              }`}
+              href={item.cta.href}
+            >
+              {item.cta.label}
+            </a>
 
-      <div className="hero-banner__cta-highlight">
-        <a
-          className="hero-banner__cta hero-banner__cta--gold"
-          href={dualCta.gold.href}
-        >
-          {dualCta.gold.label}
-        </a>
-
-        {dualCta.note ? (
-          <span className="hero-banner__cta-note">
-            <BestValueIcon />
-            <span>{dualCta.note}</span>
-          </span>
-        ) : null}
-      </div>
+            {item.note ? (
+              <span
+                className={`hero-banner__cta-note ${
+                  item.kind === "gold"
+                    ? "hero-banner__cta-note--gold"
+                    : "hero-banner__cta-note--standard"
+                }`}
+              >
+                {item.kind === "gold" && item.note.trim().toLowerCase() === "best value" ? (
+                  <BestValueIcon />
+                ) : null}
+                <span>{item.note}</span>
+              </span>
+            ) : null}
+          </div>
+        </Fragment>
+      ))}
     </div>
   );
 }
@@ -370,7 +405,15 @@ function HeroBannerSlide({
             </div>
           ) : null}
 
-          {slide.label ? <p className="hero-banner__label">{slide.label}</p> : null}
+          {slide.label ? (
+            <p
+              className={`hero-banner__label ${
+                slide.labelTheme === "gold" ? "hero-banner__label--gold" : ""
+              }`}
+            >
+              {slide.label}
+            </p>
+          ) : null}
 
           {slide.title ? (
             <h1 className="hero-banner__title">{renderTitle(slide.title)}</h1>

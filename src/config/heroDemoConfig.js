@@ -58,6 +58,14 @@ function normalizeCtaLayout(value) {
   return value === "dual" ? "dual" : "single";
 }
 
+function normalizeCtaOrder(value) {
+  return value === "gold-first" ? "gold-first" : "standard-first";
+}
+
+function normalizeLabelTheme(value) {
+  return value === "gold" ? "gold" : "standard";
+}
+
 function normalizeFocus(focus = {}) {
   return {
     desktop: normalizeText(focus.desktop) || DEFAULT_FOCUS.desktop,
@@ -212,16 +220,20 @@ function normalizeSlide(slide, index) {
       titleSize: title.size ?? layout.titleSize,
     },
     ctaLayout: normalizeCtaLayout(slide.ctaLayout),
+    ctaOrder: normalizeCtaOrder(slide.ctaOrder),
+    showCtaDivider: slide.showCtaDivider !== false,
     focus: normalizeFocus(slide.focus),
     media: normalizeMediaSet(slide.media),
     ppvBadge: Boolean(slide.ppvBadge),
     logo: normalizeLogo(slide.logo),
+    labelTheme: normalizeLabelTheme(slide.labelTheme),
     label: normalizeText(slide.label),
     title: title.content,
     subtitle: normalizeText(slide.subtitle),
     price: normalizePrice(slide.price),
     primaryCta: normalizeCta(slide.primaryCta, "primary"),
     secondaryCta: normalizeCta(slide.secondaryCta, "secondary"),
+    standardButtonNote: normalizeText(slide.standardButtonNote),
     goldButtonNote: normalizeText(slide.goldButtonNote),
     helperText: normalizeText(slide.helperText),
   };
@@ -369,11 +381,15 @@ function buildSingleSlideDeck(baseSlide, settings) {
         },
         media: previewMedia,
         logo: settings.showLogo ? baseSlide.logo : null,
+        labelTheme: "standard",
         label: settings.showLabel ? baseSlide.label : "",
         price: settings.showPrice ? baseSlide.price : null,
         ppvBadge: settings.showPpvBadge,
         ctaLayout: settings.showTwoButtons ? "dual" : "single",
+        ctaOrder: "standard-first",
+        showCtaDivider: true,
         secondaryCta: settings.showTwoButtons ? baseSlide.secondaryCta : null,
+        standardButtonNote: "",
         goldButtonNote:
           settings.showTwoButtons && settings.showBestValue ? "Best value" : "",
         helperText: settings.showHelperText ? baseSlide.helperText : "",

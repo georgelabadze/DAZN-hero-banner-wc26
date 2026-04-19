@@ -55,16 +55,12 @@ function getAssetLabel(src) {
   return parts[parts.length - 1] || src;
 }
 
-function getDefaultSourceMode(hasCurrentAsset) {
-  return hasCurrentAsset ? "current" : "upload";
-}
-
 function createEditableMediaSlot(mediaItem) {
   const hasCurrentAsset = Boolean(mediaItem?.src);
 
   return {
+    enabled: true,
     file: null,
-    sourceMode: getDefaultSourceMode(hasCurrentAsset),
     url: "",
     alt: typeof mediaItem?.alt === "string" ? mediaItem.alt : "",
     current: hasCurrentAsset
@@ -84,7 +80,6 @@ function createEditableLogoSlot(logo) {
 
   return {
     file: null,
-    sourceMode: getDefaultSourceMode(hasCurrentAsset),
     url: "",
     alt: typeof logo?.alt === "string" ? logo.alt : "",
     current: hasCurrentAsset
@@ -110,7 +105,7 @@ export function detectFileKind(file) {
 }
 
 function buildMediaPayload(slot) {
-  if (slot?.sourceMode === "upload" && slot?.file instanceof File) {
+  if (slot?.file instanceof File) {
     return {
       url: URL.createObjectURL(slot.file),
       alt: slot.alt?.trim() || slot.file.name || "",
@@ -118,7 +113,7 @@ function buildMediaPayload(slot) {
     };
   }
 
-  if (slot?.sourceMode === "link" && slot?.url?.trim()) {
+  if (slot?.url?.trim()) {
     return {
       url: slot.url.trim(),
       alt: slot.alt?.trim() || "",
@@ -126,7 +121,7 @@ function buildMediaPayload(slot) {
     };
   }
 
-  if (slot?.sourceMode === "current" && slot?.current?.src) {
+  if (slot?.current?.src) {
     return {
       url: slot.current.src,
       posterUrl: slot.current.poster || "",
@@ -143,21 +138,21 @@ function buildLogoPayload(showLogo, logo) {
     return null;
   }
 
-  if (logo?.sourceMode === "upload" && logo?.file instanceof File) {
+  if (logo?.file instanceof File) {
     return {
       url: URL.createObjectURL(logo.file),
       alt: logo.alt?.trim() || logo.file.name || "",
     };
   }
 
-  if (logo?.sourceMode === "link" && logo?.url?.trim()) {
+  if (logo?.url?.trim()) {
     return {
       url: logo.url.trim(),
       alt: logo.alt?.trim() || "",
     };
   }
 
-  if (logo?.sourceMode === "current" && logo?.current?.src) {
+  if (logo?.current?.src) {
     return {
       url: logo.current.src,
       alt: logo.alt?.trim() || logo.current.alt || "",
@@ -189,17 +184,25 @@ export function createSlideEditorDraft(slide) {
     showLogo: Boolean(slide?.logo?.src),
     logo: createEditableLogoSlot(slide?.logo),
     showLabel: Boolean(slide?.label),
+    showLabelGold: slide?.labelTheme === "gold",
     label: typeof slide?.label === "string" ? slide.label : "",
     primaryCtaLabel:
       typeof slide?.primaryCta?.label === "string" ? slide.primaryCta.label : "",
     showTwoButtons:
       slide?.ctaLayout === "dual" && Boolean(slide?.secondaryCta?.label),
+    ctaOrder: slide?.ctaOrder === "gold-first" ? "gold-first" : "standard-first",
+    showCtaDivider: slide?.showCtaDivider !== false,
     secondaryCtaLabel:
       typeof slide?.secondaryCta?.label === "string"
         ? slide.secondaryCta.label
         : "",
-    showBestValue: Boolean(slide?.goldButtonNote),
-    bestValueText:
+    showStandardCtaValueText: Boolean(slide?.standardButtonNote),
+    standardCtaValueText:
+      typeof slide?.standardButtonNote === "string"
+        ? slide.standardButtonNote
+        : "",
+    showGoldCtaValueText: Boolean(slide?.goldButtonNote),
+    goldCtaValueText:
       typeof slide?.goldButtonNote === "string" && slide.goldButtonNote.trim()
         ? slide.goldButtonNote
         : "Best value",
@@ -235,6 +238,8 @@ export function buildHeroSlideFromDraft({
         titleSize: draft.titleSize === "larger" ? "larger" : "large",
       },
       ctaLayout: draft.showTwoButtons ? "dual" : "single",
+      ctaOrder: draft.ctaOrder === "gold-first" ? "gold-first" : "standard-first",
+      showCtaDivider: draft.showTwoButtons ? draft.showCtaDivider !== false : false,
       focus: sourceSlide?.focus,
       media: {
         desktop: buildMediaPayload(draft.media?.desktop),
@@ -243,6 +248,7 @@ export function buildHeroSlideFromDraft({
       },
       ppvBadge: Boolean(draft.showPpvBadge),
       logo: buildLogoPayload(draft.showLogo, draft.logo),
+      labelTheme: draft.showLabelGold ? "gold" : "standard",
       label: draft.showLabel ? draft.label : "",
       title: {
         lead: titleLead,
@@ -269,9 +275,13 @@ export function buildHeroSlideFromDraft({
             href: secondaryHref,
           }
         : null,
+      standardButtonNote:
+        draft.showTwoButtons && draft.showStandardCtaValueText
+          ? draft.standardCtaValueText?.trim()
+          : "",
       goldButtonNote:
-        draft.showTwoButtons && draft.showBestValue
-          ? draft.bestValueText?.trim() || "Best value"
+        draft.showTwoButtons && draft.showGoldCtaValueText
+          ? draft.goldCtaValueText?.trim() || "Best value"
           : "",
       helperText: draft.showHelperText ? draft.helperText : "",
     },

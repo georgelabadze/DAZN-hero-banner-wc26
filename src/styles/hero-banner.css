@@ -422,6 +422,11 @@
   text-transform: uppercase;
 }
 
+.hero-banner__label--gold {
+  background: linear-gradient(90deg, #f2af3d 0%, #fbed7d 100%);
+  color: #282000;
+}
+
 .hero-banner__title {
   margin: 0;
   width: var(--hero-title-measure, 100%);
@@ -626,6 +631,14 @@
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
+}
+
+.hero-banner__cta-note--standard {
+  color: rgba(249, 250, 250, 0.82);
+}
+
+.hero-banner__cta-note--gold {
+  color: #fbed7d;
 }
 
 .hero-banner__cta-note-icon {
