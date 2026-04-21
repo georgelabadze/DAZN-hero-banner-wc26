@@ -352,12 +352,7 @@ function HeroBannerSlide({
   return (
     <div
       aria-hidden={phase === "exit" ? "true" : undefined}
-      className={[
-        slideClassName,
-        activeMedia?.kind === "video" ? "hero-banner--media-video" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={slideClassName}
     >
       <div aria-hidden className="hero-banner__scrim" />
 

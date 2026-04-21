@@ -29,7 +29,6 @@
   pointer-events: none;
   opacity: 0.9;
   border-radius: calc(var(--hero-frame-radius, var(--card-radius)) + 40px);
-  filter: blur(clamp(20px, 3.6vw, 52px));
   background:
     radial-gradient(circle at 50% 6%, var(--hero-glow-top) 0%, transparent 68%),
     radial-gradient(circle at 4% 50%, var(--hero-glow-left) 0%, transparent 56%),
@@ -147,8 +146,6 @@
   background: rgba(8, 14, 18, 0.5);
   color: #ffffff;
   box-shadow: 0 0.75rem 1.6rem rgba(0, 0, 0, 0.22);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   opacity: 0;
   pointer-events: none;
   transform: translateY(-4px);
@@ -313,13 +310,6 @@
       rgba(8, 14, 18, 0.6) 60%,
       #080e12 100%
     );
-  -webkit-backdrop-filter: blur(1.8092015981674194px);
-  backdrop-filter: blur(1.8092015981674194px);
-}
-
-.hero-banner--desktop.hero-banner--align-center.hero-banner--media-video .hero-banner__scrim {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
 }
 
 .hero-banner--desktop .hero-banner__content {
@@ -729,8 +719,6 @@
   z-index: 0;
   pointer-events: none;
   background-color: rgba(0, 0, 0, 0.3);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   -webkit-mask-image: var(--hero-content-blur-mask);
   mask-image: var(--hero-content-blur-mask);
 }
