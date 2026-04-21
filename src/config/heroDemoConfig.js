@@ -1,7 +1,6 @@
 import heroBannerData from "../data/hero-banner-data.json";
 
 export const HERO_RESOURCE_LINKS = [
-  { label: "Creative guidelines", href: "/creative.html" },
   { label: "Product guidelines", href: "/product.html" },
   { label: "Development guidelines", href: "/development.html" },
 ];

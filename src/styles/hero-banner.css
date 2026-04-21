@@ -28,7 +28,7 @@
   block-size: var(--hero-glow-height);
   pointer-events: none;
   opacity: 0.9;
-  border-radius: calc(var(--card-radius) + 40px);
+  border-radius: calc(var(--hero-frame-radius, var(--card-radius)) + 40px);
   filter: blur(clamp(20px, 3.6vw, 52px));
   background:
     radial-gradient(circle at 50% 6%, var(--hero-glow-top) 0%, transparent 68%),
@@ -46,7 +46,7 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--card-radius);
-  background: transparent;
+  background: #080e12;
   box-shadow: var(--hero-shadow);
 }
 
@@ -217,10 +217,14 @@
 }
 
 .hero-banner--desktop {
+  --hero-frame-radius: 16.283px;
   --hero-title-measure: 100%;
   --hero-copy-measure: 60%;
   --hero-title-size: clamp(3.5rem, 5cqw, 5rem);
   --hero-logo-max-height: min(4rem, 4cqw);
+  border-width: 0.905px;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-radius: 16.283px;
   min-block-size: var(--hero-min-height-desktop);
   block-size: min(calc(100cqw * 9 / 16), min(48rem, calc(var(--hero-available-height) * 0.88)));
 }
@@ -232,7 +236,7 @@
   --hero-logo-max-height: clamp(3rem, 7cqw, 3.5rem);
   min-block-size: var(--hero-min-height-tablet);
   block-size: min(
-    calc(100cqw * 7 / 5),
+    100cqw,
     85svh
   );
 }
@@ -285,26 +289,11 @@
 .hero-banner--desktop .hero-banner__scrim {
   background:
     linear-gradient(
-      90deg,
-      rgba(3, 5, 9, 0.86) 0%,
-      rgba(3, 5, 9, 0.68) 18%,
-      rgba(3, 5, 9, 0.28) 36%,
-      rgba(3, 5, 9, 0.06) 54%,
-      rgba(3, 5, 9, 0) 70%
-    ),
-    radial-gradient(
-      circle at 18% 84%,
-      rgba(2, 4, 7, 0.68) 0%,
-      rgba(2, 4, 7, 0.42) 28%,
-      rgba(2, 4, 7, 0.14) 50%,
-      rgba(2, 4, 7, 0) 72%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(2, 4, 7, 0.02) 0%,
-      rgba(2, 4, 7, 0.02) 42%,
-      rgba(2, 4, 7, 0.06) 70%,
-      rgba(2, 4, 7, 0.24) 100%
+      270deg,
+      rgba(8, 14, 18, 0) 0%,
+      rgba(8, 14, 18, 0) 30%,
+      rgba(8, 14, 18, 0.25) 65%,
+      rgba(8, 14, 18, 0.8) 100%
     );
 }
 
@@ -315,22 +304,22 @@
   transform: translateY(0);
 }
 
-.hero-banner--align-center .hero-banner__scrim {
+.hero-banner--desktop.hero-banner--align-center .hero-banner__scrim {
   background:
     linear-gradient(
       180deg,
-      rgba(3, 5, 9, 0.04) 0%,
-      rgba(3, 5, 9, 0.05) 34%,
-      rgba(3, 5, 9, 0.18) 60%,
-      rgba(3, 5, 9, 0.74) 100%
-    ),
-    radial-gradient(
-      circle at 50% 84%,
-      rgba(3, 5, 9, 0.4) 0%,
-      rgba(3, 5, 9, 0.32) 26%,
-      rgba(3, 5, 9, 0.14) 46%,
-      rgba(3, 5, 9, 0) 74%
+      rgba(8, 14, 18, 0.6) 0%,
+      rgba(8, 14, 18, 0) 25%,
+      rgba(8, 14, 18, 0.6) 60%,
+      #080e12 100%
     );
+  -webkit-backdrop-filter: blur(1.8092015981674194px);
+  backdrop-filter: blur(1.8092015981674194px);
+}
+
+.hero-banner--desktop.hero-banner--align-center.hero-banner--media-video .hero-banner__scrim {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .hero-banner--desktop .hero-banner__content {
@@ -665,23 +654,25 @@
   line-height: 1.4;
 }
 
-.hero-banner--tablet .hero-banner__scrim,
+.hero-banner--tablet .hero-banner__scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 14, 18, 0.6) 0%,
+      rgba(8, 14, 18, 0) 20%,
+      rgba(8, 14, 18, 0.6) 65%,
+      #080e12 100%
+    );
+}
+
 .hero-banner--mobile .hero-banner__scrim {
   background:
     linear-gradient(
       180deg,
-      rgba(2, 4, 7, 0.9) 0%,
-      rgba(2, 4, 7, 0.62) 12%,
-      rgba(2, 4, 7, 0.18) 26%,
-      rgba(2, 4, 7, 0.08) 42%,
-      rgba(2, 4, 7, 0.22) 58%,
-      rgba(2, 4, 7, 0.94) 100%
-    ),
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.16) 52%,
-      rgba(0, 0, 0, 0.58) 100%
+      rgba(8, 14, 18, 0.8) 0%,
+      rgba(8, 14, 18, 0) 25%,
+      rgba(8, 14, 18, 0.6) 60%,
+      #080e12 100%
     );
 }
 

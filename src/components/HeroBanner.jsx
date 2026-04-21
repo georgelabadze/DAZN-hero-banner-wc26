@@ -9,7 +9,7 @@ const DEFAULT_AUTOPLAY_MS = 10000;
 const DEFAULT_TRANSITION_MS = 300;
 const HERO_TARGET_HEIGHT_RATIO = {
   desktop: 9 / 16,
-  tablet: 7 / 5,
+  tablet: 1,
   mobile: 16 / 9,
 };
 
@@ -352,7 +352,12 @@ function HeroBannerSlide({
   return (
     <div
       aria-hidden={phase === "exit" ? "true" : undefined}
-      className={slideClassName}
+      className={[
+        slideClassName,
+        activeMedia?.kind === "video" ? "hero-banner--media-video" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
     >
       <div aria-hidden className="hero-banner__scrim" />
 

@@ -4,7 +4,6 @@
 - Vite + React
 - Multi-page build with:
   - `index.html` for the live demo
-  - `creative.html` for creative guidance
   - `product.html` for product guidance
   - `development.html` for implementation guidance
 - Runtime glow sampling with canvas + `ResizeObserver`
@@ -48,8 +47,8 @@
   - subtitle and helper measure are `30%` of the hero width
   - desktop glow and overlay border remain active
 - Tablet: `768px` to `1024px`
-  - creative target stays `5:7`
-  - live hero stays full width and preserves a true `5:7` frame
+  - creative target stays `1:1`
+  - live hero stays full width and preserves a true `1:1` frame until height-constrained
   - live height caps at about `85svh` in normal cases
   - minimum height uses a true `36rem` floor
   - title measure is `80%` of the hero width
@@ -103,4 +102,4 @@
 - `hero-banner-data.json` is the content source for carousel mode
 - `heroDemoConfig.js` remains the single-slide preview adapter for manual toggle mode
 - The live settings panel is demo-only and should not be treated as production product UI
-- The dedicated creative, product, and development pages are the preferred review entry points
+- The dedicated product and development pages are the preferred review entry points
