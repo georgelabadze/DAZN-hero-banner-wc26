@@ -11,13 +11,10 @@ export const HERO_LOCAL_URLS = {
   blueprintDesktop: "/hero/blueprint-desktop.png",
   blueprintMobile: "/hero/blueprint-mobile.png",
   blueprintTablet: "/hero/blueprint-tablet.png",
-  desktopPhoto: "/hero/desktop.png",
-  desktopVideo: "/hero/video-example-desktop.mov",
+  desktopPhoto: "/hero/example-desktop.png",
   logo: "/hero/logo.png",
-  mobilePhoto: "/hero/mobile.png",
-  mobileVideo: "/hero/video-example-mobile.mov",
-  tabletPhoto: "/hero/tablet.png",
-  tabletVideo: "/hero/video-example-tablet.mov",
+  mobilePhoto: "/hero/example-mobile.png",
+  tabletPhoto: "/hero/example-tablet.png",
 };
 
 const DEFAULT_AUTOPLAY_MS = 10000;
@@ -249,19 +246,16 @@ const fallbackSlide = normalizeSlide(
     focus: DEFAULT_FOCUS,
     media: {
       desktop: {
-        url: HERO_LOCAL_URLS.desktopVideo,
-        posterUrl: HERO_LOCAL_URLS.desktopPhoto,
-        alt: "FIFA World Cup hero video for desktop.",
+        url: HERO_LOCAL_URLS.desktopPhoto,
+        alt: "FIFA World Cup hero image for desktop.",
       },
       tablet: {
-        url: HERO_LOCAL_URLS.tabletVideo,
-        posterUrl: HERO_LOCAL_URLS.tabletPhoto,
-        alt: "FIFA World Cup hero video for tablet.",
+        url: HERO_LOCAL_URLS.tabletPhoto,
+        alt: "FIFA World Cup hero image for tablet.",
       },
       mobile: {
-        url: HERO_LOCAL_URLS.mobileVideo,
-        posterUrl: HERO_LOCAL_URLS.mobilePhoto,
-        alt: "FIFA World Cup hero video for mobile.",
+        url: HERO_LOCAL_URLS.mobilePhoto,
+        alt: "FIFA World Cup hero image for mobile.",
       },
     },
     logo: {
@@ -341,30 +335,13 @@ const heroPreviewMediaSets = {
       alt: "FIFA World Cup hero image for mobile.",
     },
   }),
-  video: normalizeMediaSet({
-    desktop: {
-      url: HERO_LOCAL_URLS.desktopVideo,
-      posterUrl: HERO_LOCAL_URLS.desktopPhoto,
-      alt: "FIFA World Cup hero video for desktop.",
-    },
-    tablet: {
-      url: HERO_LOCAL_URLS.tabletVideo,
-      posterUrl: HERO_LOCAL_URLS.tabletPhoto,
-      alt: "FIFA World Cup hero video for tablet.",
-    },
-    mobile: {
-      url: HERO_LOCAL_URLS.mobileVideo,
-      posterUrl: HERO_LOCAL_URLS.mobilePhoto,
-      alt: "FIFA World Cup hero video for mobile.",
-    },
-  }),
 };
 
 function buildSingleSlideDeck(baseSlide, settings) {
   const previewMedia =
     settings.showCreativeBlueprint
       ? heroPreviewMediaSets.blueprint
-      : heroPreviewMediaSets[settings.mediaMode] ?? baseSlide.media;
+      : heroPreviewMediaSets.photo;
 
   return {
     ...heroBannerDeck,
@@ -437,7 +414,6 @@ export function buildStaticHeroDeckForDisplay(settings) {
 export const heroDefaultSettings = {
   contentAlignment: "center",
   headerMode: "countdown",
-  mediaMode: "video",
   showCarousel: true,
   showCreativeBlueprint: false,
   showBestValue: false,

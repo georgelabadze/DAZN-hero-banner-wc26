@@ -92,12 +92,35 @@ function createEditableLogoSlot(logo) {
   };
 }
 
+const VIDEO_EXTENSIONS = [".mp4", ".mov", ".m4v", ".webm", ".ogg", ".ogv", ".m3u8"];
+
 export function detectFileKind(file) {
   if (!file) {
     return "image";
   }
 
   if (typeof file.type === "string" && file.type.startsWith("video/")) {
+    return "video";
+  }
+
+  return "image";
+}
+
+function getPathWithoutQuery(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return "";
+  }
+
+  const [withoutHash] = value.trim().split("#");
+  const [withoutQuery] = withoutHash.split("?");
+
+  return withoutQuery.toLowerCase();
+}
+
+export function detectMediaUrlKind(url) {
+  const path = getPathWithoutQuery(url);
+
+  if (VIDEO_EXTENSIONS.some((extension) => path.endsWith(extension))) {
     return "video";
   }
 
@@ -117,7 +140,7 @@ function buildMediaPayload(slot) {
     return {
       url: slot.url.trim(),
       alt: slot.alt?.trim() || "",
-      kind: "image",
+      kind: detectMediaUrlKind(slot.url),
     };
   }
 

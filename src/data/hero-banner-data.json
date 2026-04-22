@@ -16,19 +16,16 @@
       },
       "media": {
         "desktop": {
-          "url": "/hero/video-example-desktop.mov",
-          "posterUrl": "/hero/desktop.png",
-          "alt": "FIFA World Cup hero video for desktop."
+          "url": "/hero/example-desktop.png",
+          "alt": "FIFA World Cup hero image for desktop."
         },
         "tablet": {
-          "url": "/hero/video-example-tablet.mov",
-          "posterUrl": "/hero/tablet.png",
-          "alt": "FIFA World Cup hero video for tablet."
+          "url": "/hero/example-tablet.png",
+          "alt": "FIFA World Cup hero image for tablet."
         },
         "mobile": {
-          "url": "/hero/video-example-mobile.mov",
-          "posterUrl": "/hero/mobile.png",
-          "alt": "FIFA World Cup hero video for mobile."
+          "url": "/hero/example-mobile.png",
+          "alt": "FIFA World Cup hero image for mobile."
         }
       },
       "logo": {

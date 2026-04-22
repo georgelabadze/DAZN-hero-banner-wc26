@@ -4,6 +4,7 @@ import { CloseIcon } from "./HeroEditorIcons";
 import {
   createSlideEditorDraft,
   detectFileKind,
+  detectMediaUrlKind,
 } from "../utils/heroSlideEditor";
 
 function useFilePreviewUrl(file) {
@@ -145,7 +146,7 @@ function getActiveAsset(slot) {
 
   if (slot.url?.trim()) {
     return {
-      kind: "image",
+      kind: detectMediaUrlKind(slot.url),
       label: slot.url.trim(),
       src: slot.url.trim(),
     };
@@ -220,7 +221,7 @@ function AssetEditor({
       <TextInput
         id={`${fieldId}-url`}
         onChange={onUrlChange}
-        placeholder={isLogo ? "Paste logo image URL" : "Paste image URL"}
+        placeholder={isLogo ? "Paste logo image URL" : "Paste media URL"}
         value={slot.url}
       />
       <span className="hero-slide-editor__or">or</span>

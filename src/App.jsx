@@ -143,18 +143,6 @@ export default function App() {
         })),
     },
     {
-      id: "hero-media-mode",
-      title: "Hero video / Photo",
-      description:
-        "The hero can use either video or a static image. The glow below the hero should adapt to whichever media type is used.",
-      checked: heroSettings.mediaMode === "video",
-      onToggle: () =>
-        setHeroSettings((current) => ({
-          ...current,
-          mediaMode: current.mediaMode === "video" ? "photo" : "video",
-        })),
-    },
-    {
       id: "hero-content-alignment",
       title: "Content alignment",
       description:

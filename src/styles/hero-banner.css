@@ -29,6 +29,7 @@
   pointer-events: none;
   opacity: 0.9;
   border-radius: calc(var(--hero-frame-radius, var(--card-radius)) + 40px);
+  filter: blur(clamp(20px, 3.6vw, 52px));
   background:
     radial-gradient(circle at 50% 6%, var(--hero-glow-top) 0%, transparent 68%),
     radial-gradient(circle at 4% 50%, var(--hero-glow-left) 0%, transparent 56%),

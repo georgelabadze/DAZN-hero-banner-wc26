@@ -369,7 +369,7 @@ function HeroBannerSlide({
               muted
               playsInline
               poster={activeMedia.poster}
-              preload="metadata"
+              preload="auto"
               style={mediaStyle}
             >
               <source src={activeMedia.src} />

@@ -185,6 +185,7 @@ export function useHeroGlow({ cardRef, demoRef, media, mediaRef }) {
     let cancelled = false;
     let frameHandle = 0;
     let intervalHandle = 0;
+    let hasCommittedVideoFrame = false;
     const canvas =
       typeof OffscreenCanvas !== "undefined"
         ? new OffscreenCanvas(SAMPLE_CANVAS_WIDTH, SAMPLE_CANVAS_WIDTH)
@@ -228,6 +229,16 @@ export function useHeroGlow({ cardRef, demoRef, media, mediaRef }) {
       } catch {
         return false;
       }
+    };
+
+    const applyPosterOrFallback = async () => {
+      const usedPoster = await samplePoster();
+
+      if (!usedPoster && !hasCommittedVideoFrame && !cancelled) {
+        applyFallback();
+      }
+
+      return usedPoster;
     };
 
     const sampleImageElement = async (imageElement) => {
@@ -341,9 +352,10 @@ export function useHeroGlow({ cardRef, demoRef, media, mediaRef }) {
 
       try {
         const palette = samplePaletteFromSource(videoElement, canvas, context);
+        hasCommittedVideoFrame = true;
         commitPalette(palette, 0.32);
       } catch {
-        samplePoster();
+        applyPosterOrFallback();
       }
     };
 
@@ -390,18 +402,21 @@ export function useHeroGlow({ cardRef, demoRef, media, mediaRef }) {
 
     const handleLoadedData = () => {
       sampleVideoFrame(performance.now());
+
+      if (!videoElement.paused && !document.hidden) {
+        scheduleLoop();
+      }
     };
 
     const handleError = async () => {
       stopLoop();
-      if (!(await samplePoster()) && !cancelled) {
-        applyFallback();
-      }
+      await applyPosterOrFallback();
     };
 
-    samplePoster();
+    applyPosterOrFallback();
 
     videoElement.addEventListener("loadeddata", handleLoadedData);
+    videoElement.addEventListener("canplay", handleLoadedData);
     videoElement.addEventListener("play", handlePlay);
     videoElement.addEventListener("playing", handlePlay);
     videoElement.addEventListener("pause", handlePause);
@@ -421,6 +436,7 @@ export function useHeroGlow({ cardRef, demoRef, media, mediaRef }) {
       cancelled = true;
       stopLoop();
       videoElement.removeEventListener("loadeddata", handleLoadedData);
+      videoElement.removeEventListener("canplay", handleLoadedData);
       videoElement.removeEventListener("play", handlePlay);
       videoElement.removeEventListener("playing", handlePlay);
       videoElement.removeEventListener("pause", handlePause);
