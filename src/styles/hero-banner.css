@@ -438,7 +438,7 @@
   width: var(--hero-copy-measure, 100%);
   max-width: var(--hero-copy-measure, 100%);
   color: var(--text-secondary);
-  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.25rem);
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.125rem);
   line-height: 1.42;
 }
 
