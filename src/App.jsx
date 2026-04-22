@@ -157,7 +157,7 @@ export default function App() {
     },
     {
       id: "hero-title-size",
-      title: "Large title / Larger title",
+      title: "Larger title / Large title",
       description:
         "The hero supports two approved title sizes. Use Large title for longer headlines, up to about 48 characters including spaces. Use Larger title for shorter headlines, ideally up to about 32 characters including spaces.",
       checked: heroSettings.titleSize === "large",
