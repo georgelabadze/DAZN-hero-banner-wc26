@@ -408,15 +408,21 @@
 }
 
 .hero-banner__title {
+  --hero-title-line-height: 1.1;
   margin: 0;
   width: var(--hero-title-measure, 100%);
   max-width: var(--hero-title-measure, 100%);
+  display: -webkit-box;
+  overflow: hidden;
   font-size: var(--hero-title-size, clamp(2.35rem, 1.1rem + 3.2vw, 5rem));
   font-weight: 700;
-  line-height: 1.1;
+  line-height: var(--hero-title-line-height);
+  max-block-size: calc(2 * var(--hero-title-line-height) * 1em);
   letter-spacing: 0;
   text-shadow: 0 2px 16px rgba(8, 14, 18, 0.35);
   text-wrap: balance;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .hero-banner--desktop .hero-banner__title {
@@ -435,12 +441,18 @@
 }
 
 .hero-banner__subtitle {
+  --hero-subtitle-line-height: 1.42;
   margin: 0;
   width: var(--hero-copy-measure, 100%);
   max-width: var(--hero-copy-measure, 100%);
+  display: -webkit-box;
+  overflow: hidden;
   color: var(--text-secondary);
   font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.125rem);
-  line-height: 1.42;
+  line-height: var(--hero-subtitle-line-height);
+  max-block-size: calc(3 * var(--hero-subtitle-line-height) * 1em);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .hero-banner--desktop .hero-banner__price {
@@ -906,12 +918,12 @@
   }
 
   .hero-banner--mobile .hero-banner__title {
-    line-height: 0.95;
+    --hero-title-line-height: 0.95;
   }
 
   .hero-banner--mobile .hero-banner__subtitle {
     font-size: 0.9rem;
-    line-height: 1.3;
+    --hero-subtitle-line-height: 1.3;
   }
 
   .hero-banner--mobile .hero-banner__price {
