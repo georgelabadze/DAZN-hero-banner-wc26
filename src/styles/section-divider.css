@@ -1,102 +1,38 @@
 .section-divider {
-  --section-divider-base: rgba(104, 111, 66, 0.18);
-  --section-divider-accent-core: rgba(242, 175, 61, 0.92);
-  --section-divider-accent-soft: rgba(251, 237, 125, 0.46);
-  --section-divider-padding-block: 64px;
+  height: 1px;
+  margin: 64px 0;
   position: relative;
   width: 100%;
-  height: calc((var(--section-divider-padding-block) * 2) + 1px);
-  margin: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 250, 0, 0.18) 20%,
+    #ffaa00 35%,
+    #fffa00 50%,
+    #ffaa00 65%,
+    rgba(255, 250, 0, 0.18) 80%,
+    transparent 100%
+  );
 }
 
-.section-divider__line,
-.section-divider__glow,
-.section-divider__accent {
+.section-divider::after {
+  content: "";
   position: absolute;
-  display: block;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  filter: blur(16px);
+  opacity: 0.6;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #ffaa00 35%,
+    #fffa00 50%,
+    #ffaa00 65%,
+    transparent 100%
+  );
   pointer-events: none;
-}
-
-.section-divider__line {
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  transform: translateY(-50%);
-  background: linear-gradient(
-    90deg,
-    rgba(88, 95, 58, 0.08) 0%,
-    var(--section-divider-base) 14%,
-    rgba(120, 126, 76, 0.2) 50%,
-    var(--section-divider-base) 86%,
-    rgba(88, 95, 58, 0.08) 100%
-  );
-}
-
-.section-divider__accent {
-  left: 50%;
-  top: 50%;
-  width: min(38rem, 48%);
-  height: 1px;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(
-    90deg,
-    rgba(242, 175, 61, 0) 0%,
-    rgba(242, 175, 61, 0.12) 14%,
-    var(--section-divider-accent-soft) 34%,
-    var(--section-divider-accent-core) 50%,
-    var(--section-divider-accent-soft) 66%,
-    rgba(242, 175, 61, 0.12) 86%,
-    rgba(242, 175, 61, 0) 100%
-  );
-  box-shadow:
-    0 -8px 14px rgba(242, 175, 61, 0.22),
-    0 8px 14px rgba(242, 175, 61, 0.2),
-    0 0 8px rgba(242, 175, 61, 0.16);
-}
-
-.section-divider__glow {
-  left: 50%;
-  top: 50%;
-  width: min(42rem, 54%);
-  height: 14px;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(
-    90deg,
-    rgba(242, 175, 61, 0) 0%,
-    rgba(242, 175, 61, 0.04) 12%,
-    rgba(251, 237, 125, 0.11) 28%,
-    rgba(242, 175, 61, 0.24) 50%,
-    rgba(251, 237, 125, 0.11) 72%,
-    rgba(242, 175, 61, 0.04) 88%,
-    rgba(242, 175, 61, 0) 100%
-  );
-  filter: blur(9px);
-  opacity: 0.86;
-}
-
-@media (max-width: 1024px) {
-  .section-divider__glow {
-    width: min(32rem, 60%);
-  }
-
-  .section-divider__accent {
-    width: min(28rem, 56%);
-  }
-}
-
-@media (max-width: 767px) {
-  .section-divider__glow {
-    width: min(22rem, 68%);
-    height: 12px;
-    filter: blur(8px);
-  }
-
-  .section-divider__accent {
-    width: min(18rem, 62%);
-    box-shadow:
-      0 -6px 11px rgba(242, 175, 61, 0.18),
-      0 6px 11px rgba(242, 175, 61, 0.16),
-      0 0 6px rgba(242, 175, 61, 0.14);
-  }
 }
