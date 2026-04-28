@@ -1,7 +1,7 @@
 .hero-settings {
   width: 100%;
   margin-top: clamp(1.5rem, 2.6vw, 2.5rem);
-  padding-bottom: clamp(2rem, 4vw, 3.5rem);
+  padding-bottom: clamp(0.4rem, 1vw, 0.7rem);
 }
 
 .hero-settings__inner {
@@ -164,7 +164,7 @@
 @media (max-width: 767px) {
   .hero-settings {
     margin-top: 1rem;
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
   }
 
   .hero-settings__panel {

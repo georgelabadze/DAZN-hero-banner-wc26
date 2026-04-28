@@ -15,6 +15,7 @@ import HeroBanner from "./components/HeroBanner";
 import HeroFooterLinks from "./components/HeroFooterLinks";
 import HeroSlideEditorModal from "./components/HeroSlideEditorModal";
 import HeroSettingsPanel from "./components/HeroSettingsPanel";
+import SectionDivider from "./components/SectionDivider";
 import SiteHeader from "./components/SiteHeader";
 import {
   buildHeroSlideFromDraft,
@@ -362,6 +363,7 @@ export default function App() {
         />
 
         <HeroSettingsPanel footerItems={footerItems} items={settingsItems} />
+        <SectionDivider />
         <HeroFooterLinks
           githubUrl={HERO_GITHUB_URL}
           resourceLinks={HERO_RESOURCE_LINKS}
