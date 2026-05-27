@@ -36,11 +36,11 @@
         <div class="doc-overview__stats">
           <article class="doc-stat">
             <p class="doc-stat__label">Approved modules</p>
-            <p class="doc-stat__value">6 core content blocks</p>
+            <p class="doc-stat__value">9 modules + CTA variants</p>
           </article>
           <article class="doc-stat">
             <p class="doc-stat__label">Headline fit</p>
-            <p class="doc-stat__value">32 / 48 character guidance</p>
+            <p class="doc-stat__value">2-line title / 3-line subtitle</p>
           </article>
           <article class="doc-stat">
             <p class="doc-stat__label">Decision lens</p>
@@ -59,30 +59,30 @@
           <p class="doc-section__eyebrow">Product</p>
           <h2 class="doc-section__title">Use the modules deliberately so the hero tells one clear story at a time.</h2>
           <p class="doc-section__text">
-            The live demo exposes multiple switches, but product decisions should not
-            be made switch by switch. Choose only the modules that materially improve
-            clarity, hierarchy, or confidence for the user.
+            This page is the product handoff for the live hero component set. Use it
+            to decide which modules belong in the story, how much copy the banner can
+            hold, and which controls are only presentation or demo tools.
           </p>
         </div>
 
         <div class="doc-grid doc-grid--two">
           <article class="doc-card">
-            <h3 class="doc-card__title">What good hero composition looks like</h3>
+            <h3 class="doc-card__title">What good product review looks like</h3>
             <ul class="doc-card__list">
-              <li>Keep one dominant message in the title and use the rest of the stack to support it.</li>
-              <li>Every added module should either improve clarity or add essential context.</li>
-              <li>If a module repeats information already visible elsewhere, it should usually be removed.</li>
-              <li>Shorter stacks travel better across desktop, tablet, and mobile.</li>
+              <li>Keep one dominant message in the title and let the rest of the stack support it.</li>
+              <li>Choose only the modules that improve clarity, hierarchy, or confidence.</li>
+              <li>Treat CTA pattern, price, and PPV status as part of the story, not decoration.</li>
+              <li>Review the same stack across desktop, tablet, and mobile before calling it done.</li>
             </ul>
           </article>
 
           <article class="doc-card">
-            <h3 class="doc-card__title">What to avoid</h3>
+            <h3 class="doc-card__title">What not to treat as product requirements</h3>
             <ul class="doc-card__list">
-              <li>Using every available module just because the space exists.</li>
-              <li>Turning the subtitle into body copy or legal copy.</li>
-              <li>Adding badges, logos, and helper text when the creative is already busy.</li>
-              <li>Letting lower-priority details compete with the title or CTA.</li>
+              <li>Not every switch in the demo represents a required product module.</li>
+              <li>Carousel, Creative Blueprint, and the slide editor are review tools, not production UI.</li>
+              <li>Alignment, theme, and title size are presentation/system choices.</li>
+              <li>Avoid repeating the same message across title, label, subtitle, and helper text.</li>
             </ul>
           </article>
         </div>
@@ -93,9 +93,8 @@
           <p class="doc-section__eyebrow">Modules</p>
           <h2 class="doc-section__title">Use each module for a specific job.</h2>
           <p class="doc-section__text">
-            These are the approved hero content modules for the current product
-            implementation. Treat them as purposeful building blocks, not optional
-            decoration.
+            These are the live hero modules Product can evaluate today. Treat them as
+            purposeful building blocks, not optional decoration.
           </p>
         </div>
 
@@ -103,11 +102,13 @@
           <article class="product-card">
             <h3 class="product-card__title">Copy limits</h3>
             <ul class="doc-card__list">
-              <li>Larger title: up to about <code>32</code> characters including spaces.</li>
-              <li>Large title: up to about <code>48</code> characters including spaces.</li>
-              <li>Subtitle: about <code>70</code> characters, assuming the creative tolerates up to 3 lines on desktop.</li>
+              <li>Larger title: about <code>32</code> characters including spaces, max <code>2</code> lines.</li>
+              <li>Large title: about <code>48</code> characters including spaces, max <code>2</code> lines.</li>
+              <li>Subtitle: about <code>70</code> characters, max <code>3</code> lines.</li>
               <li>Label: about <code>24</code> characters.</li>
               <li>Helper text: about <code>72</code> characters.</li>
+              <li>CTA labels: keep short, ideally <code>1–3</code> words.</li>
+              <li>Price: no strict character cap; keep it as short structured pricing, not sentence copy.</li>
             </ul>
           </article>
 
@@ -123,9 +124,9 @@
           <article class="product-card">
             <h3 class="product-card__title">Subtitle</h3>
             <dl class="product-card__facts">
-              <div><dt>Use when</dt><dd>You need one supporting layer of context that helps the title land without turning the hero into a text block.</dd></div>
-              <div><dt>Avoid when</dt><dd>The subtitle repeats the headline, starts reading like paragraph copy, or pushes the content stack too deep for the creative.</dd></div>
-              <div><dt>Impact</dt><dd>It explains the headline, but it is also the easiest module to overuse. Short, specific copy keeps the banner cleaner across all breakpoints.</dd></div>
+              <div><dt>Use when</dt><dd>One supporting layer of context helps the title land faster.</dd></div>
+              <div><dt>Avoid when</dt><dd>It repeats the headline, reads like paragraph copy, or pushes the stack too deep.</dd></div>
+              <div><dt>Impact</dt><dd>It adds clarity, but it is also the easiest module to overuse, so shorter copy keeps the banner cleaner across breakpoints.</dd></div>
             </dl>
           </article>
 
@@ -148,12 +149,73 @@
           </article>
 
           <article class="product-card">
+            <h3 class="product-card__title">Price</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>Pricing is part of the value proposition and helps qualify the offer immediately.</dd></div>
+              <div><dt>Avoid when</dt><dd>The same message is already carried by the title or when pricing needs too much explanation to make sense.</dd></div>
+              <div><dt>Impact</dt><dd>It supports short structured pricing, such as prefix, value, optional old price, and short suffix, but it should stay a value cue, not become the headline.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">CTA</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>One clear primary action is enough to move the user forward.</dd></div>
+              <div><dt>Avoid when</dt><dd>The CTA becomes descriptive copy instead of a short action, or when two different paths need to be presented.</dd></div>
+              <div><dt>Impact</dt><dd>Single CTA is the default pattern and keeps the decision simple, especially on smaller screens.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">Dual CTA + Best value</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>The hero needs two genuinely distinct actions or offer paths and one option should be clearly emphasized.</dd></div>
+              <div><dt>Avoid when</dt><dd>The second button adds choice without adding meaning, or when the stack is already visually heavy.</dd></div>
+              <div><dt>Impact</dt><dd>The gold button is the emphasized option, and <code>Best value</code> is an optional note under that gold CTA only, but the dual pattern adds more decision weight and more vertical footprint on mobile.</dd></div>
+            </dl>
+          </article>
+
+          <article class="product-card">
             <h3 class="product-card__title">Helper text</h3>
             <dl class="product-card__facts">
               <div><dt>Use when</dt><dd>Extra conditions, rights notes, or legal clarifications are required but should stay visually secondary to the CTA.</dd></div>
               <div><dt>Avoid when</dt><dd>The text is non-essential, marketing-led, or only adds visual weight without reducing user uncertainty.</dd></div>
               <div><dt>Impact</dt><dd>It extends the vertical footprint of the bottom content stack, so it should only be used when the extra context is genuinely necessary.</dd></div>
             </dl>
+          </article>
+
+          <article class="product-card">
+            <h3 class="product-card__title">PPV badge</h3>
+            <dl class="product-card__facts">
+              <div><dt>Use when</dt><dd>PPV status needs to be understood immediately and should be visible outside the main copy stack.</dd></div>
+              <div><dt>Avoid when</dt><dd>It is redundant with the copy or competes with an already busy creative.</dd></div>
+              <div><dt>Impact</dt><dd>It acts as a top-right commercial signal rather than part of the content stack, so it should stay reserved for cases where PPV is a key part of the proposition.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="doc-section">
+        <div class="doc-section__heading">
+          <p class="doc-section__eyebrow">Guidance</p>
+          <h2 class="doc-section__title">Separate content decisions from presentation controls.</h2>
+        </div>
+
+        <div class="doc-grid doc-grid--two">
+          <article class="doc-card">
+            <h3 class="doc-card__title">Content decisions</h3>
+            <ul class="doc-card__list">
+              <li>Title, subtitle, logo, label, price, CTA pattern, helper text, and PPV badge are the parts Product should actively choose.</li>
+              <li>These modules define the story, hierarchy, and commercial clarity of the hero.</li>
+            </ul>
+          </article>
+
+          <article class="doc-card">
+            <h3 class="doc-card__title">Presentation vs demo tools</h3>
+            <ul class="doc-card__list">
+              <li>Alignment, Gold/Standard theme, and Larger/Large title are presentation or system choices.</li>
+              <li>Carousel, Creative Blueprint, and the slide editor help review the banner, but they are not production product UI requirements.</li>
+            </ul>
           </article>
         </div>
       </section>
